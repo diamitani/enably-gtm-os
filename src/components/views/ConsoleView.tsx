@@ -298,7 +298,7 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
                   <div className="flex items-center space-x-2 text-[10px] text-slate-500 font-mono">
                     <span>{msg.timestamp}</span>
                     <button
-                      onClick={() => copyMessage(msg.id, msg.content)}
+                      onClick={() => copyMessage(msg.id, msg.content || msg.text || '')}
                       className="hover:text-slate-300"
                     >
                       {copiedId === msg.id ? 'Copied' : 'Copy'}

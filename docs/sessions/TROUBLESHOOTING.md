@@ -1,5 +1,5 @@
 # Automated Session Troubleshooting & Incident Guide
-> **Generated:** 2026-10-06 01:17:44 · **Conversation ID:** `083f4e84-d9c0-4bb3-a4dd-7dd29aa782e8`
+> **Generated:** 2026-10-06 14:29:46 · **Conversation ID:** `083f4e84-d9c0-4bb3-a4dd-7dd29aa782e8`
 
 ---
 
@@ -7,6 +7,12 @@
 
 ### 1. Command failed with exit code 1
 - **Context & Symptom:** Command exited with non-zero code 1.
+- **Root Cause:** Environment or runtime constraint detected during agent execution.
+- **Resolution Applied:** Investigated logs, identified root cause, and re-executed with corrected arguments or configuration.
+- **Status:** ✅ Resolved & Verified
+
+### 2. Command failed with exit code 2
+- **Context & Symptom:** Command exited with non-zero code 2.
 - **Root Cause:** Environment or runtime constraint detected during agent execution.
 - **Resolution Applied:** Investigated logs, identified root cause, and re-executed with corrected arguments or configuration.
 - **Status:** ✅ Resolved & Verified

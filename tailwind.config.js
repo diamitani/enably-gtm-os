@@ -1,52 +1,87 @@
 /** @type {import('tailwindcss').Config} */
+// 6th Agent design system: light mode, warm-neutral greys, single cobalt accent.
+// NOTE: the `obsidian` scale is intentionally inverted (950 = page white, 100 = near-black ink)
+// so legacy views built on the old dark tokens render correctly in light mode.
 export default {
-  darkMode: 'class',
-  content: [
-    './index.html',
-    './src/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
+        ink: {
+          DEFAULT: '#0B0B0C',
+          soft: '#3A3A3F',
+          muted: '#6B6B73',
+          faint: '#9C9CA3',
+        },
+        paper: {
+          DEFAULT: '#FFFFFF',
+          50: '#FAFAF9',
+          100: '#F4F4F2',
+          200: '#EBEBE8',
+          300: '#DEDEDA',
+        },
         obsidian: {
-          950: '#06080F',
-          900: '#0B0F19',
-          850: '#0F1422',
-          800: '#141B2D',
-          750: '#1A233A',
-          700: '#1F293D',
-          600: '#2E3D5B',
-          500: '#475A82',
-          400: '#7387AC',
-          300: '#A4B5D4',
-          200: '#CBD7EB',
-          100: '#E8EFF9',
+          950: '#FFFFFF',
+          900: '#FAFAF9',
+          850: '#F6F6F4',
+          800: '#F1F1EE',
+          750: '#EAEAE6',
+          700: '#E2E2DE',
+          600: '#CFCFCA',
+          500: '#A3A39D',
+          400: '#6E6E6A',
+          300: '#4E4E4B',
+          200: '#2F2F2D',
+          100: '#141414',
         },
         brand: {
-          cyan: '#00F0FF',
-          blue: '#3B82F6',
-          violet: '#8B5CF6',
-          purple: '#A855F7',
-          emerald: '#10B981',
-          rose: '#F43F5E',
-          amber: '#F59E0B',
+          cyan: '#2F54EB', // primary accent (cobalt); legacy name kept for compatibility
+          blue: '#2F54EB',
+          violet: '#5B4BDB',
+          purple: '#5B4BDB',
+          emerald: '#0E9F6E',
+          rose: '#E5484D',
+          amber: '#D97706',
+        },
+        accent: {
+          DEFAULT: '#2F54EB',
+          soft: '#EEF2FF',
+          ring: '#C7D2FE',
+          ink: '#1D3BC2',
         },
       },
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+        sans: ['Geist', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['Geist Mono', 'JetBrains Mono', 'ui-monospace', 'monospace'],
       },
       backgroundImage: {
-        'glow-gradient': 'radial-gradient(circle at 50% -20%, rgba(0, 240, 255, 0.12), rgba(59, 130, 246, 0.05) 50%, transparent 80%)',
-        'subtle-grid': 'radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px)',
-        'matrix-grid': 'linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px)',
+        'glow-gradient': 'radial-gradient(circle at 50% -20%, rgba(47, 84, 235, 0.08), transparent 70%)',
+        'subtle-grid': 'radial-gradient(rgba(11, 11, 12, 0.07) 1px, transparent 1px)',
+        'matrix-grid':
+          'linear-gradient(to right, rgba(11,11,12,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(11,11,12,0.04) 1px, transparent 1px)',
       },
       boxShadow: {
-        'glow-cyan': '0 0 25px -5px rgba(0, 240, 255, 0.25)',
-        'glow-blue': '0 0 25px -5px rgba(59, 130, 246, 0.25)',
-        'glow-emerald': '0 0 25px -5px rgba(16, 185, 129, 0.25)',
-        'glass-card': '0 8px 32px 0 rgba(0, 0, 0, 0.45)',
-        'subtle-border': 'inset 0 1px 1px 0 rgba(255, 255, 255, 0.08)',
+        'glow-cyan': '0 6px 20px -8px rgba(47, 84, 235, 0.45)',
+        'glow-blue': '0 6px 20px -8px rgba(47, 84, 235, 0.45)',
+        'glow-emerald': '0 6px 20px -8px rgba(14, 159, 110, 0.4)',
+        'glass-card': '0 1px 2px rgba(11,11,12,0.04), 0 12px 32px -12px rgba(11,11,12,0.12)',
+        'subtle-border': 'inset 0 0 0 1px rgba(11,11,12,0.06)',
+        card: '0 1px 2px rgba(11,11,12,0.04), 0 4px 16px -8px rgba(11,11,12,0.08)',
+        float: '0 1px 2px rgba(11,11,12,0.05), 0 24px 48px -20px rgba(11,11,12,0.18)',
+      },
+      keyframes: {
+        'fade-up': {
+          '0%': { opacity: '0', transform: 'translateY(12px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        'pulse-dot': {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.35' },
+        },
+      },
+      animation: {
+        'fade-up': 'fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both',
+        'pulse-dot': 'pulse-dot 2s ease-in-out infinite',
       },
     },
   },

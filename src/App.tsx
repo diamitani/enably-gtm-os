@@ -1,109 +1,231 @@
 import React, { useState } from 'react';
-import { ViewMode, AgentId, Artifact } from './types';
-import { Navbar } from './components/layout/Navbar';
-import { Footer } from './components/layout/Footer';
-import { OverviewView } from './components/views/OverviewView';
-import { GtmStudioView } from './components/views/GtmStudioView';
-import { ConsoleView } from './components/views/ConsoleView';
-import { IntegrationsView } from './components/views/IntegrationsView';
-import { SettingsView } from './components/views/SettingsView';
+import { Navbar } from './components/Navbar';
+import { Sidebar } from './components/Sidebar';
+import { Footer } from './components/Footer';
+import { MarketingView } from './pages/MarketingView';
+import { StudioView } from './pages/StudioView';
+import { MarketplaceView } from './pages/MarketplaceView';
+import { AcademyView } from './pages/AcademyView';
+import { CrmView } from './pages/CrmView';
+import { DashboardView } from './pages/DashboardView';
+import { IntegrationsView } from './pages/IntegrationsView';
+import { SettingsView } from './pages/SettingsView';
+import { WorkspaceConfig, PluginPack } from './types';
+import { INITIAL_PLUGINS } from './lib/plugins-store';
+import { Key, ShieldCheck, Check } from 'lucide-react';
 
-export function App() {
-  const [currentView, setCurrentView] = useState<ViewMode>('overview');
-  const [selectedAgentId, setSelectedAgentId] = useState<AgentId>('enably_master');
-  const [selectedModel, setSelectedModel] = useState<string>('Claude 3.7 Sonnet');
-  const [activeWorkspace, setActiveWorkspace] = useState<string>('Acme Growth Inc.');
-
-  // Workspace Saved Artifacts Library
-  const [artifacts, setArtifacts] = useState<Artifact[]>([
+const INITIAL_WORKSPACE: WorkspaceConfig = {
+  id: 'ws-enably-primary',
+  name: '6th Agent Alpha Workspace',
+  slug: 'enably-alpha',
+  plan: 'Professional',
+  seats: 5,
+  creditsUsed: 1420,
+  creditsLimit: 5000,
+  byokKeys: {
+    openai: 'sk-proj-••••••••••••••••••••••••••••',
+    anthropic: 'sk-ant-••••••••••••••••••••••••••••',
+    gemini: 'AIzaSy••••••••••••••••••••••••••••'
+  },
+  members: [
     {
-      id: 'art-init-1',
-      title: 'Tier-1 ICP Matrix: Enterprise B2B SaaS',
-      type: 'icp_matrix',
-      agentId: 'enably_icp',
-      createdAt: new Date().toISOString(),
-      version: 'v1.0.0',
-      content: `# Tier-1 Ideal Customer Profile (ICP)\n\n- Target: Enterprise Cloud Infrastructure (150-1,000 FTEs)\n- Target ACV: $45,000\n- Primary Trigger: Cloud migration & SOC2 compliance renewal.`,
-      tags: ['ICP', 'Series-B', 'Enterprise'],
+      id: 'usr-1',
+      name: 'Patrick Diamitani',
+      email: 'patrick@6thagent.ai',
+      role: 'owner',
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop'
     },
     {
-      id: 'art-init-2',
-      title: 'MEDDPICC Sales Playbook & Kill Sheets',
-      type: 'sales_playbook',
-      agentId: 'enably_playbook',
-      createdAt: new Date().toISOString(),
-      version: 'v1.0.0',
-      content: `# Sales Methodology Playbook\n\n- Discovery Stage: Uncover cost of manual audit ticketing.\n- Competitive Kill-Shot: Zero-agent architecture vs legacy daemons.`,
-      tags: ['Playbook', 'MEDDPICC', 'Sales Enablement'],
-    },
-  ]);
+      id: 'usr-2',
+      name: 'Sarah Chen',
+      email: 'sarah@6thagent.ai',
+      role: 'admin',
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop'
+    }
+  ]
+};
 
-  const handleSaveArtifact = (artifact: Artifact) => {
-    setArtifacts((prev) => [artifact, ...prev]);
+export const App: React.FC = () => {
+  const [currentView, setCurrentView] = useState<string>('marketing');
+  const [workspace, setWorkspace] = useState<WorkspaceConfig>(INITIAL_WORKSPACE);
+  const [plugins, setPlugins] = useState<PluginPack[]>(INITIAL_PLUGINS);
+  const [studioPrompt, setStudioPrompt] = useState<string>('');
+  const [showByokModal, setShowByokModal] = useState<boolean>(false);
+  const [tempOpenAiKey, setTempOpenAiKey] = useState<string>(workspace.byokKeys.openai || '');
+  const [tempClaudeKey, setTempClaudeKey] = useState<string>(workspace.byokKeys.anthropic || '');
+  const [keySaved, setKeySaved] = useState<boolean>(false);
+
+  const installedCount = plugins.filter(p => p.isInstalled).length;
+
+  const handleLaunchStudioWithPrompt = (prompt?: string) => {
+    if (prompt) setStudioPrompt(prompt);
+    setCurrentView('studio');
   };
 
-  const handleDeleteArtifact = (id: string) => {
-    setArtifacts((prev) => prev.filter((a) => a.id !== id));
+  const handleInstallPlugin = (plugin: PluginPack) => {
+    setPlugins(prev => prev.map(p => p.id === plugin.id ? { ...p, isInstalled: true } : p));
+  };
+
+  const handleSaveByok = () => {
+    setWorkspace(prev => ({
+      ...prev,
+      byokKeys: {
+        ...prev.byokKeys,
+        openai: tempOpenAiKey,
+        anthropic: tempClaudeKey
+      }
+    }));
+    setKeySaved(true);
+    setTimeout(() => {
+      setKeySaved(false);
+      setShowByokModal(false);
+    }, 1200);
   };
 
   return (
-    <div className="min-h-screen bg-obsidian-950 text-slate-100 flex flex-col justify-between selection:bg-brand-cyan/20 selection:text-brand-cyan">
-      {/* Background Matrix & Subtle Gradient Grid */}
-      <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-subtle-grid opacity-30"></div>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[500px] bg-gradient-to-b from-brand-cyan/5 via-brand-blue/5 to-transparent blur-3xl"></div>
-      </div>
+    <div className="flex flex-col min-h-screen bg-paper text-ink selection:bg-accent/20 selection:text-accent">
+      {/* Top Navigation */}
+      <Navbar
+        currentView={currentView}
+        setCurrentView={setCurrentView}
+        workspace={workspace}
+        onOpenByokModal={() => setShowByokModal(true)}
+      />
 
-      <div className="relative z-10 flex flex-col flex-1">
-        {/* Global Navigation Header */}
-        <Navbar
-          currentView={currentView}
-          onViewChange={setCurrentView}
-          selectedModel={selectedModel}
-          onModelChange={setSelectedModel}
-          activeWorkspace={activeWorkspace}
-          onWorkspaceChange={setActiveWorkspace}
-        />
+      {/* Main Body Layout */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar (shown on desktop except for marketing view when desired, or across all) */}
+        {currentView !== 'marketing' && (
+          <Sidebar
+            currentView={currentView}
+            setCurrentView={setCurrentView}
+            installedCount={installedCount}
+          />
+        )}
 
-        {/* Dynamic View Routing */}
-        <main className="flex-1">
-          {currentView === 'overview' && (
-            <OverviewView
-              onViewChange={setCurrentView}
-              onSelectAgent={(agentId) => {
-                setSelectedAgentId(agentId);
-                setCurrentView('studio');
-              }}
+        {/* View Router */}
+        <main className="flex-1 overflow-y-auto">
+          {currentView === 'marketing' && (
+            <MarketingView
+              onLaunchStudio={handleLaunchStudioWithPrompt}
+              setCurrentView={setCurrentView}
             />
           )}
 
           {currentView === 'studio' && (
-            <GtmStudioView
-              selectedAgentId={selectedAgentId}
-              onSelectAgent={setSelectedAgentId}
-              onSaveArtifact={handleSaveArtifact}
+            <StudioView
+              initialPrompt={studioPrompt}
+              onOpenByokModal={() => setShowByokModal(true)}
             />
           )}
 
-          {currentView === 'console' && (
-            <ConsoleView onSaveArtifact={handleSaveArtifact} />
+          {currentView === 'marketplace' && (
+            <MarketplaceView
+              onInstallPlugin={handleInstallPlugin}
+              onOpenByokModal={() => setShowByokModal(true)}
+            />
           )}
 
-          {currentView === 'integrations' && <IntegrationsView />}
+          {currentView === 'crm' && (
+            <CrmView onDirectToStudio={handleLaunchStudioWithPrompt} />
+          )}
+
+          {currentView === 'academy' && (
+            <AcademyView />
+          )}
+
+          {currentView === 'dashboard' && (
+            <DashboardView
+              onDirectToStudio={handleLaunchStudioWithPrompt}
+              setCurrentView={setCurrentView}
+            />
+          )}
+
+          {currentView === 'integrations' && (
+            <IntegrationsView />
+          )}
 
           {currentView === 'settings' && (
             <SettingsView
-              artifacts={artifacts}
-              onDeleteArtifact={handleDeleteArtifact}
+              workspace={workspace}
+              onUpdateWorkspace={setWorkspace}
             />
           )}
         </main>
-
-        {/* Global Footer */}
-        <Footer onViewChange={setCurrentView} />
       </div>
+
+      {/* Footer */}
+      {currentView === 'marketing' && <Footer setCurrentView={setCurrentView} />}
+
+      {/* BYOK / AI Gateway Modal */}
+      {showByokModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-paper/80 backdrop-blur-md p-4">
+          <div className="w-full max-w-lg card p-6 space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-paper-200">
+              <div className="flex items-center gap-2">
+                <Key className="h-5 w-5 text-accent" />
+                <h3 className="text-base font-bold text-ink">Configure BYOK AI Gateway</h3>
+              </div>
+              <button
+                onClick={() => setShowByokModal(false)}
+                className="text-ink-soft hover:text-ink text-sm"
+              >
+                ✕
+              </button>
+            </div>
+
+            <p className="text-xs text-ink-soft leading-relaxed">
+              Connect your private API keys. Requests route directly through Vercel AI Gateway with AES-256 client-side masking and zero server-side retention.
+            </p>
+
+            <div className="space-y-4 text-xs">
+              <div className="space-y-1.5">
+                <label className="label">OpenAI API Key (GPT-4o / O3)</label>
+                <input
+                  type="password"
+                  value={tempOpenAiKey}
+                  onChange={(e) => setTempOpenAiKey(e.target.value)}
+                  placeholder="sk-proj-..."
+                  className="field font-mono"
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="label">Anthropic Claude API Key (Claude 3.7 / 3.5)</label>
+                <input
+                  type="password"
+                  value={tempClaudeKey}
+                  onChange={(e) => setTempClaudeKey(e.target.value)}
+                  placeholder="sk-ant-..."
+                  className="field font-mono"
+                />
+              </div>
+            </div>
+
+            {keySaved && (
+              <div className="flex items-center gap-2 text-xs text-green-600 font-semibold">
+                <Check className="h-4 w-4" />
+                <span>Keys safely encrypted and connected!</span>
+              </div>
+            )}
+
+            <div className="flex justify-end gap-3 pt-4 border-t border-paper-200">
+              <button
+                onClick={() => setShowByokModal(false)}
+                className="btn-secondary"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSaveByok}
+                className="btn-accent shadow-glow-cyan"
+              >
+                Save & Connect
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
-}
-
-export default App;
+};

@@ -4,67 +4,94 @@
 
 @layer base {
   :root {
-    color-scheme: dark;
+    color-scheme: light;
   }
-  
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
-    background-color: #06080F;
-    color: #E2E8F0;
+    background-color: #ffffff;
+    color: #0b0b0c;
     overflow-x: hidden;
+    font-feature-settings: 'ss01', 'cv11';
   }
 
-  /* Custom precision scrollbars */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-  ::-webkit-scrollbar-track {
-    background: #0B0F19;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: #1F293D;
-    border-radius: 9999px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #2E3D5B;
+  :focus-visible {
+    outline: 2px solid #2f54eb;
+    outline-offset: 2px;
+    border-radius: 6px;
   }
 }
 
-@layer utilities {
-  .glass-panel {
-    background: rgba(11, 15, 25, 0.75);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white transition-all hover:bg-ink-soft active:scale-[0.98];
   }
-
-  .glass-panel-hover {
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  .btn-accent {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white shadow-glow-cyan transition-all hover:bg-accent-ink active:scale-[0.98];
   }
-  .glass-panel-hover:hover {
-    background: rgba(15, 20, 34, 0.9);
-    border-color: rgba(0, 240, 255, 0.3);
-    box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.15);
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-paper-300 bg-white px-5 py-2.5 text-sm font-medium text-ink transition-all hover:border-ink-faint hover:bg-paper-50 active:scale-[0.98];
   }
-
-  .glass-card {
-    background: rgba(15, 20, 34, 0.6);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+  .card {
+    @apply rounded-2xl border border-paper-200 bg-white shadow-card;
   }
-
-  .matrix-pattern {
-    background-size: 24px 24px;
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-paper-200 bg-paper-50 px-2.5 py-1 text-xs font-medium text-ink-soft;
   }
-
-  .subtle-dots {
-    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
-    background-size: 20px 20px;
+  .field {
+    @apply w-full rounded-xl border border-paper-300 bg-white px-3.5 py-2.5 text-sm text-ink placeholder:text-ink-faint transition-colors focus:border-accent focus:outline-none focus:ring-4 focus:ring-accent-soft;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
   }
 }
 
-/* Tactile button feedback */
-button:active, a[role="button"]:active {
-  transform: scale(0.98);
+/* Scrollbars */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #dededa; border-radius: 9999px; border: 2px solid #fff; }
+::-webkit-scrollbar-thumb:hover { background: #cfcfca; }
+
+/* Legacy helpers (kept so older views keep working, now light) */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #ebebe8;
+}
+.glass-panel-interactive {
+  background: #ffffff;
+  border: 1px solid #ebebe8;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.glass-panel-interactive:hover {
+  border-color: #c7d2fe;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -14px rgba(11, 11, 12, 0.18);
+}
+.glow-border { position: relative; }
+.matrix-bg {
+  background-size: 24px 24px;
+  background-image:
+    linear-gradient(to right, rgba(11, 11, 12, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 11, 12, 0.04) 1px, transparent 1px);
+}
+.radial-glow { background: radial-gradient(circle at 50% 0%, rgba(47, 84, 235, 0.07) 0%, transparent 70%); }
+.text-gradient { color: #2f54eb; }
+.text-gradient-purple { color: #2f54eb; }
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(11, 11, 12, 0.08) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

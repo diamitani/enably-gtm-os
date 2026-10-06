@@ -1,0 +1,6 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <title>6th Agent</title>
+  <path d="M32 3.5 56.7 17.75v28.5L32 60.5 7.3 46.25v-28.5L32 3.5Z" fill="#0B0B0C"/>
+  <path d="M40.5 18.5c-9.5-1.2-17 4.6-17 15.5 0 6.6 3.9 11 9.6 11 5.4 0 9.4-3.9 9.4-9.2 0-5.1-3.7-8.6-8.7-8.6-4.4 0-7.9 2.6-9.2 6.6" stroke="#FFFFFF" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="40.5" cy="18.5" r="4.2" fill="#2F54EB"/>
+</svg>
