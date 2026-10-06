@@ -1,0 +1,42 @@
+apiVersion: rostr.ai/v2
+kind: AgentPack
+metadata:
+  id: enably-gtm-agent-pack
+  name: Enably GTM Agent Pack
+  version: 1.0.0
+  description: Portable GTM strategy, KPI, social messaging, and sales-ops agent set.
+  source_artifacts:
+    - KPI-Metric-Architect-GPT.docx
+    - LinkedIn-Social-DM-Architect-GPT.docx
+    - Untitled-document.docx
+spec:
+  runtime:
+    entry_agent: enably-orchestrator
+    execution_model: phase_aware
+    state_store: required
+    event_log: required
+    artifact_store: required
+    approval_gate: required_for_external_writes
+  agents:
+    - agents/enably-orchestrator.agent.yaml
+    - agents/kpi-metric-architect.agent.yaml
+    - agents/social-dm-architect.agent.yaml
+    - agents/sales-ops-copilot.agent.yaml
+  skills:
+    - skills/kpi-framework/SKILL.md
+    - skills/social-dm/SKILL.md
+    - skills/gtm-intake/SKILL.md
+    - skills/approval-gating/SKILL.md
+    - skills/artifact-versioning/SKILL.md
+  contracts:
+    artifact_envelope: contracts/artifact-envelope.schema.json
+    tool_adapters: contracts/tool-adapters.yaml
+    routing: runtime/routing.yaml
+    state_machine: runtime/state-machine.yaml
+  safety:
+    deny:
+      - unapproved_outbound_send
+      - silent_crm_write
+      - financial_transaction
+      - secret_exposure
+      - unsupported_fact_as_truth

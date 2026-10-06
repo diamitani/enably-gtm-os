@@ -1,0 +1,16 @@
+apiVersion: rostr.ai/v2
+kind: RunStateMachine
+initial: received
+states:
+  received: [normalizing, clarification_required, cancelled]
+  normalizing: [planning, blocked, failed]
+  planning: [generating, approval_required, blocked, failed]
+  generating: [validating, failed]
+  validating: [draft_ready, remediation, failed]
+  remediation: [generating, blocked, failed]
+  draft_ready: [approval_required, completed]
+  approval_required: [approved, rejected, cancelled]
+  approved: [executing_write, completed]
+  executing_write: [completed, failed]
+  clarification_required: [normalizing, cancelled]
+terminal: [completed, rejected, cancelled, blocked, failed]

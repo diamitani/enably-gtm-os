@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Production build artifacts
+dist/
+build/
+.next/
+out/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Vercel
+.vercel/
+
+# OS & Temp files
+.DS_Store
+Thumbs.db
+*.log
+.tempmediaStorage/
+scratch/
+
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc

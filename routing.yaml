@@ -1,0 +1,15 @@
+apiVersion: rostr.ai/v2
+kind: RoutingPolicy
+entry_agent: enably-orchestrator
+routes:
+  - when: intent in [kpi_design, metric_framework, dashboard_schema, activity_metrics]
+    agent: kpi-metric-architect
+  - when: intent in [linkedin_message, social_dm, inmail, connection_note, dm_sequence]
+    agent: social-dm-architect
+  - when: intent in [sales_ops_setup, outbound_setup, lead_import, sequence_setup, send_health]
+    agent: sales-ops-copilot
+  - when: intent in [gtm_intake, icp, persona, positioning, sales_playbook]
+    agent: sales-ops-copilot
+fallback:
+  agent: enably-orchestrator
+  behavior: clarify_or_compile_intent

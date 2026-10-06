@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  
+  body {
+    background-color: #06080F;
+    color: #E2E8F0;
+    overflow-x: hidden;
+  }
+
+  /* Custom precision scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0B0F19;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #1F293D;
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #2E3D5B;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: rgba(11, 15, 25, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-panel-hover {
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .glass-panel-hover:hover {
+    background: rgba(15, 20, 34, 0.9);
+    border-color: rgba(0, 240, 255, 0.3);
+    box-shadow: 0 0 25px -5px rgba(0, 240, 255, 0.15);
+  }
+
+  .glass-card {
+    background: rgba(15, 20, 34, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .matrix-pattern {
+    background-size: 24px 24px;
+  }
+
+  .subtle-dots {
+    background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+}
+
+/* Tactile button feedback */
+button:active, a[role="button"]:active {
+  transform: scale(0.98);
+}

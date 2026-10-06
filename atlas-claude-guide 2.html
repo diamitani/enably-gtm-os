@@ -1,0 +1,3193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas HXM — Claude, Claude Code &amp; Cowork Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-light.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #F8F6FF;
+            --bg-tertiary: #ECE6FF;
+            --accent: #5926E3;
+            --accent-dark: #4318B0;
+            --text-primary: #474059;
+            --text-secondary: #5E5A7A;
+            --text-tertiary: #8A85A0;
+            --border-color: #E0D7F5;
+            --success: #10b981;
+            --warning: #5926E3;
+            --danger: #ef4444;
+            --info: #055BFA;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent) 0%, #B934CB 100%);
+            width: 0%;
+            z-index: 1000;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            padding: 2rem 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 0 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent) 0%, #B934CB 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            padding: 0.75rem 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-left: 3px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .nav-item:hover {
+            color: var(--accent);
+            background: rgba(89, 38, 227, 0.06);
+        }
+
+        .nav-item.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background: rgba(89, 38, 227, 0.06);
+            font-weight: 600;
+        }
+
+        .nav-icon {
+            font-size: 1.25rem;
+            width: 24px;
+        }
+
+        /* Main content */
+        .main {
+            margin-left: 280px;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+        }
+
+        .hero {
+            margin-bottom: 4rem;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, rgba(89, 38, 227, 0.06) 0%, rgba(185, 52, 203, 0.06) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            animation: slideInDown 0.6s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent) 0%, #B934CB 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(89, 38, 227, 0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(89, 38, 227, 0.06);
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .section:nth-of-type(1) { animation-delay: 0.1s; }
+        .section:nth-of-type(2) { animation-delay: 0.2s; }
+        .section:nth-of-type(3) { animation-delay: 0.3s; }
+        .section:nth-of-type(4) { animation-delay: 0.4s; }
+        .section:nth-of-type(5) { animation-delay: 0.5s; }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            padding-left: 1rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .subsection-title {
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .chapter-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-card:hover {
+            background: rgba(89, 38, 227, 0.04);
+            border-left-color: #B934CB;
+            transform: translateX(4px);
+        }
+
+        .chapter-number {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .chapter-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Code blocks */
+        .code-block-wrapper {
+            position: relative;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .code-block-header {
+            background: var(--bg-tertiary);
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .code-language {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: rgba(89, 38, 227, 0.06);
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .copy-btn.copied {
+            color: var(--success);
+            border-color: var(--success);
+        }
+
+        pre {
+            margin: 0;
+            padding: 1.25rem;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        code {
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+        }
+
+        /* Inline code */
+        p code, li code, td code {
+            background: rgba(89, 38, 227, 0.06);
+            color: var(--accent);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1rem 2rem;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.8;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        thead {
+            background: var(--bg-tertiary);
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:hover {
+            background: rgba(89, 38, 227, 0.04);
+        }
+
+        /* FAQ / Collapsible */
+        .faq-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--bg-secondary);
+            border: none;
+            color: var(--text-primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(89, 38, 227, 0.04);
+            color: var(--accent);
+        }
+
+        .faq-toggle {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.open .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: rgba(89, 38, 227, 0.04);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 1000px;
+        }
+
+        .faq-answer-content {
+            padding: 1.25rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Call-out boxes */
+        .callout {
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+            background: rgba(89, 38, 227, 0.04);
+        }
+
+        .callout.info {
+            border-left-color: var(--info);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .callout.success {
+            border-left-color: var(--success);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .callout.warning {
+            border-left-color: var(--warning);
+            background: rgba(89, 38, 227, 0.04);
+        }
+
+        .callout.danger {
+            border-left-color: var(--danger);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .callout-content {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Diagrams */
+        .diagram {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+        }
+
+        .flow-chart {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .flow-box {
+            background: linear-gradient(135deg, rgba(89, 38, 227, 0.1) 0%, rgba(185, 52, 203, 0.1) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            min-width: 150px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .flow-arrow {
+            color: var(--accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* Grid layouts */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .grid-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .grid-item:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(89, 38, 227, 0.1);
+        }
+
+        .grid-item-title {
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .grid-item-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Architecture diagram */
+        .architecture {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .arch-layer {
+            background: linear-gradient(135deg, rgba(89, 38, 227, 0.06) 0%, rgba(185, 52, 203, 0.06) 100%);
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .arch-layer-title {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .arch-items {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .arch-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.75rem 1rem;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 5rem;
+            padding-top: 3rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-tertiary);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #B934CB;
+        }
+
+        /* Animations */
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main {
+                margin-left: 0;
+                padding: 2rem 2rem;
+            }
+
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                transition: left 0.3s ease;
+                z-index: 1001;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                left: -100%;
+            }
+
+            .main {
+                padding: 1.5rem 1.5rem;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .flow-chart {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+
+        /* Mobile menu button */
+        .mobile-menu-btn {
+            display: none;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border: none;
+            border-radius: 50%;
+            color: #000;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 16px rgba(89, 38, 227, 0.2);
+        }
+
+        .mobile-menu-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 24px rgba(89, 38, 227, 0.3);
+        }
+
+        @media (max-width: 1024px) {
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        /* Utilities */
+        .text-muted {
+            color: var(--text-tertiary);
+        }
+
+        .text-accent {
+            color: var(--accent);
+        }
+
+        .mt-2 {
+            margin-top: 1rem;
+        }
+
+        .mt-4 {
+            margin-top: 2rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress bar -->
+    <div class="progress-bar"></div>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Atlas HXM</div>
+            <div class="sidebar-subtitle">Claude, Code &amp; Cowork Guide</div>
+        </div>
+        <nav class="sidebar-nav">
+            <div class="nav-item active" data-section="ch0">
+                <span class="nav-icon">🎯</span>
+                Welcome
+            </div>
+            <div class="nav-item" data-section="ch1">
+                <span class="nav-icon">🤖</span>
+                What is Claude?
+            </div>
+            <div class="nav-item" data-section="ch2">
+                <span class="nav-icon">💻</span>
+                Claude Code
+            </div>
+            <div class="nav-item" data-section="ch3">
+                <span class="nav-icon">🧠</span>
+                CLAUDE.md
+            </div>
+            <div class="nav-item" data-section="ch4">
+                <span class="nav-icon">🛠️</span>
+                Skills
+            </div>
+            <div class="nav-item" data-section="ch5">
+                <span class="nav-icon">🔌</span>
+                MCP Servers
+            </div>
+            <div class="nav-item" data-section="ch6">
+                <span class="nav-icon">🤝</span>
+                Agents
+            </div>
+            <div class="nav-item" data-section="ch7">
+                <span class="nav-icon">⚙️</span>
+                n8n Automations
+            </div>
+            <div class="nav-item" data-section="ch8">
+                <span class="nav-icon">🎬</span>
+                Remotion & Video
+            </div>
+            <div class="nav-item" data-section="ch9">
+                <span class="nav-icon">🚀</span>
+                Full Stack
+            </div>
+        </nav>
+    </div>
+
+    <!-- Mobile menu button -->
+    <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Claude, Claude Code &amp; Cowork</h1>
+            <p>Everything your team needs to know about Claude, Claude Code, and Cowork — skills, agents, MCP servers, plugins, integrations, and automations. Written for busy professionals.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="document.getElementById('ch1').scrollIntoView({behavior: 'smooth'})">Start Learning</button>
+                <a href="#ch9" class="btn btn-secondary">Jump to Full Stack</a>
+            </div>
+        </div>
+
+        <!-- Chapter 0: Welcome -->
+        <section class="section" id="ch0">
+            <h2 class="section-title">Welcome to Claude</h2>
+
+            <div class="chapter-card">
+                <div class="chapter-number">Introduction</div>
+                <div class="chapter-title">Getting Started with AI-Powered Workflows</div>
+                <p class="chapter-description">This guide teaches non-technical team members how to leverage Claude's powerful ecosystem to automate work, create content, and build sophisticated AI-powered workflows. Whether you're in GTM, marketing, or operations, you'll find practical tools and techniques to 10x your productivity.</p>
+            </div>
+
+            <p>The Claude ecosystem consists of multiple interconnected tools:</p>
+            <ul>
+                <li><strong>Claude Code (CLI)</strong> - A terminal-based interface for developers and power users</li>
+                <li><strong>Claude Desktop</strong> - A user-friendly GUI for everyone</li>
+                <li><strong>Cowork</strong> - A desktop application designed specifically for non-technical team members</li>
+                <li><strong>Skills</strong> - Reusable instructions you can teach Claude to follow</li>
+                <li><strong>MCP Servers</strong> - Connections that let Claude access external tools and services</li>
+                <li><strong>Agents</strong> - AI assistants that work autonomously on specific tasks</li>
+                <li><strong>n8n</strong> - Visual workflow automation platform that integrates with Claude</li>
+            </ul>
+
+            <div class="callout info">
+                <div class="callout-title">💡 Key Concept</div>
+                <div class="callout-content">Think of Claude as a team member who is exceptionally skilled at writing, analysis, coding, and problem-solving. These tools let you delegate work to Claude, customize how it works, and integrate it into your existing systems.</div>
+            </div>
+
+            <h3 class="subsection-title">What You'll Learn</h3>
+            <p>By the end of this guide, you'll understand:</p>
+            <ul>
+                <li>How to set up and use Claude Code for terminal-based workflows</li>
+                <li>Creating and managing Skills - packaged instructions for Claude</li>
+                <li>Connecting Claude to external tools via MCP Servers</li>
+                <li>Building Agents that operate autonomously</li>
+                <li>Creating automation workflows with n8n and Claude</li>
+                <li>Generating professional videos with Remotion</li>
+                <li>Building complete end-to-end solutions</li>
+            </ul>
+
+            <h3 class="subsection-title">Team Subscription Setup</h3>
+            <p>Claude is available through an Anthropic Team subscription (or on Azure AI/Microsoft Foundry). Here's what you need to know:</p>
+            <ul>
+                <li><strong>Team accounts:</strong> Managed by a team admin who can invite members and set permissions</li>
+                <li><strong>Azure AI Credits:</strong> If using Azure, startup credits may be available but don't cover third-party marketplace items</li>
+                <li><strong>Billing:</strong> When using Claude on Azure Marketplace, billing flows through Microsoft Marketplace</li>
+                <li><strong>Rate limits:</strong> Team accounts have higher rate limits than individual accounts</li>
+            </ul>
+
+            <div class="callout success">
+                <div class="callout-title">✓ Ready to Begin?</div>
+                <div class="callout-content">Navigate to the next section to learn about Claude Code installation and setup.</div>
+            </div>
+        </section>
+
+        <!-- Chapter 1: What is Claude? -->
+        <section class="section" id="ch1">
+            <h2 class="section-title">What is Claude?</h2>
+
+            <p>Claude is an advanced AI assistant made by Anthropic. It's designed to be helpful, harmless, and honest - making it ideal for business-critical applications where accuracy and trustworthiness matter.</p>
+
+            <h3 class="subsection-title">Claude Code vs. Cowork</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Claude Code (CLI)</th>
+                        <th>Cowork (Desktop App)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>User Type</td>
+                        <td>Developers, technical users</td>
+                        <td>Non-technical, business users</td>
+                    </tr>
+                    <tr>
+                        <td>Interface</td>
+                        <td>Terminal/Command line</td>
+                        <td>Graphical desktop application</td>
+                    </tr>
+                    <tr>
+                        <td>Learning Curve</td>
+                        <td>Moderate (command syntax)</td>
+                        <td>Very easy (point-and-click)</td>
+                    </tr>
+                    <tr>
+                        <td>File Access</td>
+                        <td>Full filesystem access</td>
+                        <td>Managed folder access</td>
+                    </tr>
+                    <tr>
+                        <td>Automation</td>
+                        <td>Scripts and workflows</td>
+                        <td>Guided workflows</td>
+                    </tr>
+                    <tr>
+                        <td>Best For</td>
+                        <td>Code generation, system automation</td>
+                        <td>Content creation, analysis, small tasks</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Why Claude for Teams?</h3>
+
+            <div class="grid">
+                <div class="grid-item">
+                    <div class="grid-item-title">🎯 High Quality</div>
+                    <div class="grid-item-description">Claude produces more accurate and nuanced outputs compared to other AI assistants, with better reasoning capabilities.</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">🔒 Privacy-Focused</div>
+                    <div class="grid-item-description">Enterprise-grade security, SOC 2 compliant, with options for self-hosted deployment.</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">⚡ Fast Processing</div>
+                    <div class="grid-item-description">Handles long documents, complex analysis, and multi-step reasoning at high speed.</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">🛠️ Extensible</div>
+                    <div class="grid-item-description">Works with any tool via MCP servers and APIs, integrating seamlessly into your workflow.</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Available Models</h3>
+            <p>Anthropic provides several Claude models for different use cases:</p>
+            <ul>
+                <li><strong>Claude 3.5 Sonnet:</strong> Best all-around model for most tasks, including coding and analysis</li>
+                <li><strong>Claude 3.5 Haiku:</strong> Fastest and cheapest, great for simple tasks and high-volume processing</li>
+                <li><strong>Claude 3 Opus:</strong> Most capable for complex reasoning (older generation)</li>
+            </ul>
+
+            <h3 class="subsection-title">Pricing & Rate Limits</h3>
+            <div class="callout warning">
+                <div class="callout-title">⚠️ Important</div>
+                <div class="callout-content">When using Claude on Azure Marketplace, charges appear on your Microsoft billing statement, not directly from Anthropic. Make sure your team admin has set up Azure AI credits or enabled billing before proceeding.</div>
+            </div>
+
+            <p>Claude Code is typically billed on a per-token basis. Your team admin can monitor usage in the dashboard.</p>
+        </section>
+
+        <!-- Chapter 2: Getting Started with Claude Code -->
+        <section class="section" id="ch2">
+            <h2 class="section-title">Getting Started with Claude Code</h2>
+
+            <p>Claude Code is a command-line tool that lets you interact with Claude from your terminal. It's perfect for integrating Claude into scripts, automation workflows, and development environments.</p>
+
+            <h3 class="subsection-title">Installation</h3>
+            <p>Claude Code is installed via npm (Node Package Manager). Make sure you have Node.js 18+ installed.</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, 'npm install -g @anthropic-ai/claude-code')">Copy</button>
+                </div>
+                <pre><code class="language-bash">npm install -g @anthropic-ai/claude-code</code></pre>
+            </div>
+
+            <p>Once installed, verify the installation:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, 'claude --version')">Copy</button>
+                </div>
+                <pre><code class="language-bash">claude --version</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Initial Configuration</h3>
+            <p>Before using Claude Code, you need to authenticate with your API key:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, 'claude init')">Copy</button>
+                </div>
+                <pre><code class="language-bash">claude init</code></pre>
+            </div>
+
+            <p>This will prompt you to enter your Anthropic API key. You can find it in your Anthropic dashboard.</p>
+
+            <h3 class="subsection-title">Basic Commands</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Purpose</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>claude chat</code></td>
+                        <td>Start an interactive conversation</td>
+                        <td><code>claude chat</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>claude code</code></td>
+                        <td>Generate or work with code</td>
+                        <td><code>claude code "create a Node.js server"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>claude analyze</code></td>
+                        <td>Analyze files or content</td>
+                        <td><code>claude analyze data.csv</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>claude write</code></td>
+                        <td>Generate text content</td>
+                        <td><code>claude write "marketing email"</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>claude --help</code></td>
+                        <td>Show all available commands</td>
+                        <td><code>claude --help</code></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Your First Conversation</h3>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, 'claude chat')">Copy</button>
+                </div>
+                <pre><code class="language-bash">claude chat</code></pre>
+            </div>
+
+            <p>This launches an interactive chat session where you can:</p>
+            <ul>
+                <li>Ask questions and get detailed answers</li>
+                <li>Request code generation or debugging</li>
+                <li>Get analysis and recommendations</li>
+                <li>Have multi-turn conversations with context preservation</li>
+            </ul>
+
+            <h3 class="subsection-title">Key Slash Commands</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Command</th>
+                        <th>Function</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>/help</code></td>
+                        <td>Display available commands</td>
+                    </tr>
+                    <tr>
+                        <td><code>/clear</code></td>
+                        <td>Clear conversation history</td>
+                    </tr>
+                    <tr>
+                        <td><code>/exit</code></td>
+                        <td>Exit the chat session</td>
+                    </tr>
+                    <tr>
+                        <td><code>/model</code></td>
+                        <td>Switch to different Claude model</td>
+                    </tr>
+                    <tr>
+                        <td><code>/file [path]</code></td>
+                        <td>Load a file into context</td>
+                    </tr>
+                    <tr>
+                        <td><code>/compact</code></td>
+                        <td>Show compact output (less verbose)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Working with Files</h3>
+            <p>Claude Code can read and analyze files from your current directory. When you ask Claude to work with a file:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, 'claude code \"analyze the errors in app.js\"')">Copy</button>
+                </div>
+                <pre><code class="language-bash">claude code "analyze the errors in app.js"</code></pre>
+            </div>
+
+            <p>Claude will:</p>
+            <ol>
+                <li>Read the file from your filesystem</li>
+                <li>Analyze the content</li>
+                <li>Provide fixes or explanations</li>
+                <li>Optionally create or modify files as needed</li>
+            </ol>
+
+            <div class="callout success">
+                <div class="callout-title">✓ Pro Tip</div>
+                <div class="callout-content">When working in a project directory with a CLAUDE.md file (covered in the next chapter), Claude automatically uses that context to understand your project structure and preferences.</div>
+            </div>
+        </section>
+
+        <!-- Chapter 3: CLAUDE.md -->
+        <section class="section" id="ch3">
+            <h2 class="section-title">CLAUDE.md - Your AI's Brain</h2>
+
+            <p>CLAUDE.md is a markdown file that gives Claude persistent context about your project. Think of it as a set of instructions that Claude reads before every interaction, helping it understand your project structure, preferences, and constraints.</p>
+
+            <h3 class="subsection-title">What is CLAUDE.md?</h3>
+
+            <div class="chapter-card">
+                <div class="chapter-title">The Intelligence Layer</div>
+                <p class="chapter-description">CLAUDE.md is a markdown configuration file that sits at the root of your project (or in ~/.claude/ for global settings). It tells Claude how to work with your specific codebase and team.</p>
+            </div>
+
+            <h3 class="subsection-title">Where to Place It</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Scope</th>
+                        <th>Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>./CLAUDE.md</code></td>
+                        <td>Project-level</td>
+                        <td>Specific to one project or repository</td>
+                    </tr>
+                    <tr>
+                        <td><code>~/.claude/CLAUDE.md</code></td>
+                        <td>Global</td>
+                        <td>Applies to all projects on your machine</td>
+                    </tr>
+                    <tr>
+                        <td><code>./src/CLAUDE.md</code></td>
+                        <td>Directory-level</td>
+                        <td>Specific guidance for a subdirectory</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">What to Include in CLAUDE.md</h3>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">markdown</span>
+                    <button class="copy-btn" onclick="copyCode(this, `# Project Context
+
+## Project Name
+[Your Project Name]
+
+## Technology Stack
+- Frontend: React 18
+- Backend: Node.js/Express
+- Database: PostgreSQL
+- Hosting: AWS
+
+## Coding Standards
+- Use TypeScript for all new code
+- Follow ESLint config: .eslintrc.json
+- Write tests with Jest
+- Use prettier for formatting
+
+## File Structure
+- /src - Application source code
+- /api - API routes
+- /components - React components
+- /utils - Shared utilities
+- /tests - Test files
+
+## Key Files to Know
+- package.json - Dependencies and scripts
+- tsconfig.json - TypeScript configuration
+- .env.example - Environment variables
+
+## Team Preferences
+- Use async/await over promises
+- Keep functions under 50 lines
+- Comment complex business logic
+- Update tests when changing functionality
+
+## Common Patterns
+- API responses use standard envelope: { status, data, error }
+- All dates use ISO 8601 format
+- Error codes: 400 (bad request), 401 (auth), 500 (server)
+
+## Gotchas
+- Database migrations must be backward compatible
+- Never modify production data in scripts
+- API rate limits: 1000 req/min per user
+`)">Copy</button>
+                </div>
+                <pre><code class="language-markdown"># Project Context
+
+## Project Name
+[Your Project Name]
+
+## Technology Stack
+- Frontend: React 18
+- Backend: Node.js/Express
+- Database: PostgreSQL
+- Hosting: AWS
+
+## Coding Standards
+- Use TypeScript for all new code
+- Follow ESLint config: .eslintrc.json
+- Write tests with Jest
+- Use prettier for formatting
+
+## File Structure
+- /src - Application source code
+- /api - API routes
+- /components - React components
+- /utils - Shared utilities
+- /tests - Test files
+
+## Key Files to Know
+- package.json - Dependencies and scripts
+- tsconfig.json - TypeScript configuration
+- .env.example - Environment variables
+
+## Team Preferences
+- Use async/await over promises
+- Keep functions under 50 lines
+- Comment complex business logic
+- Update tests when changing functionality
+
+## Common Patterns
+- API responses use standard envelope: { status, data, error }
+- All dates use ISO 8601 format
+- Error codes: 400 (bad request), 401 (auth), 500 (server)
+
+## Gotchas
+- Database migrations must be backward compatible
+- Never modify production data in scripts
+- API rate limits: 1000 req/min per user</code></pre>
+            </div>
+
+            <h3 class="subsection-title">CLAUDE.md for GTM/Marketing Teams</h3>
+
+            <p>If you're not a software team, here's what CLAUDE.md should include:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">markdown</span>
+                    <button class="copy-btn" onclick="copyCode(this, `# GTM Team Context
+
+## Brand Guidelines
+- Company name: [Company]
+- Brand voice: Professional, approachable, data-driven
+- Brand colors: [List colors]
+- Logo files: /brand/
+
+## Key Documents
+- Product positioning: docs/positioning.md
+- Customer personas: docs/personas.json
+- Content calendar: docs/content-calendar.csv
+- Email templates: templates/
+
+## Content Standards
+- All content must be approved by [person]
+- Use Oxford comma in lists
+- Links should be relative: [text](docs/file.md)
+- Images should be 1600x900px for blogs
+
+## Tools We Use
+- Slack for team communication
+- HubSpot for CRM
+- Notion for planning
+- Asana for task tracking
+
+## Common Tasks
+- Email campaigns
+- Blog post creation
+- Social media content
+- Case study writing
+- Product announcement
+
+## Brand Tone Examples
+- Formal: "We're excited to announce..."
+- Casual: "Psst... check this out..."
+- Technical: "This integration reduces latency by..."
+
+## Current Campaigns
+- Product launch Q1 2026
+- Customer success stories
+- Educational webinars
+`)">Copy</button>
+                </div>
+                <pre><code class="language-markdown"># GTM Team Context
+
+## Brand Guidelines
+- Company name: [Company]
+- Brand voice: Professional, approachable, data-driven
+- Brand colors: [List colors]
+- Logo files: /brand/
+
+## Key Documents
+- Product positioning: docs/positioning.md
+- Customer personas: docs/personas.json
+- Content calendar: docs/content-calendar.csv
+- Email templates: templates/
+
+## Content Standards
+- All content must be approved by [person]
+- Use Oxford comma in lists
+- Links should be relative: [text](docs/file.md)
+- Images should be 1600x900px for blogs
+
+## Tools We Use
+- Slack for team communication
+- HubSpot for CRM
+- Notion for planning
+- Asana for task tracking
+
+## Common Tasks
+- Email campaigns
+- Blog post creation
+- Social media content
+- Case study writing
+- Product announcement
+
+## Brand Tone Examples
+- Formal: "We're excited to announce..."
+- Casual: "Psst... check this out..."
+- Technical: "This integration reduces latency by..."
+
+## Current Campaigns
+- Product launch Q1 2026
+- Customer success stories
+- Educational webinars</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Best Practices</h3>
+
+            <ul>
+                <li><strong>Keep it focused:</strong> Don't dump your entire company handbook in CLAUDE.md. Include only what's relevant to daily work.</li>
+                <li><strong>Update regularly:</strong> As coding standards or team processes change, update CLAUDE.md immediately.</li>
+                <li><strong>Use sections:</strong> Organize with clear headers and bullet points for easy scanning.</li>
+                <li><strong>Include examples:</strong> Show Claude what good looks like with code examples or sample content.</li>
+                <li><strong>Link to resources:</strong> Reference other files in your project that Claude might need.</li>
+                <li><strong>Document exceptions:</strong> Call out special cases or gotchas that Claude needs to know.</li>
+            </ul>
+
+            <div class="callout success">
+                <div class="callout-title">✓ Pro Tip</div>
+                <div class="callout-content">Claude will automatically find and read CLAUDE.md from your project root. Every command you run will include this context, making Claude smarter about your specific needs.</div>
+            </div>
+        </section>
+
+        <!-- Chapter 4: Skills -->
+        <section class="section" id="ch4">
+            <h2 class="section-title">Skills - Teaching Claude New Tricks</h2>
+
+            <p>Skills are the way to teach Claude how to perform specialized tasks. A Skill is just a folder containing a SKILL.md file - it's an instruction manual packaged and ready to deploy.</p>
+
+            <h3 class="subsection-title">What is a Skill?</h3>
+
+            <div class="chapter-card">
+                <div class="chapter-title">Packaged Instructions</div>
+                <p class="chapter-description">A Skill is a reusable instruction set that tells Claude exactly how to perform a specific task. Unlike generic prompts, Skills are versioned, shareable, and discoverable.</p>
+            </div>
+
+            <h3 class="subsection-title">Skill Folder Structure</h3>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `my-skill/
+├── SKILL.md          # Main skill instructions (required)
+├── scripts/          # Helper scripts (optional)
+│   ├── process.js
+│   └── validate.js
+├── references/       # Documentation files (optional)
+│   ├── best-practices.md
+│   └── examples.md
+└── assets/           # Files, templates (optional)
+    ├── template.txt
+    └── data.json`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">my-skill/
+├── SKILL.md          # Main skill instructions (required)
+├── scripts/          # Helper scripts (optional)
+│   ├── process.js
+│   └── validate.js
+├── references/       # Documentation files (optional)
+│   ├── best-practices.md
+│   └── examples.md
+└── assets/           # Files, templates (optional)
+    ├── template.txt
+    └── data.json</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Creating Your First Skill</h3>
+
+            <p>Let's create a content-creator Skill for GTM teams:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">markdown</span>
+                    <button class="copy-btn" onclick="copyCode(this, `---
+name: Content Creator
+description: >
+  Writes marketing content including blog posts, emails, social media,
+  and case studies. Uses brand voice and follows company guidelines.
+version: 1.0.0
+category: marketing
+---
+
+# Content Creator Skill
+
+You are an expert content creator for our marketing team. Your job is to write compelling,
+on-brand content that drives engagement and conversions.
+
+## How to Use This Skill
+
+When asked to write content, follow these steps:
+
+1. Clarify the content type (blog, email, social, case study, etc.)
+2. Identify the target audience
+3. Gather any relevant brand guidelines or positioning documents
+4. Write the content in the specified format
+5. Optimize for the platform (character limits, formatting, etc.)
+6. Suggest a CTA (call-to-action)
+
+## Content Templates
+
+### Blog Post Structure
+- Eye-catching headline (6-8 words)
+- 2-3 sentence hook
+- 3-5 main sections with subheadings
+- Real examples or data points
+- Conclusion with next steps
+- Meta description (160 characters max)
+
+### Email Subject Lines
+- Keep under 50 characters
+- Include power words (new, limited, exclusive, free)
+- Ask a question or create curiosity
+- A/B test variations
+
+### Social Media Posts
+- Twitter (280 chars): Conversational, with 1-2 hashtags
+- LinkedIn (3000 chars): Thought leadership, professional tone
+- Instagram (2200 chars): Visual-first, emotional connection
+
+## Tone and Voice
+
+- Professional but approachable
+- Data-driven (include metrics when possible)
+- Customer-centric (focus on benefits, not features)
+- Action-oriented (use strong verbs)
+
+## Never
+- Use generic buzzwords without context
+- Over-hype features without proof
+- Write in first person (use "you" not "I")
+- Forget to include the CTA
+
+## Quality Checklist
+- [ ] Follows brand voice
+- [ ] Has clear CTA
+- [ ] Optimized for platform
+- [ ] Includes proof points or examples
+- [ ] No typos or grammatical errors
+- [ ] Matches intended audience
+`)">Copy</button>
+                </div>
+                <pre><code class="language-markdown">---
+name: Content Creator
+description: >
+  Writes marketing content including blog posts, emails, social media,
+  and case studies. Uses brand voice and follows company guidelines.
+version: 1.0.0
+category: marketing
+---
+
+# Content Creator Skill
+
+You are an expert content creator for our marketing team. Your job is to write compelling,
+on-brand content that drives engagement and conversions.
+
+## How to Use This Skill
+
+When asked to write content, follow these steps:
+
+1. Clarify the content type (blog, email, social, case study, etc.)
+2. Identify the target audience
+3. Gather any relevant brand guidelines or positioning documents
+4. Write the content in the specified format
+5. Optimize for the platform (character limits, formatting, etc.)
+6. Suggest a CTA (call-to-action)
+
+## Content Templates
+
+### Blog Post Structure
+- Eye-catching headline (6-8 words)
+- 2-3 sentence hook
+- 3-5 main sections with subheadings
+- Real examples or data points
+- Conclusion with next steps
+- Meta description (160 characters max)
+
+### Email Subject Lines
+- Keep under 50 characters
+- Include power words (new, limited, exclusive, free)
+- Ask a question or create curiosity
+- A/B test variations
+
+### Social Media Posts
+- Twitter (280 chars): Conversational, with 1-2 hashtags
+- LinkedIn (3000 chars): Thought leadership, professional tone
+- Instagram (2200 chars): Visual-first, emotional connection
+
+## Tone and Voice
+
+- Professional but approachable
+- Data-driven (include metrics when possible)
+- Customer-centric (focus on benefits, not features)
+- Action-oriented (use strong verbs)
+
+## Never
+- Use generic buzzwords without context
+- Over-hype features without proof
+- Write in first person (use "you" not "I")
+- Forget to include the CTA
+
+## Quality Checklist
+- [ ] Follows brand voice
+- [ ] Has clear CTA
+- [ ] Optimized for platform
+- [ ] Includes proof points or examples
+- [ ] No typos or grammatical errors
+- [ ] Matches intended audience</code></pre>
+            </div>
+
+            <h3 class="subsection-title">YAML Frontmatter Explained</h3>
+
+            <p>Every SKILL.md file starts with a YAML frontmatter section:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Purpose</th>
+                        <th>Example</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>name</code></td>
+                        <td>string</td>
+                        <td>Display name of the skill</td>
+                        <td>Content Creator</td>
+                    </tr>
+                    <tr>
+                        <td><code>description</code></td>
+                        <td>string</td>
+                        <td>What the skill does (shown to users)</td>
+                        <td>Writes marketing content</td>
+                    </tr>
+                    <tr>
+                        <td><code>version</code></td>
+                        <td>semver</td>
+                        <td>Version number for updates</td>
+                        <td>1.0.0</td>
+                    </tr>
+                    <tr>
+                        <td><code>category</code></td>
+                        <td>string</td>
+                        <td>Skill category/type</td>
+                        <td>marketing, development</td>
+                    </tr>
+                    <tr>
+                        <td><code>tags</code></td>
+                        <td>array</td>
+                        <td>Searchable keywords</td>
+                        <td>[content, email, blog]</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Installing Skills</h3>
+
+            <p>Skills are installed through Claude Code settings:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `# Navigate to your skills directory
+cd ~/.claude/skills
+
+# Copy a skill folder here
+cp -r ~/my-projects/content-creator .
+
+# Or create a new skill from scratch
+mkdir email-drafter && cd email-drafter
+# Create SKILL.md in this directory
+`)">Copy</button>
+                </div>
+                <pre><code class="language-bash"># Navigate to your skills directory
+cd ~/.claude/skills
+
+# Copy a skill folder here
+cp -r ~/my-projects/content-creator .
+
+# Or create a new skill from scratch
+mkdir email-drafter && cd email-drafter
+# Create SKILL.md in this directory</code></pre>
+            </div>
+
+            <p>Once installed, you can invoke skills:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `claude use content-creator \"Write a blog post about AI in marketing\"`">Copy</button>
+                </div>
+                <pre><code class="language-bash">claude use content-creator "Write a blog post about AI in marketing"</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Writing Effective Skill Descriptions</h3>
+
+            <p>A good skill description should answer three questions:</p>
+            <ol>
+                <li><strong>What does it do?</strong> Be specific and concrete</li>
+                <li><strong>When should I use it?</strong> Describe the use case</li>
+                <li><strong>What are the key capabilities?</strong> List main features</li>
+            </ol>
+
+            <div class="callout info">
+                <div class="callout-title">💡 Example</div>
+                <div class="callout-content">❌ Bad: "Analyzes data" ✓ Good: "Analyzes CSV files to identify trends, anomalies, and correlations. Use this when you need statistical insights from sales or marketing data. Can generate charts and recommendations."</div>
+            </div>
+
+            <h3 class="subsection-title">Example Skills for GTM Teams</h3>
+
+            <div class="grid">
+                <div class="grid-item">
+                    <div class="grid-item-title">📧 Email Drafter</div>
+                    <div class="grid-item-description">Writes personalized outreach emails, follow-ups, and campaign emails with high open rates and CTR.</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">📊 Report Generator</div>
+                    <div class="grid-item-description">Creates executive summaries and performance reports from raw data with charts and recommendations.</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">🎯 Case Study Writer</div>
+                    <div class="grid-item-description">Transforms customer stories into compelling case studies with quantified results and ROI.</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">🔄 Content Repurposer</div>
+                    <div class="grid-item-description">Takes one piece of content and creates multiple formats (blog, social, email, etc.).</div>
+                </div>
+            </div>
+
+            <div class="callout success">
+                <div class="callout-title">✓ Pro Tip</div>
+                <div class="callout-content">Use the skill-creator skill to generate new skills from natural language. Just describe what you need and Claude will create a complete SKILL.md file for you.</div>
+            </div>
+        </section>
+
+        <!-- Chapter 5: MCP Servers -->
+        <section class="section" id="ch5">
+            <h2 class="section-title">MCP Servers - Connecting Claude to Everything</h2>
+
+            <p>MCP (Model Context Protocol) is a standardized way for Claude to connect to external tools, services, and data sources. Think of it as giving Claude access to your company's ecosystem.</p>
+
+            <h3 class="subsection-title">What is MCP?</h3>
+
+            <div class="chapter-card">
+                <div class="chapter-title">The Integration Layer</div>
+                <p class="chapter-description">MCP is like a universal adapter that lets Claude talk to any tool - GitHub, Slack, Notion, Jira, Google Drive, and more. You configure these once, and Claude can use them in any conversation.</p>
+            </div>
+
+            <h3 class="subsection-title">The Kitchen Analogy</h3>
+
+            <div class="callout info">
+                <div class="callout-title">🍳 Kitchen Analogy</div>
+                <div class="callout-content">
+                    <strong>MCP Servers = Professional Kitchen</strong><br>
+                    - Ingredients: Data from your tools (emails, documents, tasks)<br>
+                    - Tools: APIs and integrations available to Claude<br>
+                    - Equipment: The infrastructure for operations<br><br>
+                    <strong>Skills = Recipes</strong><br>
+                    - How to combine ingredients with tools<br>
+                    - Step-by-step instructions for specific outcomes<br><br>
+                    Together: Kitchen + Recipes = Complete culinary capability
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Common MCP Servers</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Server</th>
+                        <th>What It Does</th>
+                        <th>Best For</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>GitHub</td>
+                        <td>Read/write code, issues, PRs</td>
+                        <td>Developer teams</td>
+                    </tr>
+                    <tr>
+                        <td>Slack</td>
+                        <td>Send messages, read channels</td>
+                        <td>Team communication</td>
+                    </tr>
+                    <tr>
+                        <td>Notion</td>
+                        <td>Read/write databases and pages</td>
+                        <td>Knowledge management</td>
+                    </tr>
+                    <tr>
+                        <td>Linear</td>
+                        <td>Create/update issues</td>
+                        <td>Issue tracking</td>
+                    </tr>
+                    <tr>
+                        <td>Jira</td>
+                        <td>Read/write issues and tickets</td>
+                        <td>Enterprise project management</td>
+                    </tr>
+                    <tr>
+                        <td>Asana</td>
+                        <td>Manage tasks and projects</td>
+                        <td>Work management</td>
+                    </tr>
+                    <tr>
+                        <td>Google Drive</td>
+                        <td>Read/write docs and files</td>
+                        <td>Document collaboration</td>
+                    </tr>
+                    <tr>
+                        <td>HubSpot</td>
+                        <td>Access CRM data</td>
+                        <td>Sales and marketing</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Adding MCP Servers</h3>
+
+            <p>Add MCP servers via the command line:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `claude mcp add github
+claude mcp add slack
+claude mcp add notion
+claude mcp add asana`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">claude mcp add github
+claude mcp add slack
+claude mcp add notion
+claude mcp add asana</code></pre>
+            </div>
+
+            <p>Claude will prompt you to authenticate with each service using your credentials or API keys.</p>
+
+            <h3 class="subsection-title">Configuration File</h3>
+
+            <p>MCP servers are configured in <code>~/.claude.json</code>:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">json</span>
+                    <button class="copy-btn" onclick="copyCode(this, `{
+  \"mcpServers\": {
+    \"github\": {
+      \"type\": \"stdio\",
+      \"command\": \"node\",
+      \"args\": [\"~/.claude/servers/github/index.js\"],
+      \"env\": {
+        \"GITHUB_TOKEN\": \"ghp_xxxxxxxxxxxx\"
+      }
+    },
+    \"slack\": {
+      \"type\": \"stdio\",
+      \"command\": \"node\",
+      \"args\": [\"~/.claude/servers/slack/index.js\"],
+      \"env\": {
+        \"SLACK_TOKEN\": \"xoxb-xxxxxxxxxxxx\"
+      }
+    },
+    \"notion\": {
+      \"type\": \"stdio\",
+      \"command\": \"node\",
+      \"args\": [\"~/.claude/servers/notion/index.js\"],
+      \"env\": {
+        \"NOTION_TOKEN\": \"secret_xxxxxxxxxxxx\"
+      }
+    }
+  }
+}`)">Copy</button>
+                </div>
+                <pre><code class="language-json">{
+  "mcpServers": {
+    "github": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["~/.claude/servers/github/index.js"],
+      "env": {
+        "GITHUB_TOKEN": "ghp_xxxxxxxxxxxx"
+      }
+    },
+    "slack": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["~/.claude/servers/slack/index.js"],
+      "env": {
+        "SLACK_TOKEN": "xoxb-xxxxxxxxxxxx"
+      }
+    },
+    "notion": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["~/.claude/servers/notion/index.js"],
+      "env": {
+        "NOTION_TOKEN": "secret_xxxxxxxxxxxx"
+      }
+    }
+  }
+}</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Using MCP in Practice</h3>
+
+            <p>Once configured, you can reference external data naturally in conversations:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `claude chat
+
+> Read all open issues in our GitHub repo and create a summary
+
+> Look at my Asana tasks due this week and prioritize them
+
+> Send a Slack message to #marketing: \"New blog post is live!\"
+
+> Create a Notion page with customer feedback from this quarter
+`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">claude chat
+
+> Read all open issues in our GitHub repo and create a summary
+
+> Look at my Asana tasks due this week and prioritize them
+
+> Send a Slack message to #marketing: "New blog post is live!"
+
+> Create a Notion page with customer feedback from this quarter</code></pre>
+            </div>
+
+            <h3 class="subsection-title">MCP + Skills = Power Combo</h3>
+
+            <p>The real magic happens when you combine MCP servers with Skills:</p>
+
+            <div class="flow-chart">
+                <div class="flow-box">MCP Server<br>(Access Data)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Skill<br>(Process Data)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Output<br>(Result)</div>
+            </div>
+
+            <p style="text-align: center; color: var(--text-secondary); margin-top: 1.5rem;">Example: GitHub MCP → Code Review Skill → Detailed feedback with fixes</p>
+
+            <div class="callout success">
+                <div class="callout-title">✓ Pro Tip</div>
+                <div class="callout-content">Create a Skill that documents how to use your MCP servers. This helps team members discover what's possible and reduces context switching.</div>
+            </div>
+        </section>
+
+        <!-- Chapter 6: Agents -->
+        <section class="section" id="ch6">
+            <h2 class="section-title">Agents & Autonomous AI</h2>
+
+            <p>Agents are specialized AI assistants that operate independently on specific tasks. Unlike regular conversations where you guide Claude, Agents work autonomously to achieve goals.</p>
+
+            <h3 class="subsection-title">What Are Agents?</h3>
+
+            <div class="chapter-card">
+                <div class="chapter-title">AI Team Members</div>
+                <p class="chapter-description">An Agent is an AI assistant configured for a specific purpose (content creation, data analysis, customer support, etc.). Agents can make decisions, use tools, and operate without constant human guidance.</p>
+            </div>
+
+            <h3 class="subsection-title">Types of Agents</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Agent Type</th>
+                        <th>Purpose</th>
+                        <th>Independence Level</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>General-purpose</td>
+                        <td>Flexible, handles various tasks</td>
+                        <td>High (requires clear instructions)</td>
+                    </tr>
+                    <tr>
+                        <td>Specialized</td>
+                        <td>Focused on one domain (e.g., content)</td>
+                        <td>High (pre-configured for the domain)</td>
+                    </tr>
+                    <tr>
+                        <td>Subagent</td>
+                        <td>Works with other agents in workflows</td>
+                        <td>Medium (coordinated by parent agent)</td>
+                    </tr>
+                    <tr>
+                        <td>Monitoring Agent</td>
+                        <td>Watches systems and alerts</td>
+                        <td>Continuous (always running)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Creating a Custom Agent</h3>
+
+            <p>Agents are defined in markdown files with YAML frontmatter:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">markdown</span>
+                    <button class="copy-btn" onclick="copyCode(this, `---
+name: Content Agent
+description: Creates and publishes marketing content autonomously
+model: claude-3-5-sonnet
+temperature: 0.7
+tools: [slack, notion, github]
+mcpServers: [slack, notion]
+---
+
+# Content Agent
+
+You are an autonomous content creation agent for our marketing team.
+
+## Your Goals
+1. Monitor the content calendar (Notion)
+2. Create content based on scheduled items
+3. Review content quality
+4. Publish to appropriate channels
+5. Notify team of completion (Slack)
+
+## Daily Workflow
+- Check Notion for today's content tasks
+- If task exists:
+  - Gather context and references
+  - Write content using Content Creator skill
+  - Review against brand guidelines
+  - Publish to the designated channel
+  - Send completion notification to Slack
+- If no tasks, send a summary of upcoming content
+
+## Tools You Have Access To
+- \`slack\`: Send messages and read channels
+- \`notion\`: Read and update content calendar
+- \`github\`: Check brand assets and templates
+
+## Quality Standards
+- All content must pass brand voice check
+- Include data/examples when possible
+- CTA is clear and compelling
+- Images are optimized and branded
+
+## Decision Making
+- If unsure about tone: ask in Slack #content-review channel
+- If task is blocked: log to Notion and notify @content-lead
+- If quality issue: revise and try again before publishing
+`)">Copy</button>
+                </div>
+                <pre><code class="language-markdown">---
+name: Content Agent
+description: Creates and publishes marketing content autonomously
+model: claude-3-5-sonnet
+temperature: 0.7
+tools: [slack, notion, github]
+mcpServers: [slack, notion]
+---
+
+# Content Agent
+
+You are an autonomous content creation agent for our marketing team.
+
+## Your Goals
+1. Monitor the content calendar (Notion)
+2. Create content based on scheduled items
+3. Review content quality
+4. Publish to appropriate channels
+5. Notify team of completion (Slack)
+
+## Daily Workflow
+- Check Notion for today's content tasks
+- If task exists:
+  - Gather context and references
+  - Write content using Content Creator skill
+  - Review against brand guidelines
+  - Publish to the designated channel
+  - Send completion notification to Slack
+- If no tasks, send a summary of upcoming content
+
+## Tools You Have Access To
+- \`slack\`: Send messages and read channels
+- \`notion\`: Read and update content calendar
+- \`github\`: Check brand assets and templates
+
+## Quality Standards
+- All content must pass brand voice check
+- Include data/examples when possible
+- CTA is clear and compelling
+- Images are optimized and branded
+
+## Decision Making
+- If unsure about tone: ask in Slack #content-review channel
+- If task is blocked: log to Notion and notify @content-lead
+- If quality issue: revise and try again before publishing</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Agent Configuration Fields</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Purpose</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>name</code></td>
+                        <td>string</td>
+                        <td>Agent identifier</td>
+                    </tr>
+                    <tr>
+                        <td><code>description</code></td>
+                        <td>string</td>
+                        <td>What the agent does</td>
+                    </tr>
+                    <tr>
+                        <td><code>model</code></td>
+                        <td>string</td>
+                        <td>Claude model to use</td>
+                    </tr>
+                    <tr>
+                        <td><code>temperature</code></td>
+                        <td>0.0-1.0</td>
+                        <td>Creativity level (0=precise, 1=creative)</td>
+                    </tr>
+                    <tr>
+                        <td><code>tools</code></td>
+                        <td>array</td>
+                        <td>Tools the agent can use</td>
+                    </tr>
+                    <tr>
+                        <td><code>mcpServers</code></td>
+                        <td>array</td>
+                        <td>MCP servers to connect</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Multi-Agent Workflows</h3>
+
+            <p>Agents can work together in parallel workflows:</p>
+
+            <div class="diagram">
+                <div class="flow-chart">
+                    <div class="flow-box">Task Input</div>
+                    <div class="flow-arrow">→</div>
+                    <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                        <div class="flow-box" style="width: 100%;">Agent 1<br>(Research)</div>
+                        <div class="flow-box" style="width: 100%;">Agent 2<br>(Writing)</div>
+                        <div class="flow-box" style="width: 100%;">Agent 3<br>(Review)</div>
+                    </div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-box">Final Output</div>
+                </div>
+            </div>
+
+            <p>Up to 7 agents can run in parallel, coordinating through shared context and messaging.</p>
+
+            <h3 class="subsection-title">OpenClaw - Agent Orchestration (Historical)</h3>
+
+            <p>OpenClaw was a platform for running Claude agents 24/7. It has been acquired, but the concept remains important:</p>
+
+            <div class="callout warning">
+                <div class="callout-title">⚠️ Important</div>
+                <div class="callout-content">OpenClaw is no longer actively developed. For continuous agent operation, consider: n8n + Claude API, Clawd (Claude daemon), Molt, or building custom scheduling with your existing infrastructure.</div>
+            </div>
+
+            <h3 class="subsection-title">Alternatives for Continuous Agents</h3>
+
+            <div class="grid">
+                <div class="grid-item">
+                    <div class="grid-item-title">n8n + Claude</div>
+                    <div class="grid-item-description">Visual workflow automation with Claude integration. Schedule and run agents on a timer or event.</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">Clawd</div>
+                    <div class="grid-item-description">Claude daemon - lightweight service for running Claude processes in the background.</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">Molt</div>
+                    <div class="grid-item-description">Modern orchestration platform for AI agents with persistence and monitoring.</div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">Custom Solutions</div>
+                    <div class="grid-item-description">Use cron jobs, systemd, or Kubernetes to run Claude Code scripts on schedule.</div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Agent Best Practices</h3>
+
+            <ul>
+                <li><strong>Be specific:</strong> Clear goals and constraints help agents make better decisions</li>
+                <li><strong>Provide fallbacks:</strong> Tell agents what to do if something goes wrong</li>
+                <li><strong>Monitor outputs:</strong> Review agent-generated content before publishing</li>
+                <li><strong>Iterate:</strong> Start simple, add complexity once basics work</li>
+                <li><strong>Coordinate:</strong> Use shared context or messaging for multi-agent workflows</li>
+            </ul>
+
+            <div class="callout success">
+                <div class="callout-title">✓ Pro Tip</div>
+                <div class="callout-content">Start with Agents for predictable, repeatable tasks (content calendar management, daily reports, data collection). As you gain confidence, expand to complex multi-step workflows.</div>
+            </div>
+        </section>
+
+        <!-- Chapter 7: n8n Automations -->
+        <section class="section" id="ch7">
+            <h2 class="section-title">Automations with n8n</h2>
+
+            <p>n8n is a visual workflow automation platform that integrates with Claude. It lets non-technical people build complex automations without writing code.</p>
+
+            <h3 class="subsection-title">What is n8n?</h3>
+
+            <div class="chapter-card">
+                <div class="chapter-title">Visual Workflow Builder</div>
+                <p class="chapter-description">n8n is like Zapier or Make, but more powerful and self-hostable. You design workflows visually by connecting nodes, and n8n executes them automatically on a schedule or trigger.</p>
+            </div>
+
+            <h3 class="subsection-title">Installation</h3>
+
+            <p>Install n8n globally via npm:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `npm install -g n8n
+n8n start`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">npm install -g n8n
+n8n start</code></pre>
+            </div>
+
+            <p>Or use Docker for easier management:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `docker run -it -p 5678:5678 -v ~/.n8n:/home/node/.n8n n8nio/n8n`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">docker run -it -p 5678:5678 -v ~/.n8n:/home/node/.n8n n8nio/n8n</code></pre>
+            </div>
+
+            <p>Visit <code>http://localhost:5678</code> to access the UI.</p>
+
+            <h3 class="subsection-title">Connecting Claude to n8n</h3>
+
+            <p>Add Claude via HTTP Request node:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">json</span>
+                    <button class="copy-btn" onclick="copyCode(this, `{
+  \"method\": \"POST\",
+  \"url\": \"https://api.anthropic.com/v1/messages\",
+  \"headers\": {
+    \"x-api-key\": \"sk-ant-...\",
+    \"anthropic-version\": \"2023-06-01\",
+    \"content-type\": \"application/json\"
+  },
+  \"body\": {
+    \"model\": \"claude-3-5-sonnet-20241022\",
+    \"max_tokens\": 1024,
+    \"messages\": [
+      {
+        \"role\": \"user\",
+        \"content\": \"{{ $json.task }}\"
+      }
+    ]
+  }
+}`)">Copy</button>
+                </div>
+                <pre><code class="language-json">{
+  "method": "POST",
+  "url": "https://api.anthropic.com/v1/messages",
+  "headers": {
+    "x-api-key": "sk-ant-...",
+    "anthropic-version": "2023-06-01",
+    "content-type": "application/json"
+  },
+  "body": {
+    "model": "claude-3-5-sonnet-20241022",
+    "max_tokens": 1024,
+    "messages": [
+      {
+        "role": "user",
+        "content": "{{ $json.task }}"
+      }
+    ]
+  }
+}</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Common Automation Patterns for GTM</h3>
+
+            <h4 class="subsection-title">Pattern 1: Lead Enrichment Pipeline</h4>
+            <p>Automatically enrich new leads with company info and classification:</p>
+
+            <div class="flow-chart">
+                <div class="flow-box">HubSpot<br>(New Lead)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Claude<br>(Enrich Data)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">HubSpot<br>(Update Lead)</div>
+            </div>
+
+            <h4 class="subsection-title">Pattern 2: Content Repurposing</h4>
+            <p>Convert one piece of content into multiple formats:</p>
+
+            <div class="flow-chart">
+                <div class="flow-box">Blog Post<br>(Input)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Claude<br>(Repurpose)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Slack + Email<br>(Distribute)</div>
+            </div>
+
+            <h4 class="subsection-title">Pattern 3: Automated Reporting</h4>
+            <p>Collect data and generate reports on schedule:</p>
+
+            <div class="flow-chart">
+                <div class="flow-box">Data Sources<br>(GA, HubSpot)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Claude<br>(Analyze)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Email<br>(Send Report)</div>
+            </div>
+
+            <h4 class="subsection-title">Pattern 4: Slack Notification Triggers</h4>
+            <p>Monitor events and alert team via Slack:</p>
+
+            <div class="flow-chart">
+                <div class="flow-box">Event<br>(Trigger)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Claude<br>(Summarize)</div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box">Slack<br>(Notify)</div>
+            </div>
+
+            <h3 class="subsection-title">The n8n-MCP Server</h3>
+
+            <p>The n8n-MCP server lets Claude Code design and deploy n8n workflows:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `claude mcp add n8n
+claude chat
+> Create a workflow that enriches HubSpot leads with company data using Claude
+`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">claude mcp add n8n
+claude chat
+> Create a workflow that enriches HubSpot leads with company data using Claude</code></pre>
+            </div>
+
+            <p>Claude will design the workflow, and n8n will execute it automatically.</p>
+
+            <h3 class="subsection-title">Building Your First Automation</h3>
+
+            <p>Step-by-step guide:</p>
+
+            <ol>
+                <li><strong>Define the trigger:</strong> What event starts this workflow? (schedule, webhook, new data, etc.)</li>
+                <li><strong>Gather inputs:</strong> What data do you need? (from where?)</li>
+                <li><strong>Call Claude:</strong> Use HTTP Request node to invoke Claude API</li>
+                <li><strong>Process output:</strong> Format Claude's response</li>
+                <li><strong>Take action:</strong> Send to Slack, update database, email, etc.</li>
+                <li><strong>Test:</strong> Run the workflow manually first</li>
+                <li><strong>Schedule:</strong> Set the trigger and activate</li>
+            </ol>
+
+            <h3 class="subsection-title">n8n Best Practices</h3>
+
+            <ul>
+                <li><strong>Error handling:</strong> Add "On Error" nodes to handle failures gracefully</li>
+                <li><strong>Logging:</strong> Use Debug nodes to track workflow execution</li>
+                <li><strong>Rate limits:</strong> Add delays between Claude calls if processing many items</li>
+                <li><strong>Testing:</strong> Always test with real data before activating</li>
+                <li><strong>Documentation:</strong> Add notes to complex workflows explaining logic</li>
+                <li><strong>Monitoring:</strong> Check n8n logs regularly for errors or slowdowns</li>
+            </ul>
+
+            <div class="callout success">
+                <div class="callout-title">✓ Pro Tip</div>
+                <div class="callout-content">Start with simple 3-node workflows (trigger → Claude → action). Once you're comfortable, build more complex ones with branching logic and error handling.</div>
+            </div>
+        </section>
+
+        <!-- Chapter 8: Remotion & Video -->
+        <section class="section" id="ch8">
+            <h2 class="section-title">Building with Remotion & 21st.dev</h2>
+
+            <p>Remotion lets you create professional videos programmatically with React. Combined with 21st.dev components and Chatterbox TTS, you can generate branded marketing videos without manual editing.</p>
+
+            <h3 class="subsection-title">What is Remotion?</h3>
+
+            <div class="chapter-card">
+                <div class="chapter-title">Programmatic Video Generation</div>
+                <p class="chapter-description">Remotion is a framework that treats videos like React components. Write code to define your video, and Remotion renders it to MP4. Perfect for generating variations of the same video (different names, data, etc.).</p>
+            </div>
+
+            <h3 class="subsection-title">Installation</h3>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `npx create-video@latest my-video
+cd my-video
+npm run dev`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">npx create-video@latest my-video
+cd my-video
+npm run dev</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Basic Remotion Structure</h3>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">jsx</span>
+                    <button class="copy-btn" onclick="copyCode(this, `import { Composition } from 'remotion';
+import { MyVideo } from './MyVideo';
+
+export const RemotionRoot = () => {
+  return (
+    <Composition
+      id=\"MyVideo\"
+      component={MyVideo}
+      durationInFrames={300}
+      fps={30}
+      width={1920}
+      height={1080}
+    />
+  );
+};
+
+// MyVideo.jsx
+import { useFrame } from 'remotion';
+import { useState } from 'react';
+
+export const MyVideo = () => {
+  const [scale, setScale] = useState(1);
+
+  useFrame(({ frame }) => {
+    setScale(1 + frame / 300 * 0.2);
+  });
+
+  return (
+    <div style={{
+      flex: 1,
+      backgroundColor: '#F5F3FF',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transform: \`scale(\${scale})\`,
+    }}>
+      <h1 style={{ color: '#474059', fontSize: 80 }}>
+        Welcome to Remotion
+      </h1>
+    </div>
+  );
+};`)">Copy</button>
+                </div>
+                <pre><code class="language-jsx">import { Composition } from 'remotion';
+import { MyVideo } from './MyVideo';
+
+export const RemotionRoot = () => {
+  return (
+    <Composition
+      id="MyVideo"
+      component={MyVideo}
+      durationInFrames={300}
+      fps={30}
+      width={1920}
+      height={1080}
+    />
+  );
+};
+
+// MyVideo.jsx
+import { useFrame } from 'remotion';
+import { useState } from 'react';
+
+export const MyVideo = () => {
+  const [scale, setScale] = useState(1);
+
+  useFrame(({ frame }) => {
+    setScale(1 + frame / 300 * 0.2);
+  });
+
+  return (
+    <div style={{
+      flex: 1,
+      backgroundColor: '#F5F3FF',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transform: `scale(${scale})`,
+    }}>
+      <h1 style={{ color: '#474059', fontSize: 80 }}>
+        Welcome to Remotion
+      </h1>
+    </div>
+  );
+};</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Using 21st.dev Components</h3>
+
+            <p>21st.dev provides pre-built, beautifully designed components for videos:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `npx shadcn@latest add https://21st.dev/r/animated-text
+npx shadcn@latest add https://21st.dev/r/hero-section
+npx shadcn@latest add https://21st.dev/r/card-animation`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">npx shadcn@latest add https://21st.dev/r/animated-text
+npx shadcn@latest add https://21st.dev/r/hero-section
+npx shadcn@latest add https://21st.dev/r/card-animation</code></pre>
+            </div>
+
+            <p>Popular 21st.dev components for marketing videos:</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Component</th>
+                        <th>Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>animated-text</td>
+                        <td>Typing effects, fade-in text</td>
+                    </tr>
+                    <tr>
+                        <td>hero-section</td>
+                        <td>Intro slides with images</td>
+                    </tr>
+                    <tr>
+                        <td>card-animation</td>
+                        <td>Feature cards with transitions</td>
+                    </tr>
+                    <tr>
+                        <td>gradient-text</td>
+                        <td>Colorful title text</td>
+                    </tr>
+                    <tr>
+                        <td>slide-in</td>
+                        <td>Elements sliding from sides</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Adding Narration with Chatterbox TTS</h3>
+
+            <p>Chatterbox is a Python-based Text-to-Speech tool for high-quality narration:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `pip install chatterbox-tts
+chatterbox-tts generate \"Welcome to our product demo\" -o narration.mp3 -v en_US`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">pip install chatterbox-tts
+chatterbox-tts generate "Welcome to our product demo" -o narration.mp3 -v en_US</code></pre>
+            </div>
+
+            <p>Use the audio in your Remotion video:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">jsx</span>
+                    <button class="copy-btn" onclick="copyCode(this, `import { Audio } from 'remotion';
+
+export const VideoWithNarration = () => {
+  return (
+    <div>
+      <Audio src={require('./narration.mp3')} />
+      {/* Video content */}
+    </div>
+  );
+};`)">Copy</button>
+                </div>
+                <pre><code class="language-jsx">import { Audio } from 'remotion';
+
+export const VideoWithNarration = () => {
+  return (
+    <div>
+      <Audio src={require('./narration.mp3')} />
+      {/* Video content */}
+    </div>
+  );
+};</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Complete Video Example</h3>
+
+            <p>Here's a complete example combining all three:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">jsx</span>
+                    <button class="copy-btn" onclick="copyCode(this, `import { Composition, Audio, useFrame } from 'remotion';
+import AnimatedText from './components/AnimatedText';
+
+const MarketingVideo = () => {
+  return (
+    <div style={{
+      backgroundColor: '#F5F3FF',
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: '#474059',
+      fontFamily: 'Inter, sans-serif',
+    }}>
+      <Audio src={require('./narration.mp3')} />
+
+      <AnimatedText
+        text=\"Transform Your GTM\"
+        fontSize={80}
+        startFrame={0}
+        duration={120}
+      />
+
+      <div style={{ marginTop: 40, fontSize: 24 }}>
+        Powered by Claude AI
+      </div>
+    </div>
+  );
+};
+
+export const RemotionRoot = () => {
+  return (
+    <Composition
+      id=\"MarketingVideo\"
+      component={MarketingVideo}
+      durationInFrames={300}
+      fps={30}
+      width={1920}
+      height={1080}
+    />
+  );
+};`)">Copy</button>
+                </div>
+                <pre><code class="language-jsx">import { Composition, Audio, useFrame } from 'remotion';
+import AnimatedText from './components/AnimatedText';
+
+const MarketingVideo = () => {
+  return (
+    <div style={{
+      backgroundColor: '#F5F3FF',
+      width: '100%',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      color: '#474059',
+      fontFamily: 'Inter, sans-serif',
+    }}>
+      <Audio src={require('./narration.mp3')} />
+
+      <AnimatedText
+        text="Transform Your GTM"
+        fontSize={80}
+        startFrame={0}
+        duration={120}
+      />
+
+      <div style={{ marginTop: 40, fontSize: 24 }}>
+        Powered by Claude AI
+      </div>
+    </div>
+  );
+};
+
+export const RemotionRoot = () => {
+  return (
+    <Composition
+      id="MarketingVideo"
+      component={MarketingVideo}
+      durationInFrames={300}
+      fps={30}
+      width={1920}
+      height={1080}
+    />
+  );
+};</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Rendering to MP4</h3>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-btn" onclick="copyCode(this, `npm run build -- --output output.mp4`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">npm run build -- --output output.mp4</code></pre>
+            </div>
+
+            <h3 class="subsection-title">Using Claude with Remotion</h3>
+
+            <p>Let Claude generate your video script and content:</p>
+
+            <div class="code-block-wrapper">
+                <div class="code-block-header">
+                    <span class="code-language">bash</span>
+                    <button class="copy-bash" onclick="copyCode(this, `claude chat
+> Generate a compelling 60-second product demo script for [product name] including:
+> - Hook (5 seconds)
+> - Problem statement (10 seconds)
+> - Solution overview (20 seconds)
+> - Key features (15 seconds)
+> - CTA (10 seconds)
+`)">Copy</button>
+                </div>
+                <pre><code class="language-bash">claude chat
+> Generate a compelling 60-second product demo script for [product name] including:
+> - Hook (5 seconds)
+> - Problem statement (10 seconds)
+> - Solution overview (20 seconds)
+> - Key features (15 seconds)
+> - CTA (10 seconds)</code></pre>
+            </div>
+
+            <div class="callout success">
+                <div class="callout-title">✓ Pro Tip</div>
+                <div class="callout-content">Create a Claude skill that takes a product description and generates both Remotion code and a TTS script. Then automate video creation in n8n!</div>
+            </div>
+        </section>
+
+        <!-- Chapter 9: Full Stack -->
+        <section class="section" id="ch9">
+            <h2 class="section-title">Putting It All Together</h2>
+
+            <p>Now that you understand each component, let's see how they work together in a complete GTM workflow.</p>
+
+            <h3 class="subsection-title">Real-World Example: Content Marketing Pipeline</h3>
+
+            <p>Here's how a GTM team uses the full Claude ecosystem:</p>
+
+            <div class="architecture">
+                <div class="arch-layer">
+                    <div class="arch-layer-title">Trigger & Input Layer</div>
+                    <div class="arch-items">
+                        <div class="arch-item">Notion Calendar</div>
+                        <div class="arch-item">Slack Commands</div>
+                        <div class="arch-item">Email Submission</div>
+                    </div>
+                </div>
+
+                <div class="arch-layer">
+                    <div class="arch-layer-title">n8n Orchestration</div>
+                    <div class="arch-items">
+                        <div class="arch-item">Trigger Handler</div>
+                        <div class="arch-item">Data Gatherer</div>
+                        <div class="arch-item">Coordinator</div>
+                    </div>
+                </div>
+
+                <div class="arch-layer">
+                    <div class="arch-layer-title">Claude Intelligence</div>
+                    <div class="arch-items">
+                        <div class="arch-item">Claude Code (API)</div>
+                        <div class="arch-item">+ Skills</div>
+                        <div class="arch-item">+ CLAUDE.md Context</div>
+                    </div>
+                </div>
+
+                <div class="arch-layer">
+                    <div class="arch-layer-title">Integration Layer (MCP)</div>
+                    <div class="arch-items">
+                        <div class="arch-item">GitHub</div>
+                        <div class="arch-item">Slack</div>
+                        <div class="arch-item">HubSpot</div>
+                        <div class="arch-item">Google Drive</div>
+                    </div>
+                </div>
+
+                <div class="arch-layer">
+                    <div class="arch-layer-title">Output & Publishing</div>
+                    <div class="arch-items">
+                        <div class="arch-item">Blog (GitHub)</div>
+                        <div class="arch-item">Email Campaign</div>
+                        <div class="arch-item">Social Posts</div>
+                        <div class="arch-item">Video</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Step-by-Step: Blog to Video Pipeline</h3>
+
+            <p><strong>Goal:</strong> One blog idea → Blog post → Email → Social posts → Marketing video → Slack notification</p>
+
+            <ol>
+                <li><strong>Input:</strong> Team adds blog topic to Notion calendar</li>
+                <li><strong>Trigger:</strong> n8n detects new item, calls Claude with blog-writer skill</li>
+                <li><strong>Research:</strong> Claude (via MCP) reads existing posts and brand guidelines</li>
+                <li><strong>Writing:</strong> Claude generates 2000-word blog post</li>
+                <li><strong>Publish:</strong> n8n commits blog to GitHub (which deploys to website)</li>
+                <li><strong>Repurpose:</strong> Another Claude call (via skill) creates email version</li>
+                <li><strong>Social:</strong> Third Claude call generates 5 social media posts</li>
+                <li><strong>Video:</strong> Script from blog → Chatterbox TTS → Remotion video → n8n saves to Drive</li>
+                <li><strong>Notify:</strong> n8n posts completion to Slack with all assets</li>
+                <li><strong>Archive:</strong> Links saved to Notion for team reference</li>
+            </ol>
+
+            <h3 class="subsection-title">Recommended Stack for Non-Technical Teams</h3>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Layer</th>
+                        <th>Tool</th>
+                        <th>Why</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>UI/Entry</td>
+                        <td>Cowork (Desktop App)</td>
+                        <td>Easiest for non-technical users</td>
+                    </tr>
+                    <tr>
+                        <td>AI Core</td>
+                        <td>Claude Code API</td>
+                        <td>Most powerful and flexible</td>
+                    </tr>
+                    <tr>
+                        <td>Task Storage</td>
+                        <td>Notion</td>
+                        <td>Visual, easy to manage</td>
+                    </tr>
+                    <tr>
+                        <td>Workflows</td>
+                        <td>n8n</td>
+                        <td>Visual, no-code automation</td>
+                    </tr>
+                    <tr>
+                        <td>Team Comms</td>
+                        <td>Slack MCP</td>
+                        <td>Notifications and approvals</td>
+                    </tr>
+                    <tr>
+                        <td>Content Storage</td>
+                        <td>Google Drive / GitHub</td>
+                        <td>Centralized, version controlled</td>
+                    </tr>
+                    <tr>
+                        <td>Video Creation</td>
+                        <td>Remotion (optional)</td>
+                        <td>Programmatic, scalable</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 class="subsection-title">Quick Reference: Claude Ecosystem Cheat Sheet</h3>
+
+            <div class="grid">
+                <div class="grid-item">
+                    <div class="grid-item-title">Claude Code</div>
+                    <div class="grid-item-description">
+                        <code>npm install -g @anthropic-ai/claude-code</code><br>
+                        <code>claude chat</code><br>
+                        For automation and integrations
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">CLAUDE.md</div>
+                    <div class="grid-item-description">
+                        Place at project root<br>
+                        Gives Claude project context<br>
+                        Automatic on every command
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">Skills</div>
+                    <div class="grid-item-description">
+                        Folder with SKILL.md<br>
+                        Reusable instructions<br>
+                        <code>claude use skill-name</code>
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">MCP Servers</div>
+                    <div class="grid-item-description">
+                        <code>claude mcp add service</code><br>
+                        Connect tools & data<br>
+                        Use naturally in chat
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">Agents</div>
+                    <div class="grid-item-description">
+                        Markdown with YAML frontmatter<br>
+                        Autonomous tasks<br>
+                        Use n8n for scheduling
+                    </div>
+                </div>
+                <div class="grid-item">
+                    <div class="grid-item-title">n8n</div>
+                    <div class="grid-item-description">
+                        <code>npm install -g n8n</code><br>
+                        Visual workflows<br>
+                        Triggers & automations
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Common Workflows for GTM</h3>
+
+            <div class="faq-item open">
+                <button class="faq-question">
+                    <span>Lead Scoring & Enrichment</span>
+                    <span class="faq-toggle">−</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Tools:</strong> HubSpot (MCP) → Claude (skill) → HubSpot (update)</p>
+                        <p><strong>What it does:</strong> When new leads enter HubSpot, Claude analyzes company info and classifies them by priority.</p>
+                        <p><strong>Benefit:</strong> Sales team gets pre-scored leads, saving hours of manual research.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Competitive Intelligence</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Tools:</strong> n8n (scheduler) → Claude (analysis) → Slack (notification)</p>
+                        <p><strong>What it does:</strong> Daily check of competitor websites, then Claude summarizes changes and implications.</p>
+                        <p><strong>Benefit:</strong> Stay ahead of market moves without manual monitoring.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Customer Feedback Analysis</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Tools:</strong> Slack (MCP) → Claude (skill) → Notion (MCP) → Summary</p>
+                        <p><strong>What it does:</strong> Claude reads Slack feedback channel, extracts themes, and updates Notion dashboard.</p>
+                        <p><strong>Benefit:</strong> Product and marketing aligned on customer sentiment in real-time.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Sales Collateral Generation</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Tools:</strong> Notion (MCP) → Claude (content skill) → Remotion → Google Drive</p>
+                        <p><strong>What it does:</strong> When sales team adds a new customer use case, Claude generates one-pager + video.</p>
+                        <p><strong>Benefit:</strong> Sales team never runs out of personalized materials.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Getting Started: First Week Roadmap</h3>
+
+            <ol>
+                <li><strong>Day 1:</strong> Install Claude Code, explore basic commands</li>
+                <li><strong>Day 2:</strong> Create CLAUDE.md for your project</li>
+                <li><strong>Day 3:</strong> Create your first Skill (content-creator for GTM)</li>
+                <li><strong>Day 4:</strong> Add 2-3 MCP servers (Slack, Notion, HubSpot)</li>
+                <li><strong>Day 5:</strong> Build first simple n8n workflow (trigger → Claude → Slack)</li>
+                <li><strong>Week 2:</strong> Expand with more Agents and automation</li>
+            </ol>
+
+            <h3 class="subsection-title">Resources & Community</h3>
+
+            <div class="callout info">
+                <div class="callout-title">📚 Official Resources</div>
+                <div class="callout-content">
+                    <ul style="margin: 0; padding-left: 1.5rem;">
+                        <li><a href="https://anthropic.com/docs" style="color: var(--accent);">Anthropic Documentation</a></li>
+                        <li><a href="https://docs.n8n.io" style="color: var(--accent);">n8n Docs</a></li>
+                        <li><a href="https://www.remotion.dev" style="color: var(--accent);">Remotion Documentation</a></li>
+                        <li><a href="https://github.com/anthropics/anthropic-sdk-python" style="color: var(--accent);">Claude SDK</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="subsection-title">Troubleshooting Common Issues</h3>
+
+            <div class="faq-item open">
+                <button class="faq-question">
+                    <span>Claude Code won't authenticate</span>
+                    <span class="faq-toggle">−</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Check your API key is correct and active. Run: <code>claude init</code> and re-enter your key.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>MCP server not responding</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Verify authentication token is current. Many services rotate tokens after 30 days. Re-run: <code>claude mcp add service-name</code></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>n8n workflow failing silently</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Check the execution logs in n8n UI. Add Debug nodes before and after Claude calls to track data flow.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    <span>Claude timeout on large files</span>
+                    <span class="faq-toggle">+</span>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Break large files into chunks and process separately, or use a faster model (Haiku) for initial processing.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout success">
+                <div class="callout-title">🎉 You've Got This!</div>
+                <div class="callout-content">You now have everything you need to build powerful AI-powered workflows. Start small, iterate, and build the custom solutions your team needs. Remember: Skills + MCP + n8n = unlimited possibilities.</div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <div class="footer">
+            <h3>Claude, Claude Code &amp; Cowork</h3>
+            <p>Atlas HXM — AI Center of Excellence | For People, By People</p>
+            <div class="footer-links">
+                <a href="https://www.atlashxm.com" class="footer-link">Atlas HXM</a>
+                <a href="https://anthropic.com" class="footer-link">Anthropic</a>
+                <a href="https://n8n.io" class="footer-link">n8n</a>
+                <a href="https://www.remotion.dev" class="footer-link">Remotion</a>
+            </div>
+            <p style="margin-top: 2rem; font-size: 0.9rem; color: var(--text-tertiary);">Atlas HXM — Confidential | Prepared by Pat, GTM AI &amp; Automation Manager | March 2026 | v1.0</p>
+        </div>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        // Initialize highlight.js
+        document.querySelectorAll('pre code').forEach(el => {
+            hljs.highlightElement(el);
+        });
+
+        // Progress bar
+        function updateProgressBar() {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.querySelector('.progress-bar').style.width = scrollPercent + '%';
+        }
+
+        window.addEventListener('scroll', updateProgressBar);
+
+        // Sidebar navigation
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.section');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const sectionId = item.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                    closeMobileMenu();
+                }
+            });
+        });
+
+        // Update active nav item on scroll
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-section') === current) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // Copy to clipboard
+        function copyCode(button, text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const original = button.textContent;
+                button.textContent = '✓ Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = original;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const sidebar = document.getElementById('sidebar');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+
+        function closeMobileMenu() {
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.remove('open');
+            }
+        }
+
+        // Collapsible FAQ items
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                faqItem.classList.toggle('open');
+            });
+        });
+
+        // Set home nav item active on load
+        document.querySelector('[data-section="ch0"]').classList.add('active');
+
+        // Smooth scroll for buttons
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    closeMobileMenu();
+                }
+            });
+        });
+
+        // Close mobile menu on window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) {
+                sidebar.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
