@@ -98,12 +98,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="pb-6 border-b border-obsidian-800">
-        <div className="flex items-center space-x-2 text-brand-cyan text-xs font-mono">
+      <div className="pb-6 border-b border-paper-200">
+        <div className="flex items-center space-x-2 text-accent text-xs font-mono">
           <Settings className="w-4 h-4" />
           <span>Workspace Control Plane // Governance & Security</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+        <h1 className="text-2xl sm:text-3xl font-bold text-ink mt-1">
           BYOK Gateway & Workspace Settings
         </h1>
         <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
@@ -112,12 +112,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center space-x-2 border-b border-obsidian-800 pb-2">
+      <div className="flex items-center space-x-2 border-b border-paper-200 pb-2">
         <button
           onClick={() => setActiveTab('gateway')}
           className={`px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-colors ${
             activeTab === 'gateway'
-              ? 'bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30'
+              ? 'bg-accent/15 text-accent border border-brand-cyan/30'
               : 'text-slate-400 hover:text-slate-200 hover:bg-obsidian-850'
           }`}
         >
@@ -129,7 +129,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           onClick={() => setActiveTab('team')}
           className={`px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-colors ${
             activeTab === 'team'
-              ? 'bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30'
+              ? 'bg-accent/15 text-accent border border-brand-cyan/30'
               : 'text-slate-400 hover:text-slate-200 hover:bg-obsidian-850'
           }`}
         >
@@ -141,7 +141,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           onClick={() => setActiveTab('apikeys')}
           className={`px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-colors ${
             activeTab === 'apikeys'
-              ? 'bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30'
+              ? 'bg-accent/15 text-accent border border-brand-cyan/30'
               : 'text-slate-400 hover:text-slate-200 hover:bg-obsidian-850'
           }`}
         >
@@ -153,7 +153,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           onClick={() => setActiveTab('artifacts')}
           className={`px-4 py-2 rounded-lg text-xs font-semibold flex items-center space-x-2 transition-colors ${
             activeTab === 'artifacts'
-              ? 'bg-brand-cyan/15 text-brand-cyan border border-brand-cyan/30'
+              ? 'bg-accent/15 text-accent border border-brand-cyan/30'
               : 'text-slate-400 hover:text-slate-200 hover:bg-obsidian-850'
           }`}
         >
@@ -165,9 +165,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
       {/* Tab 1: LLM Gateway & BYOK */}
       {activeTab === 'gateway' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          <div className="lg:col-span-7 glass-card rounded-xl p-6 border border-obsidian-800 space-y-6">
+          <div className="lg:col-span-7 glass-card rounded-xl p-6 border border-paper-200 space-y-6">
             <div>
-              <h3 className="text-base font-bold text-white">LLM Provider & BYOK Gateway</h3>
+              <h3 className="text-base font-bold text-ink">LLM Provider & BYOK Gateway</h3>
               <p className="text-xs text-slate-400 mt-1">
                 Route agent inferences through your dedicated enterprise AWS Bedrock cluster or custom API proxy.
               </p>
@@ -185,8 +185,8 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                   onClick={() => setSelectedProvider(p.id as any)}
                   className={`p-3 rounded-lg border text-left text-xs transition-all ${
                     selectedProvider === p.id
-                      ? 'bg-brand-cyan/15 border-brand-cyan/40 text-white'
-                      : 'bg-obsidian-900 border-obsidian-750 text-slate-400 hover:bg-obsidian-850'
+                      ? 'bg-accent/15 border-brand-cyan/40 text-ink'
+                      : 'bg-paper-50 border-obsidian-750 text-slate-400 hover:bg-obsidian-850'
                   }`}
                 >
                   <div className="font-bold">{p.name}</div>
@@ -202,7 +202,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                   type="text"
                   value={awsAccessKey}
                   onChange={(e) => setAwsAccessKey(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-cyan"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-cyan"
                 />
               </div>
 
@@ -211,7 +211,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                   <label className="text-slate-300 font-medium">AWS Secret Access Key</label>
                   <button
                     onClick={() => setShowSecret(!showSecret)}
-                    className="text-[11px] text-brand-cyan hover:underline flex items-center space-x-1"
+                    className="text-[11px] text-accent hover:underline flex items-center space-x-1"
                   >
                     {showSecret ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
                     <span>{showSecret ? 'Hide' : 'Reveal'}</span>
@@ -221,7 +221,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                   type={showSecret ? 'text' : 'password'}
                   value={awsSecretKey}
                   onChange={(e) => setAwsSecretKey(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-cyan"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-cyan"
                 />
               </div>
 
@@ -232,7 +232,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                     type="text"
                     value={awsRegion}
                     onChange={(e) => setAwsRegion(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-cyan"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-cyan"
                   />
                 </div>
                 <div>
@@ -241,7 +241,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                     type="text"
                     value="0.2 (Precision Mode)"
                     disabled
-                    className="w-full px-3 py-2 rounded-lg bg-obsidian-950/60 border border-obsidian-800 text-slate-400 font-mono text-xs cursor-not-allowed"
+                    className="w-full px-3 py-2 rounded-lg bg-white/60 border border-paper-200 text-slate-400 font-mono text-xs cursor-not-allowed"
                   />
                 </div>
               </div>
@@ -252,19 +252,19 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                   type="text"
                   value={customEndpoint}
                   onChange={(e) => setCustomEndpoint(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-cyan"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 font-mono text-xs focus:outline-none focus:border-brand-cyan"
                 />
               </div>
             </div>
 
             <div className="pt-2 flex items-center justify-between">
-              <span className="text-xs text-brand-emerald font-mono">
+              <span className="text-xs text-emerald-600 font-mono">
                 {savedSuccess && '✓ Gateway parameters updated successfully'}
               </span>
 
               <button
                 onClick={handleSaveGateway}
-                className="px-5 py-2.5 rounded-lg bg-brand-cyan text-obsidian-950 font-bold text-xs hover:brightness-110 shadow-glow-cyan transition-all"
+                className="px-5 py-2.5 rounded-lg bg-accent text-white font-bold text-xs hover:brightness-110 shadow-glow-accent transition-all"
               >
                 Save Gateway Credentials
               </button>
@@ -272,15 +272,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
           </div>
 
           <div className="lg:col-span-5 space-y-4">
-            <div className="glass-card rounded-xl p-6 border border-obsidian-800 space-y-3">
-              <h4 className="text-sm font-bold text-white flex items-center space-x-2">
-                <ShieldCheck className="w-4 h-4 text-brand-emerald" />
+            <div className="glass-card rounded-xl p-6 border border-paper-200 space-y-3">
+              <h4 className="text-sm font-bold text-ink flex items-center space-x-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>Zero Data Retention & VPC Policy</span>
               </h4>
               <p className="text-xs text-slate-400 leading-relaxed">
                 Enably harnesses invoke Bedrock AgentCore inside your isolated VPC boundaries. Customer inputs, ICP parameters, and contact emails are never retained for model training.
               </p>
-              <div className="p-3 rounded-lg bg-obsidian-950 border border-obsidian-800 font-mono text-[11px] text-slate-400 space-y-1">
+              <div className="p-3 rounded-lg bg-white border border-paper-200 font-mono text-[11px] text-slate-400 space-y-1">
                 <div>Encryption: AWS KMS (AES-256)</div>
                 <div>Compliance: SOC2 Type II, GDPR, CCPA</div>
                 <div>Network: PrivateLink VPC Peering Ready</div>
@@ -292,10 +292,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
 
       {/* Tab 2: Team & Roles */}
       {activeTab === 'team' && (
-        <div className="glass-card rounded-xl p-6 border border-obsidian-800 space-y-6">
+        <div className="glass-card rounded-xl p-6 border border-paper-200 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <h3 className="text-base font-bold text-white">Workspace Members & Permissions</h3>
+              <h3 className="text-base font-bold text-ink">Workspace Members & Permissions</h3>
               <p className="text-xs text-slate-400 mt-1">
                 Grant team members access to the 5 GTM agent harnesses and workspace libraries.
               </p>
@@ -307,11 +307,11 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 placeholder="colleague@company.com"
                 value={newMemberEmail}
                 onChange={(e) => setNewMemberEmail(e.target.value)}
-                className="px-3 py-1.5 rounded-lg bg-obsidian-950 border border-obsidian-750 text-xs text-slate-200 focus:outline-none focus:border-brand-cyan"
+                className="px-3 py-1.5 rounded-lg bg-white border border-obsidian-750 text-xs text-slate-200 focus:outline-none focus:border-brand-cyan"
               />
               <button
                 onClick={handleAddMember}
-                className="px-3 py-1.5 rounded-lg bg-brand-cyan text-obsidian-950 font-bold text-xs hover:brightness-110 shadow-glow-cyan"
+                className="px-3 py-1.5 rounded-lg bg-accent text-white font-bold text-xs hover:brightness-110 shadow-glow-accent"
               >
                 Invite
               </button>
@@ -320,7 +320,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
 
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="border-b border-obsidian-800 text-[10px] font-mono uppercase text-slate-400">
+              <thead className="border-b border-paper-200 text-[10px] font-mono uppercase text-slate-400">
                 <tr>
                   <th className="py-2.5">User</th>
                   <th className="py-2.5">Email</th>
@@ -332,7 +332,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
               <tbody className="divide-y divide-obsidian-800/60">
                 {members.map((m) => (
                   <tr key={m.id} className="text-slate-300">
-                    <td className="py-3 font-semibold text-white">{m.name}</td>
+                    <td className="py-3 font-semibold text-ink">{m.name}</td>
                     <td className="py-3 font-mono text-slate-400">{m.email}</td>
                     <td className="py-3">
                       <span className="px-2 py-0.5 rounded bg-obsidian-850 border border-obsidian-750 font-mono text-[10px]">
@@ -360,10 +360,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
 
       {/* Tab 3: Agent Webhook Keys */}
       {activeTab === 'apikeys' && (
-        <div className="glass-card rounded-xl p-6 border border-obsidian-800 space-y-6">
+        <div className="glass-card rounded-xl p-6 border border-paper-200 space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="text-base font-bold text-white">Agent Webhook & Ingestion API Keys</h3>
+              <h3 className="text-base font-bold text-ink">Agent Webhook & Ingestion API Keys</h3>
               <p className="text-xs text-slate-400 mt-1">
                 Keys for programmatic agent execution from Make.com, n8n, Clay, or your internal scripts.
               </p>
@@ -371,7 +371,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
 
             <button
               onClick={handleGenerateApiKey}
-              className="px-3.5 py-1.5 rounded-lg bg-brand-cyan text-obsidian-950 font-bold text-xs hover:brightness-110 shadow-glow-cyan flex items-center space-x-1.5"
+              className="px-3.5 py-1.5 rounded-lg bg-accent text-white font-bold text-xs hover:brightness-110 shadow-glow-accent flex items-center space-x-1.5"
             >
               <Plus className="w-3.5 h-3.5" />
               <span>Generate Key</span>
@@ -382,10 +382,10 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
             {apiKeys.map((k) => (
               <div
                 key={k.id}
-                className="p-4 rounded-xl bg-obsidian-950 border border-obsidian-800 flex items-center justify-between text-xs"
+                className="p-4 rounded-xl bg-white border border-paper-200 flex items-center justify-between text-xs"
               >
                 <div>
-                  <div className="font-bold text-white">{k.name}</div>
+                  <div className="font-bold text-ink">{k.name}</div>
                   <div className="font-mono text-slate-400 text-[11px] mt-0.5">
                     {k.prefix} • Created {k.created}
                   </div>
@@ -398,7 +398,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                       setCopiedKey(k.id);
                       setTimeout(() => setCopiedKey(null), 2000);
                     }}
-                    className="px-2.5 py-1 rounded bg-obsidian-850 hover:bg-obsidian-800 border border-obsidian-700 text-slate-300"
+                    className="px-2.5 py-1 rounded bg-obsidian-850 hover:bg-paper-100 border border-paper-300 text-slate-300"
                   >
                     {copiedKey === k.id ? 'Copied' : 'Copy Key'}
                   </button>
@@ -418,9 +418,9 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
 
       {/* Tab 4: Saved Artifacts */}
       {activeTab === 'artifacts' && (
-        <div className="glass-card rounded-xl p-6 border border-obsidian-800 space-y-6">
+        <div className="glass-card rounded-xl p-6 border border-paper-200 space-y-6">
           <div>
-            <h3 className="text-base font-bold text-white">Saved Workspace Artifacts</h3>
+            <h3 className="text-base font-bold text-ink">Saved Workspace Artifacts</h3>
             <p className="text-xs text-slate-400 mt-1">
               All generated ICP documents, competitive battlecards, sales playbooks, and outbound sequences.
             </p>
@@ -435,12 +435,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
               {artifacts.map((art) => (
                 <div
                   key={art.id}
-                  className="p-4 rounded-xl bg-obsidian-950 border border-obsidian-800 space-y-3 flex flex-col justify-between"
+                  className="p-4 rounded-xl bg-white border border-paper-200 space-y-3 flex flex-col justify-between"
                 >
                   <div>
                     <div className="flex items-center justify-between">
-                      <div className="text-xs font-bold text-white flex items-center space-x-2">
-                        <FileText className="w-3.5 h-3.5 text-brand-cyan" />
+                      <div className="text-xs font-bold text-ink flex items-center space-x-2">
+                        <FileText className="w-3.5 h-3.5 text-accent" />
                         <span>{art.title}</span>
                       </div>
                       <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-obsidian-850 text-slate-400 border border-obsidian-750">
@@ -450,13 +450,13 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
 
                     <div className="flex flex-wrap gap-1 mt-2">
                       {art.tags.map((t, idx) => (
-                        <span key={idx} className="text-[10px] font-mono text-slate-400 bg-obsidian-900 px-1.5 py-0.5 rounded">
+                        <span key={idx} className="text-[10px] font-mono text-slate-400 bg-paper-50 px-1.5 py-0.5 rounded">
                           #{t}
                         </span>
                       ))}
                     </div>
 
-                    <p className="text-[11px] text-slate-400 mt-2 line-clamp-3 font-mono bg-obsidian-900/60 p-2 rounded">
+                    <p className="text-[11px] text-slate-400 mt-2 line-clamp-3 font-mono bg-paper-50/60 p-2 rounded">
                       {art.content.slice(0, 150)}...
                     </p>
                   </div>
@@ -464,7 +464,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                   <div className="pt-2 border-t border-obsidian-850 flex items-center justify-between text-xs">
                     <button
                       onClick={() => downloadArtifact(art)}
-                      className="text-brand-cyan hover:underline flex items-center space-x-1"
+                      className="text-accent hover:underline flex items-center space-x-1"
                     >
                       <Download className="w-3 h-3" />
                       <span>Download .md</span>

@@ -84,7 +84,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 id="nav-start"
                 onClick={() => go('studio')}
-                className="flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition-transform hover:bg-ink-soft active:scale-[0.98]"
+                className="flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-ink transition-transform hover:bg-ink-soft active:scale-[0.98]"
               >
                 Start free
                 <ArrowRight className="h-3.5 w-3.5" />

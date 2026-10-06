@@ -218,7 +218,7 @@ export const App: React.FC = () => {
               </button>
               <button
                 onClick={handleSaveByok}
-                className="btn-accent shadow-glow-cyan"
+                className="btn-accent shadow-glow-accent"
               >
                 Save & Connect
               </button>

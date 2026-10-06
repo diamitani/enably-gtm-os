@@ -174,13 +174,13 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       {/* Top Header & Agent Selector */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-obsidian-800">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-paper-200">
         <div>
-          <div className="flex items-center space-x-2 text-brand-cyan text-xs font-mono">
+          <div className="flex items-center space-x-2 text-accent text-xs font-mono">
             <Terminal className="w-4 h-4" />
             <span>Interactive Multi-Agent Console // Bedrock Harness API</span>
           </div>
-          <h1 className="text-2xl font-bold text-white mt-0.5">
+          <h1 className="text-2xl font-bold text-ink mt-0.5">
             Active Agent: {currentAgent.name}
           </h1>
         </div>
@@ -190,7 +190,7 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
           <select
             value={selectedAgentId}
             onChange={(e) => setSelectedAgentId(e.target.value as AgentId)}
-            className="px-3 py-1.5 rounded-lg bg-obsidian-850 border border-obsidian-700 text-xs font-semibold text-slate-200 focus:outline-none focus:border-brand-cyan"
+            className="px-3 py-1.5 rounded-lg bg-obsidian-850 border border-paper-300 text-xs font-semibold text-slate-200 focus:outline-none focus:border-brand-cyan"
           >
             {ENABLY_AGENTS.map((a) => (
               <option key={a.id} value={a.id}>
@@ -201,7 +201,7 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
 
           <button
             onClick={() => setMessages([])}
-            className="p-1.5 rounded-lg bg-obsidian-850 hover:bg-obsidian-800 text-slate-400 hover:text-rose-400 border border-obsidian-700 transition-colors"
+            className="p-1.5 rounded-lg bg-obsidian-850 hover:bg-paper-100 text-slate-400 hover:text-rose-400 border border-paper-300 transition-colors"
             title="Clear Chat History"
           >
             <Trash2 className="w-4 h-4" />
@@ -212,7 +212,7 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
       {/* Grid: Chat Window on Left, Artifact Pane on Right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left: Chat Window */}
-        <div className="lg:col-span-7 glass-panel rounded-xl border border-obsidian-700/80 flex flex-col h-[650px] overflow-hidden bg-obsidian-900/90 shadow-2xl">
+        <div className="lg:col-span-7 card rounded-xl border border-paper-300/80 flex flex-col h-[650px] overflow-hidden bg-paper-50/90 shadow-2xl">
           {/* Chat Messages Body */}
           <div className="flex-1 p-4 overflow-y-auto space-y-4">
             {messages.length === 0 && (
@@ -246,8 +246,8 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
                   <div
                     className={`p-3.5 rounded-xl ${
                       msg.sender === 'user'
-                        ? 'bg-brand-blue text-white rounded-br-none shadow-md'
-                        : 'bg-obsidian-950/80 border border-obsidian-750 text-slate-200 rounded-bl-none'
+                        ? 'bg-brand-blue text-ink rounded-br-none shadow-md'
+                        : 'bg-white/80 border border-obsidian-750 text-slate-200 rounded-bl-none'
                     }`}
                   >
                     <div className="whitespace-pre-wrap leading-relaxed">
@@ -256,21 +256,21 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
 
                     {/* Attached Artifact Preview Button */}
                     {msg.artifacts && msg.artifacts.length > 0 && (
-                      <div className="mt-3 pt-3 border-t border-obsidian-800 space-y-2">
-                        <div className="text-[10px] font-mono text-brand-cyan uppercase tracking-wider">
+                      <div className="mt-3 pt-3 border-t border-paper-200 space-y-2">
+                        <div className="text-[10px] font-mono text-accent uppercase tracking-wider">
                           Generated Artifact Created:
                         </div>
                         {msg.artifacts.map((art) => (
                           <button
                             key={art.id}
                             onClick={() => setSelectedArtifact(art)}
-                            className="w-full flex items-center justify-between p-2 rounded-lg bg-obsidian-900 hover:bg-obsidian-850 border border-brand-cyan/30 text-xs font-semibold text-white transition-colors"
+                            className="w-full flex items-center justify-between p-2 rounded-lg bg-paper-50 hover:bg-obsidian-850 border border-brand-cyan/30 text-xs font-semibold text-ink transition-colors"
                           >
                             <span className="flex items-center space-x-2">
-                              <FileText className="w-3.5 h-3.5 text-brand-cyan" />
+                              <FileText className="w-3.5 h-3.5 text-accent" />
                               <span>{art.title}</span>
                             </span>
-                            <span className="text-[10px] font-mono text-brand-cyan">View →</span>
+                            <span className="text-[10px] font-mono text-accent">View →</span>
                           </button>
                         ))}
                       </div>
@@ -283,12 +283,12 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
                       {msg.toolsExecuted.map((tool, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center space-x-2 px-2 py-1 rounded bg-obsidian-950 border border-obsidian-800 text-[10px] font-mono text-slate-400"
+                          className="flex items-center space-x-2 px-2 py-1 rounded bg-white border border-paper-200 text-[10px] font-mono text-slate-400"
                         >
-                          <Cpu className="w-3 h-3 text-brand-cyan" />
+                          <Cpu className="w-3 h-3 text-accent" />
                           <span className="text-slate-300">{tool.name}</span>
                           <span className="text-slate-500">({tool.durationMs}ms)</span>
-                          <span className="text-brand-emerald">200 OK</span>
+                          <span className="text-emerald-600">200 OK</span>
                         </div>
                       ))}
                     </div>
@@ -307,7 +307,7 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
                 </div>
 
                 {msg.sender === 'user' && (
-                  <div className="w-7 h-7 rounded-md bg-obsidian-800 border border-obsidian-700 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-7 h-7 rounded-md bg-paper-100 border border-paper-300 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <User className="w-4 h-4 text-slate-300" />
                   </div>
                 )}
@@ -315,7 +315,7 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
             ))}
 
             {isGenerating && (
-              <div className="flex items-center space-x-3 text-xs text-brand-cyan font-mono">
+              <div className="flex items-center space-x-3 text-xs text-accent font-mono">
                 <RotateCw className="w-4 h-4 animate-spin" />
                 <span>Invoking {currentAgent.name} harness...</span>
               </div>
@@ -325,13 +325,13 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
           </div>
 
           {/* Quick Starter Prompts */}
-          <div className="px-4 py-2 bg-obsidian-950/60 border-t border-obsidian-800/80 flex items-center space-x-2 overflow-x-auto text-[11px] font-mono">
+          <div className="px-4 py-2 bg-white/60 border-t border-paper-200/80 flex items-center space-x-2 overflow-x-auto text-[11px] font-mono">
             <span className="text-slate-500 flex-shrink-0">Starter:</span>
             {starterPrompts.map((p, idx) => (
               <button
                 key={idx}
                 onClick={() => setInputMessage(p)}
-                className="px-2.5 py-1 rounded bg-obsidian-850 hover:bg-obsidian-800 text-slate-300 border border-obsidian-750 whitespace-nowrap transition-colors"
+                className="px-2.5 py-1 rounded bg-obsidian-850 hover:bg-paper-100 text-slate-300 border border-obsidian-750 whitespace-nowrap transition-colors"
               >
                 {p}
               </button>
@@ -339,19 +339,19 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
           </div>
 
           {/* Chat Input Bar */}
-          <div className="p-3 bg-obsidian-950 border-t border-obsidian-800 flex items-center space-x-2">
+          <div className="p-3 bg-white border-t border-paper-200 flex items-center space-x-2">
             <input
               type="text"
               placeholder={`Ask ${currentAgent.name} (e.g. build competitor battlecard, audit ICP, write sequence)...`}
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-              className="flex-1 px-3.5 py-2.5 rounded-lg bg-obsidian-900 border border-obsidian-750 text-xs text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
+              className="flex-1 px-3.5 py-2.5 rounded-lg bg-paper-50 border border-obsidian-750 text-xs text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
             />
             <button
               onClick={handleSend}
               disabled={!inputMessage.trim() || isGenerating}
-              className="px-4 py-2.5 rounded-lg bg-brand-cyan hover:brightness-110 text-obsidian-950 font-bold text-xs flex items-center space-x-1.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-glow-cyan"
+              className="px-4 py-2.5 rounded-lg bg-accent hover:brightness-110 text-ink font-bold text-xs flex items-center space-x-1.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-glow-accent"
             >
               <span>Send</span>
               <Send className="w-3.5 h-3.5" />
@@ -360,26 +360,26 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
         </div>
 
         {/* Right: Live Artifact Inspector */}
-        <div className="lg:col-span-5 glass-panel rounded-xl border border-obsidian-700/80 h-[650px] flex flex-col overflow-hidden bg-obsidian-900/90 shadow-2xl">
-          <div className="px-4 py-3 bg-obsidian-950/80 border-b border-obsidian-800 flex items-center justify-between">
+        <div className="lg:col-span-5 card rounded-xl border border-paper-300/80 h-[650px] flex flex-col overflow-hidden bg-paper-50/90 shadow-2xl">
+          <div className="px-4 py-3 bg-white/80 border-b border-paper-200 flex items-center justify-between">
             <div className="flex items-center space-x-2">
-              <FileText className="w-4 h-4 text-brand-cyan" />
-              <span className="text-xs font-bold text-white">
+              <FileText className="w-4 h-4 text-accent" />
+              <span className="text-xs font-bold text-ink">
                 {selectedArtifact ? selectedArtifact.title : 'Live Artifact Inspector'}
               </span>
             </div>
 
             {selectedArtifact && (
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/20">
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-brand-emerald/20">
                 {selectedArtifact.version}
               </span>
             )}
           </div>
 
-          <div className="flex-1 p-5 overflow-y-auto text-xs text-slate-300 leading-relaxed bg-obsidian-950/60">
+          <div className="flex-1 p-5 overflow-y-auto text-xs text-slate-300 leading-relaxed bg-white/60">
             {selectedArtifact ? (
               <div className="space-y-4">
-                <div className="flex flex-wrap gap-1.5 pb-2 border-b border-obsidian-800">
+                <div className="flex flex-wrap gap-1.5 pb-2 border-b border-paper-200">
                   {selectedArtifact.tags.map((t, idx) => (
                     <span key={idx} className="px-2 py-0.5 rounded bg-obsidian-850 text-slate-400 font-mono text-[10px] border border-obsidian-750">
                       #{t}
@@ -402,12 +402,12 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
           </div>
 
           {selectedArtifact && (
-            <div className="p-3 bg-obsidian-950 border-t border-obsidian-800 flex items-center justify-between">
+            <div className="p-3 bg-white border-t border-paper-200 flex items-center justify-between">
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(selectedArtifact.content);
                 }}
-                className="px-3 py-1.5 rounded bg-obsidian-850 hover:bg-obsidian-800 text-slate-300 border border-obsidian-750 text-xs font-medium flex items-center space-x-1.5"
+                className="px-3 py-1.5 rounded bg-obsidian-850 hover:bg-paper-100 text-slate-300 border border-obsidian-750 text-xs font-medium flex items-center space-x-1.5"
               >
                 <Copy className="w-3.5 h-3.5" />
                 <span>Copy Artifact</span>
@@ -415,7 +415,7 @@ I can orchestrate all 5 specialized agents to build ICPs, competitive battlecard
 
               <button
                 onClick={() => onSaveArtifact(selectedArtifact)}
-                className="px-3 py-1.5 rounded bg-brand-cyan text-obsidian-950 text-xs font-bold hover:brightness-110 shadow-glow-cyan"
+                className="px-3 py-1.5 rounded bg-accent text-white text-xs font-bold hover:brightness-110 shadow-glow-accent"
               >
                 Save to Library
               </button>

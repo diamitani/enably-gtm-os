@@ -271,11 +271,11 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
       <div className="space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="flex items-center space-x-2 text-brand-cyan text-xs font-mono">
+            <div className="flex items-center space-x-2 text-accent text-xs font-mono">
               <Zap className="w-4 h-4" />
               <span>GTM Agent Workbench // ROSTR v2 Orchestrator</span>
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+            <h1 className="text-2xl sm:text-3xl font-bold text-ink mt-1">
               {currentAgent.name}
             </h1>
             <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
@@ -287,14 +287,14 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
             <span className="px-2.5 py-1 rounded bg-obsidian-850 text-slate-300 border border-obsidian-750">
               Model: Claude 3.7 Sonnet
             </span>
-            <span className="px-2.5 py-1 rounded bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/20">
+            <span className="px-2.5 py-1 rounded bg-emerald-500/10 text-emerald-600 border border-brand-emerald/20">
               Harness Ready
             </span>
           </div>
         </div>
 
         {/* 5-Agent Selector Bar */}
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 bg-obsidian-900/90 p-1.5 rounded-xl border border-obsidian-800">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 bg-paper-50/90 p-1.5 rounded-xl border border-paper-200">
           {ENABLY_AGENTS.map((agent) => (
             <button
               key={agent.id}
@@ -304,7 +304,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
               }}
               className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
                 selectedAgentId === agent.id
-                  ? 'bg-obsidian-800 text-white shadow-md border border-obsidian-600'
+                  ? 'bg-paper-100 text-ink shadow-md border border-paper-300'
                   : 'text-slate-400 hover:text-slate-200 hover:bg-obsidian-850/60'
               }`}
             >
@@ -322,29 +322,29 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Config Inputs & Triggers */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="glass-card rounded-xl p-6 border border-obsidian-800 space-y-5">
-            <div className="flex items-center justify-between pb-3 border-b border-obsidian-800">
-              <h3 className="text-sm font-bold text-white flex items-center space-x-2">
-                <Sliders className="w-4 h-4 text-brand-cyan" />
+          <div className="glass-card rounded-xl p-6 border border-paper-200 space-y-5">
+            <div className="flex items-center justify-between pb-3 border-b border-paper-200">
+              <h3 className="text-sm font-bold text-ink flex items-center space-x-2">
+                <Sliders className="w-4 h-4 text-accent" />
                 <span>Agent Configuration Parameters</span>
               </h3>
               <div className="flex items-center space-x-1.5">
                 <span className="text-[10px] font-mono text-slate-400">Presets:</span>
                 <button
                   onClick={() => handlePresetSelect('Security')}
-                  className="px-2 py-0.5 text-[10px] font-mono rounded bg-obsidian-800 hover:bg-obsidian-750 text-slate-300 border border-obsidian-700"
+                  className="px-2 py-0.5 text-[10px] font-mono rounded bg-paper-100 hover:bg-obsidian-750 text-slate-300 border border-paper-300"
                 >
                   Security
                 </button>
                 <button
                   onClick={() => handlePresetSelect('DevTool')}
-                  className="px-2 py-0.5 text-[10px] font-mono rounded bg-obsidian-800 hover:bg-obsidian-750 text-slate-300 border border-obsidian-700"
+                  className="px-2 py-0.5 text-[10px] font-mono rounded bg-paper-100 hover:bg-obsidian-750 text-slate-300 border border-paper-300"
                 >
                   DevTool
                 </button>
                 <button
                   onClick={() => handlePresetSelect('FinTech')}
-                  className="px-2 py-0.5 text-[10px] font-mono rounded bg-obsidian-800 hover:bg-obsidian-750 text-slate-300 border border-obsidian-700"
+                  className="px-2 py-0.5 text-[10px] font-mono rounded bg-paper-100 hover:bg-obsidian-750 text-slate-300 border border-paper-300"
                 >
                   FinTech
                 </button>
@@ -358,7 +358,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
                   type="text"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
                 />
               </div>
 
@@ -368,7 +368,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
                   type="text"
                   value={productCategory}
                   onChange={(e) => setProductCategory(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
                 />
               </div>
 
@@ -379,7 +379,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
                     type="text"
                     value={acvTarget}
                     onChange={(e) => setAcvTarget(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
                   />
                 </div>
                 <div>
@@ -388,7 +388,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
                     type="text"
                     value={toneStyle}
                     onChange={(e) => setToneStyle(e.target.value)}
-                    className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
+                    className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
                   />
                 </div>
               </div>
@@ -399,7 +399,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
                   type="text"
                   value={targetIndustry}
                   onChange={(e) => setTargetIndustry(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
                 />
               </div>
 
@@ -409,7 +409,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
                   type="text"
                   value={mainCompetitors}
                   onChange={(e) => setMainCompetitors(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors"
                 />
               </div>
 
@@ -419,7 +419,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
                   rows={3}
                   value={keyPainPoints}
                   onChange={(e) => setKeyPainPoints(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors resize-none"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-cyan transition-colors resize-none"
                 />
               </div>
             </div>
@@ -428,15 +428,15 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
             <button
               onClick={handleRunAgent}
               disabled={isRunning}
-              className={`w-full py-3 rounded-lg font-bold text-xs flex items-center justify-center space-x-2 transition-all shadow-glow-cyan ${
+              className={`w-full py-3 rounded-lg font-bold text-xs flex items-center justify-center space-x-2 transition-all shadow-glow-accent ${
                 isRunning 
-                  ? 'bg-obsidian-800 text-slate-400 cursor-not-allowed border border-obsidian-700' 
-                  : 'bg-gradient-to-r from-brand-cyan to-brand-blue text-obsidian-950 hover:brightness-110'
+                  ? 'bg-paper-100 text-slate-400 cursor-not-allowed border border-paper-300' 
+                  : 'bg-gradient-to-r from-brand-cyan to-brand-blue text-ink hover:brightness-110'
               }`}
             >
               {isRunning ? (
                 <>
-                  <RotateCw className="w-4 h-4 animate-spin text-brand-cyan" />
+                  <RotateCw className="w-4 h-4 animate-spin text-accent" />
                   <span>Synthesizing Agent Output...</span>
                 </>
               ) : (
@@ -449,14 +449,14 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
 
             {/* Progress Stepper */}
             {isRunning && (
-              <div className="p-3.5 rounded-lg bg-obsidian-950 border border-obsidian-800 space-y-2 text-xs font-mono">
-                <div className="text-[11px] text-brand-cyan flex items-center justify-between">
+              <div className="p-3.5 rounded-lg bg-white border border-paper-200 space-y-2 text-xs font-mono">
+                <div className="text-[11px] text-accent flex items-center justify-between">
                   <span>Harness Execution Step {executionStep} / 4</span>
                   <span className="text-slate-400">AWS Bedrock 200 OK</span>
                 </div>
                 <div className="w-full h-1.5 bg-obsidian-850 rounded-full overflow-hidden">
                   <div 
-                    className="h-full bg-brand-cyan transition-all duration-300 rounded-full"
+                    className="h-full bg-accent transition-all duration-300 rounded-full"
                     style={{ width: `${(executionStep / 4) * 100}%` }}
                   ></div>
                 </div>
@@ -467,23 +467,23 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
 
         {/* Right Column: Output Artifact Viewer */}
         <div className="lg:col-span-7 space-y-4">
-          <div className="glass-panel rounded-xl border border-obsidian-700/80 shadow-2xl overflow-hidden bg-obsidian-900/90">
+          <div className="card rounded-xl border border-paper-300/80 shadow-2xl overflow-hidden bg-paper-50/90">
             {/* Output Header */}
-            <div className="px-5 py-3 bg-obsidian-950/80 border-b border-obsidian-800 flex flex-wrap items-center justify-between gap-3">
+            <div className="px-5 py-3 bg-white/80 border-b border-paper-200 flex flex-wrap items-center justify-between gap-3">
               <div className="flex items-center space-x-2">
-                <FileText className="w-4 h-4 text-brand-cyan" />
-                <span className="text-xs font-bold text-white">Generated GTM Artifact</span>
-                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/20">
+                <FileText className="w-4 h-4 text-accent" />
+                <span className="text-xs font-bold text-ink">Generated GTM Artifact</span>
+                <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-600 border border-brand-emerald/20">
                   Version 1.0.0
                 </span>
               </div>
 
               <div className="flex items-center space-x-1.5">
-                <div className="flex items-center space-x-1 bg-obsidian-850 p-0.5 rounded-md border border-obsidian-700 text-xs">
+                <div className="flex items-center space-x-1 bg-obsidian-850 p-0.5 rounded-md border border-paper-300 text-xs">
                   <button
                     onClick={() => setOutputTab('formatted')}
                     className={`px-2.5 py-1 rounded text-[11px] transition-colors ${
-                      outputTab === 'formatted' ? 'bg-obsidian-750 text-white font-medium' : 'text-slate-400 hover:text-slate-200'
+                      outputTab === 'formatted' ? 'bg-obsidian-750 text-ink font-medium' : 'text-slate-400 hover:text-slate-200'
                     }`}
                   >
                     Formatted
@@ -491,7 +491,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
                   <button
                     onClick={() => setOutputTab('markdown')}
                     className={`px-2.5 py-1 rounded text-[11px] font-mono transition-colors ${
-                      outputTab === 'markdown' ? 'bg-obsidian-750 text-white font-medium' : 'text-slate-400 hover:text-slate-200'
+                      outputTab === 'markdown' ? 'bg-obsidian-750 text-ink font-medium' : 'text-slate-400 hover:text-slate-200'
                     }`}
                   >
                     Markdown
@@ -499,7 +499,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
                   <button
                     onClick={() => setOutputTab('json')}
                     className={`px-2.5 py-1 rounded text-[11px] font-mono transition-colors ${
-                      outputTab === 'json' ? 'bg-obsidian-750 text-white font-medium' : 'text-slate-400 hover:text-slate-200'
+                      outputTab === 'json' ? 'bg-obsidian-750 text-ink font-medium' : 'text-slate-400 hover:text-slate-200'
                     }`}
                   >
                     JSON Spec
@@ -508,18 +508,18 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
 
                 <button
                   onClick={copyOutput}
-                  className="p-1.5 rounded-md bg-obsidian-800 hover:bg-obsidian-750 text-slate-300 border border-obsidian-700 transition-colors"
+                  className="p-1.5 rounded-md bg-paper-100 hover:bg-obsidian-750 text-slate-300 border border-paper-300 transition-colors"
                   title="Copy to clipboard"
                 >
-                  {copied ? <Check className="w-4 h-4 text-brand-emerald" /> : <Copy className="w-4 h-4" />}
+                  {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Copy className="w-4 h-4" />}
                 </button>
 
                 <button
                   onClick={saveToLibrary}
                   className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md text-xs font-semibold transition-all ${
                     saved 
-                      ? 'bg-brand-emerald text-obsidian-950' 
-                      : 'bg-brand-cyan/15 text-brand-cyan hover:bg-brand-cyan/25 border border-brand-cyan/30'
+                      ? 'bg-emerald-500 text-ink' 
+                      : 'bg-accent/15 text-accent hover:bg-accent/25 border border-brand-cyan/30'
                   }`}
                 >
                   <BookmarkCheck className="w-3.5 h-3.5" />
@@ -529,15 +529,15 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
             </div>
 
             {/* Output Body */}
-            <div className="p-6 font-sans text-xs text-slate-200 bg-obsidian-950/70 overflow-y-auto max-h-[580px] leading-relaxed">
+            <div className="p-6 font-sans text-xs text-slate-200 bg-white/70 overflow-y-auto max-h-[580px] leading-relaxed">
               {outputTab === 'formatted' && (
                 <div className="prose prose-invert max-w-none space-y-4">
                   {generatedOutput.split('\n\n').map((block, idx) => {
                     if (block.startsWith('# ')) {
-                      return <h2 key={idx} className="text-xl font-bold text-white border-b border-obsidian-800 pb-2">{block.replace('# ', '')}</h2>;
+                      return <h2 key={idx} className="text-xl font-bold text-ink border-b border-paper-200 pb-2">{block.replace('# ', '')}</h2>;
                     }
                     if (block.startsWith('## ')) {
-                      return <h3 key={idx} className="text-base font-bold text-brand-cyan mt-4">{block.replace('## ', '')}</h3>;
+                      return <h3 key={idx} className="text-base font-bold text-accent mt-4">{block.replace('## ', '')}</h3>;
                     }
                     if (block.startsWith('### ')) {
                       return <h4 key={idx} className="text-sm font-semibold text-slate-200 mt-2">{block.replace('### ', '')}</h4>;
@@ -563,7 +563,7 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
               )}
 
               {outputTab === 'json' && (
-                <pre className="font-mono text-xs text-brand-cyan whitespace-pre-wrap leading-relaxed">
+                <pre className="font-mono text-xs text-accent whitespace-pre-wrap leading-relaxed">
                   {JSON.stringify({
                     schema: "agentcompanies/v1",
                     agent_id: selectedAgentId,
@@ -583,9 +583,9 @@ Comprehensive Go-To-Market blueprint coordinating ICP Discovery, Sales Playbook 
             </div>
 
             {/* Output Footer Status */}
-            <div className="px-5 py-3 bg-obsidian-950 border-t border-obsidian-800 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <div className="px-5 py-3 bg-white border-t border-paper-200 flex items-center justify-between text-[11px] text-slate-400 font-mono">
               <span className="flex items-center space-x-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-brand-emerald" />
+                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                 <span>ROSTR v2 Envelope Verified</span>
               </span>
               <span>Tokens: 1,482 in · 2,190 out</span>

@@ -65,7 +65,7 @@ export const MarketingView: React.FC<MarketingViewProps> = ({ onLaunchStudio, se
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
           <button
             onClick={() => setCurrentView('dashboard')}
-            className="btn-accent text-base px-8 py-3.5 shadow-glow-cyan"
+            className="btn-accent text-base px-8 py-3.5 shadow-glow-accent"
           >
             <Plus className="h-4 w-4" />
             <span>Create Your Team Now</span>
@@ -274,7 +274,7 @@ export const MarketingView: React.FC<MarketingViewProps> = ({ onLaunchStudio, se
 
           {/* Pillar 4: ROSTR Harness Engine (The Accent) */}
           <div className="card p-8 hover:shadow-float transition-all border-accent/30 bg-accent-soft/10">
-            <div className="h-12 w-12 rounded-2xl bg-accent text-white flex items-center justify-center mb-6 shadow-glow-cyan">
+            <div className="h-12 w-12 rounded-2xl bg-accent text-white flex items-center justify-center mb-6 shadow-glow-accent">
               <Zap className="h-6 w-6" />
             </div>
             <div className="chip bg-accent text-white mb-2">The Execution Layer Accent</div>
@@ -420,7 +420,7 @@ export const MarketingView: React.FC<MarketingViewProps> = ({ onLaunchStudio, se
           <p className="text-sm text-ink-muted max-w-xl mx-auto mb-8">
             Join revenue and creative leaders managing autonomous agent squads with 6th Agent.
           </p>
-          <button onClick={() => setCurrentView('dashboard')} className="btn-accent text-base px-8 py-3.5 shadow-glow-cyan">
+          <button onClick={() => setCurrentView('dashboard')} className="btn-accent text-base px-8 py-3.5 shadow-glow-accent">
             <Plus className="h-4 w-4" />
             <span>Launch Your Control Panel</span>
             <ArrowRight className="h-4 w-4" />

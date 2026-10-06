@@ -120,21 +120,21 @@ export const IntegrationsView: React.FC = () => {
   return (
     <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-8">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-obsidian-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-paper-200">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-mono text-accent uppercase tracking-wider mb-1">
             <Plug className="h-4 w-4" />
             <span>Integrations & Connectors Hub</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-white">
+          <h1 className="text-3xl font-extrabold text-ink">
             Connected GTM Platforms & APIs
           </h1>
-          <p className="text-xs text-obsidian-400 mt-1">
+          <p className="text-xs text-ink-muted mt-1">
             Manage your CRM, enrichment providers, sequencer webhooks, and AI gateway connections.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 rounded-xl border border-brand-emerald/30 bg-brand-emerald/10 px-3.5 py-2 text-xs font-semibold text-brand-emerald font-mono">
+        <div className="flex items-center gap-2 rounded-xl border border-brand-emerald/30 bg-emerald-500/10 px-3.5 py-2 text-xs font-semibold text-emerald-600 font-mono">
           <ShieldCheck className="h-4 w-4" />
           <span>Encrypted with AES-256</span>
         </div>
@@ -148,8 +148,8 @@ export const IntegrationsView: React.FC = () => {
             onClick={() => setSelectedCategory(cat)}
             className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors ${
               selectedCategory === cat
-                ? 'bg-brand-cyan text-obsidian-950 font-bold'
-                : 'bg-obsidian-900 text-obsidian-400 hover:text-white border border-obsidian-800'
+                ? 'bg-accent text-white font-bold'
+                : 'bg-paper-50 text-ink-muted hover:text-ink border border-paper-200'
             }`}
           >
             {cat}
@@ -162,25 +162,25 @@ export const IntegrationsView: React.FC = () => {
         {filteredIntegrations.map((item) => (
           <div
             key={item.id}
-            className="rounded-2xl border border-obsidian-800 bg-obsidian-900/60 p-6 flex flex-col justify-between shadow-glass-card hover:border-brand-cyan/40 transition-all space-y-4"
+            className="rounded-2xl border border-paper-200 bg-paper-50/60 p-6 flex flex-col justify-between shadow-card hover:border-brand-cyan/40 transition-all space-y-4"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <span className="rounded bg-obsidian-800 px-2 py-0.5 text-[10px] font-mono text-brand-cyan uppercase">
+                <span className="rounded bg-paper-100 px-2 py-0.5 text-[10px] font-mono text-accent uppercase">
                   {item.category}
                 </span>
-                <span className="text-[10px] font-mono text-obsidian-400">{item.authType}</span>
+                <span className="text-[10px] font-mono text-ink-muted">{item.authType}</span>
               </div>
 
-              <h3 className="text-base font-bold text-white">{item.name}</h3>
-              <p className="text-xs text-obsidian-400 leading-relaxed">{item.description}</p>
+              <h3 className="text-base font-bold text-ink">{item.name}</h3>
+              <p className="text-xs text-ink-muted leading-relaxed">{item.description}</p>
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-obsidian-800">
+            <div className="flex items-center justify-between pt-4 border-t border-paper-200">
               <span className={`flex items-center gap-1.5 text-xs font-mono font-semibold ${
-                item.connected ? 'text-brand-emerald' : 'text-obsidian-500'
+                item.connected ? 'text-emerald-600' : 'text-ink-faint'
               }`}>
-                <span className={`h-2 w-2 rounded-full ${item.connected ? 'bg-brand-emerald animate-pulse' : 'bg-obsidian-600'}`}></span>
+                <span className={`h-2 w-2 rounded-full ${item.connected ? 'bg-emerald-500 animate-pulse' : 'bg-obsidian-600'}`}></span>
                 {item.connected ? 'CONNECTED' : 'DISCONNECTED'}
               </span>
 
@@ -188,8 +188,8 @@ export const IntegrationsView: React.FC = () => {
                 onClick={() => toggleConnection(item.id)}
                 className={`rounded-xl px-4 py-1.5 text-xs font-semibold transition-colors ${
                   item.connected
-                    ? 'bg-obsidian-800 text-obsidian-300 hover:bg-obsidian-700'
-                    : 'bg-brand-cyan text-obsidian-950 font-bold hover:bg-brand-cyan/90'
+                    ? 'bg-paper-100 text-ink-soft hover:bg-paper-200'
+                    : 'bg-accent text-white font-bold hover:bg-accent/90'
                 }`}
               >
                 {item.connected ? 'Configure' : 'Connect'}

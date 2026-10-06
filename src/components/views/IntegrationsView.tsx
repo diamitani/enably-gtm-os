@@ -73,13 +73,13 @@ export const IntegrationsView: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-obsidian-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-paper-200">
         <div>
           <div className="flex items-center space-x-2 text-brand-violet text-xs font-mono">
             <Cpu className="w-4 h-4" />
             <span>Marketplace // Skills & Tool Connectors</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-ink mt-1">
             GTM Integration & Tool Marketplace
           </h1>
           <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-2xl">
@@ -95,12 +95,12 @@ export const IntegrationsView: React.FC = () => {
               placeholder="Search connectors..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-9 pr-3 py-1.5 rounded-lg bg-obsidian-900 border border-obsidian-750 text-xs text-slate-200 focus:outline-none focus:border-brand-cyan"
+              className="pl-9 pr-3 py-1.5 rounded-lg bg-paper-50 border border-obsidian-750 text-xs text-slate-200 focus:outline-none focus:border-brand-cyan"
             />
           </div>
 
-          <button className="px-3.5 py-1.5 rounded-lg bg-obsidian-850 hover:bg-obsidian-800 border border-obsidian-700 text-xs text-slate-200 font-medium flex items-center space-x-1.5">
-            <Plus className="w-3.5 h-3.5 text-brand-cyan" />
+          <button className="px-3.5 py-1.5 rounded-lg bg-obsidian-850 hover:bg-paper-100 border border-paper-300 text-xs text-slate-200 font-medium flex items-center space-x-1.5">
+            <Plus className="w-3.5 h-3.5 text-accent" />
             <span>Custom MCP Server</span>
           </button>
         </div>
@@ -128,17 +128,17 @@ export const IntegrationsView: React.FC = () => {
         {filteredIntegrations.map((item) => (
           <div
             key={item.id}
-            className="glass-card rounded-xl p-6 border border-obsidian-800 flex flex-col justify-between hover:border-obsidian-700 transition-all space-y-4"
+            className="glass-card rounded-xl p-6 border border-paper-200 flex flex-col justify-between hover:border-paper-300 transition-all space-y-4"
           >
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-lg bg-obsidian-850 border border-obsidian-750 flex items-center justify-center font-bold text-sm text-brand-cyan font-mono">
+                <div className="w-10 h-10 rounded-lg bg-obsidian-850 border border-obsidian-750 flex items-center justify-center font-bold text-sm text-accent font-mono">
                   {item.name.slice(0, 2).toUpperCase()}
                 </div>
 
                 <div className="flex items-center space-x-1.5">
                   {item.connected ? (
-                    <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-brand-emerald/10 text-brand-emerald border border-brand-emerald/20 text-[10px] font-mono">
+                    <span className="flex items-center space-x-1 px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-brand-emerald/20 text-[10px] font-mono">
                       <CheckCircle2 className="w-3 h-3" />
                       <span>Connected</span>
                     </span>
@@ -151,14 +151,14 @@ export const IntegrationsView: React.FC = () => {
               </div>
 
               <div>
-                <h3 className="text-sm font-bold text-white">{item.name}</h3>
+                <h3 className="text-sm font-bold text-ink">{item.name}</h3>
                 <p className="text-xs text-slate-400 mt-1 leading-relaxed line-clamp-2">
                   {item.description}
                 </p>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-obsidian-800/80 flex items-center justify-between text-xs">
+            <div className="pt-4 border-t border-paper-200/80 flex items-center justify-between text-xs">
               <div className="text-[11px] font-mono text-slate-500">
                 {item.lastSync ? `Sync: ${item.lastSync}` : 'Auth: ' + item.authType.toUpperCase()}
               </div>
@@ -185,16 +185,16 @@ export const IntegrationsView: React.FC = () => {
 
       {/* Integration Setup Modal */}
       {selectedIntegration && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-obsidian-950/80 backdrop-blur-md">
-          <div className="glass-panel rounded-xl p-6 border border-obsidian-700 bg-obsidian-900 max-w-md w-full space-y-5 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-obsidian-800">
-              <h3 className="text-base font-bold text-white flex items-center space-x-2">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white/80 backdrop-blur-md">
+          <div className="card rounded-xl p-6 border border-paper-300 bg-paper-50 max-w-md w-full space-y-5 shadow-2xl">
+            <div className="flex items-center justify-between pb-3 border-b border-paper-200">
+              <h3 className="text-base font-bold text-ink flex items-center space-x-2">
                 <Key className="w-4 h-4 text-brand-violet" />
                 <span>Connect {selectedIntegration.name}</span>
               </h3>
               <button
                 onClick={() => setSelectedIntegration(null)}
-                className="text-slate-400 hover:text-white text-sm"
+                className="text-slate-400 hover:text-ink text-sm"
               >
                 ✕
               </button>
@@ -214,11 +214,11 @@ export const IntegrationsView: React.FC = () => {
                   placeholder="sk_live_..."
                   value={apiKeyInput}
                   onChange={(e) => setApiKeyInput(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg bg-obsidian-950 border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-violet font-mono"
+                  className="w-full px-3 py-2 rounded-lg bg-white border border-obsidian-750 text-slate-200 focus:outline-none focus:border-brand-violet font-mono"
                 />
               </div>
 
-              <div className="p-3 rounded-lg bg-obsidian-950 border border-obsidian-800 text-[11px] text-slate-400 space-y-1">
+              <div className="p-3 rounded-lg bg-white border border-paper-200 text-[11px] text-slate-400 space-y-1">
                 <div className="font-semibold text-slate-300">Security & Encryption:</div>
                 <div>All keys are encrypted at rest using AWS KMS (AES-256) and never stored in client bundles.</div>
               </div>
@@ -227,7 +227,7 @@ export const IntegrationsView: React.FC = () => {
             <div className="flex items-center justify-end space-x-3 pt-2">
               <button
                 onClick={() => setSelectedIntegration(null)}
-                className="px-4 py-2 rounded-lg bg-obsidian-800 hover:bg-obsidian-750 text-slate-300 text-xs font-semibold"
+                className="px-4 py-2 rounded-lg bg-paper-100 hover:bg-obsidian-750 text-slate-300 text-xs font-semibold"
               >
                 Cancel
               </button>
@@ -235,7 +235,7 @@ export const IntegrationsView: React.FC = () => {
               <button
                 onClick={handleSaveModal}
                 disabled={isConnecting}
-                className="px-4 py-2 rounded-lg bg-brand-violet text-white font-bold text-xs hover:brightness-110 shadow-glow-violet transition-all"
+                className="px-4 py-2 rounded-lg bg-brand-violet text-ink font-bold text-xs hover:brightness-110 shadow-glow-violet transition-all"
               >
                 {isConnecting ? 'Verifying Key...' : 'Save & Connect'}
               </button>

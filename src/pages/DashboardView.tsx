@@ -138,7 +138,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onDirectToStudio, 
 
           <button
             onClick={() => setIsCreateTeamOpen(true)}
-            className="btn-accent text-xs py-2 px-4 shadow-glow-cyan"
+            className="btn-accent text-xs py-2 px-4 shadow-glow-accent"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>Create New Team</span>
@@ -200,7 +200,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onDirectToStudio, 
                 }`}
               >
                 <span>{t.name}</span>
-                <span className={`chip text-[9px] ${selectedTeamId === t.id ? 'bg-white/20 text-white' : 'bg-paper-200 text-ink-muted'}`}>
+                <span className={`chip text-[9px] ${selectedTeamId === t.id ? 'bg-white/20 text-ink' : 'bg-paper-200 text-ink-muted'}`}>
                   {t.members.length}
                 </span>
               </button>
@@ -488,9 +488,9 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onDirectToStudio, 
                               }}
                               className={`px-2 py-1 rounded text-[10px] font-mono capitalize ${
                                 currentAccess === mode
-                                  ? mode === 'approval' ? 'bg-amber-600 text-white font-bold' :
-                                    mode === 'write' ? 'bg-blue-600 text-white font-bold' :
-                                    mode === 'read' ? 'bg-emerald-600 text-white font-bold' :
+                                  ? mode === 'approval' ? 'bg-amber-600 text-ink font-bold' :
+                                    mode === 'write' ? 'bg-blue-600 text-ink font-bold' :
+                                    mode === 'read' ? 'bg-emerald-600 text-ink font-bold' :
                                     'bg-ink text-white font-bold'
                                   : 'bg-paper-200 text-ink-muted hover:bg-paper-300'
                               }`}
@@ -511,7 +511,7 @@ export const DashboardView: React.FC<DashboardViewProps> = ({ onDirectToStudio, 
               <button onClick={() => setEditingAgent(null)} className="btn-secondary">
                 Cancel
               </button>
-              <button onClick={() => handleSaveAgent(editingAgent)} className="btn-accent shadow-glow-cyan">
+              <button onClick={() => handleSaveAgent(editingAgent)} className="btn-accent shadow-glow-accent">
                 Save Configuration
               </button>
             </div>

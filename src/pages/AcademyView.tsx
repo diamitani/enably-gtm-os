@@ -78,22 +78,22 @@ export const AcademyView: React.FC = () => {
   return (
     <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-8">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-obsidian-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-paper-200">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-mono text-accent uppercase tracking-wider mb-1">
             <GraduationCap className="h-4 w-4" />
             <span>GTM Engineering Academy</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-white">
+          <h1 className="text-3xl font-extrabold text-ink">
             Mastery Courses & GTM Certifications
           </h1>
-          <p className="text-xs text-obsidian-400 mt-1">
+          <p className="text-xs text-ink-muted mt-1">
             Master ROSTR v2 Multi-Agent Architecture, autonomous n8n workflows, and high-conversion sales engineering.
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="flex items-center gap-2 rounded-xl border border-brand-emerald/30 bg-brand-emerald/10 px-4 py-2 text-xs font-semibold text-brand-emerald">
+          <div className="flex items-center gap-2 rounded-xl border border-brand-emerald/30 bg-emerald-500/10 px-4 py-2 text-xs font-semibold text-emerald-600">
             <Award className="h-4 w-4" />
             <span>3 Certifications Available</span>
           </div>
@@ -112,24 +112,24 @@ export const AcademyView: React.FC = () => {
                 setActiveLessonIndex(0);
                 handleResetQuiz();
               }}
-              className={`rounded-2xl border p-6 cursor-pointer transition-all shadow-glass-card ${
+              className={`rounded-2xl border p-6 cursor-pointer transition-all shadow-card ${
                 isSelected
-                  ? 'border-brand-cyan bg-obsidian-900 shadow-glow-cyan'
-                  : 'border-obsidian-800 bg-obsidian-900/50 hover:border-obsidian-700 hover:bg-obsidian-900/80'
+                  ? 'border-brand-cyan bg-paper-50 shadow-glow-accent'
+                  : 'border-paper-200 bg-paper-50/50 hover:border-paper-300 hover:bg-paper-50/80'
               }`}
             >
               <div className="flex items-center justify-between mb-3">
-                <span className="rounded bg-obsidian-800 px-2 py-0.5 text-[10px] font-mono text-brand-cyan uppercase">
+                <span className="rounded bg-paper-100 px-2 py-0.5 text-[10px] font-mono text-accent uppercase">
                   {course.level}
                 </span>
-                <span className="flex items-center gap-1 text-[11px] text-obsidian-400 font-mono">
+                <span className="flex items-center gap-1 text-[11px] text-ink-muted font-mono">
                   <Clock className="h-3 w-3" />
                   {course.duration}
                 </span>
               </div>
-              <h3 className="text-sm font-bold text-white mb-2">{course.title}</h3>
-              <p className="text-xs text-obsidian-400 leading-relaxed mb-4">{course.description}</p>
-              <div className="flex items-center justify-between text-xs text-brand-cyan font-semibold">
+              <h3 className="text-sm font-bold text-ink mb-2">{course.title}</h3>
+              <p className="text-xs text-ink-muted leading-relaxed mb-4">{course.description}</p>
+              <div className="flex items-center justify-between text-xs text-accent font-semibold">
                 <span>{course.lessonsCount} Interactive Modules</span>
                 <ChevronRight className="h-4 w-4" />
               </div>
@@ -143,31 +143,31 @@ export const AcademyView: React.FC = () => {
         {/* Left Side: Lesson Viewer & Certification Quiz */}
         <div className="lg:col-span-8 space-y-6">
           {/* Lesson Navigation Tabs */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-obsidian-800">
+          <div className="flex items-center gap-2 overflow-x-auto pb-2 border-b border-paper-200">
             {selectedCourse.lessons.map((les, idx) => (
               <button
                 key={les.id}
                 onClick={() => setActiveLessonIndex(idx)}
                 className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold whitespace-nowrap transition-colors ${
                   activeLessonIndex === idx
-                    ? 'bg-brand-cyan text-obsidian-950 shadow-sm'
-                    : 'bg-obsidian-900 text-obsidian-400 hover:text-white border border-obsidian-800'
+                    ? 'bg-accent text-white shadow-sm'
+                    : 'bg-paper-50 text-ink-muted hover:text-ink border border-paper-200'
                 }`}
               >
                 <span>Module {idx + 1}</span>
-                {les.completed && <CheckCircle2 className="h-3.5 w-3.5 text-brand-emerald" />}
+                {les.completed && <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />}
               </button>
             ))}
           </div>
 
           {/* Active Lesson Reader */}
-          <div className="rounded-2xl border border-obsidian-800 bg-obsidian-900/70 p-6 sm:p-8 space-y-6 shadow-glass-card">
-            <div className="flex items-center justify-between pb-4 border-b border-obsidian-800">
-              <h2 className="text-xl font-bold text-white">{activeLesson.title}</h2>
-              <span className="text-xs text-obsidian-400 font-mono">{activeLesson.duration}</span>
+          <div className="rounded-2xl border border-paper-200 bg-paper-50/70 p-6 sm:p-8 space-y-6 shadow-card">
+            <div className="flex items-center justify-between pb-4 border-b border-paper-200">
+              <h2 className="text-xl font-bold text-ink">{activeLesson.title}</h2>
+              <span className="text-xs text-ink-muted font-mono">{activeLesson.duration}</span>
             </div>
 
-            <div className="prose prose-invert prose-sm max-w-none text-obsidian-200 leading-relaxed">
+            <div className="prose prose-invert prose-sm max-w-none text-ink leading-relaxed">
               <div className="whitespace-pre-wrap font-sans text-xs">
                 {activeLesson.content}
               </div>
@@ -175,19 +175,19 @@ export const AcademyView: React.FC = () => {
           </div>
 
           {/* Certification Quiz Section */}
-          <div className="rounded-2xl border border-obsidian-800 bg-obsidian-900/60 p-6 sm:p-8 space-y-6 shadow-glass-card">
-            <div className="flex items-center justify-between pb-4 border-b border-obsidian-800">
+          <div className="rounded-2xl border border-paper-200 bg-paper-50/60 p-6 sm:p-8 space-y-6 shadow-card">
+            <div className="flex items-center justify-between pb-4 border-b border-paper-200">
               <div className="flex items-center gap-2.5">
-                <Award className="h-5 w-5 text-brand-cyan" />
+                <Award className="h-5 w-5 text-accent" />
                 <div>
-                  <h3 className="text-base font-bold text-white">Certification Exam: {selectedCourse.badgeName}</h3>
-                  <p className="text-xs text-obsidian-400">Pass with 100% to claim your verifiable badge.</p>
+                  <h3 className="text-base font-bold text-ink">Certification Exam: {selectedCourse.badgeName}</h3>
+                  <p className="text-xs text-ink-muted">Pass with 100% to claim your verifiable badge.</p>
                 </div>
               </div>
               {quizSubmitted && (
                 <span className={`rounded-full px-3 py-1 text-xs font-bold font-mono ${
                   quizScore === selectedCourse.quizQuestions.length 
-                    ? 'bg-brand-emerald/20 text-brand-emerald border border-brand-emerald/40'
+                    ? 'bg-emerald-500/20 text-emerald-600 border border-brand-emerald/40'
                     : 'bg-red-500/20 text-red-400 border border-red-500/40'
                 }`}>
                   Score: {quizScore} / {selectedCourse.quizQuestions.length}
@@ -198,23 +198,23 @@ export const AcademyView: React.FC = () => {
             <div className="space-y-6">
               {selectedCourse.quizQuestions.map((q, qIdx) => (
                 <div key={qIdx} className="space-y-3">
-                  <p className="text-xs font-semibold text-white">
+                  <p className="text-xs font-semibold text-ink">
                     {qIdx + 1}. {q.question}
                   </p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     {q.options.map((opt, optIdx) => {
                       const isSelected = quizAnswers[qIdx] === optIdx;
                       const isCorrect = q.correctIndex === optIdx;
-                      let btnStyle = 'border-obsidian-800 bg-obsidian-950 text-obsidian-300 hover:border-obsidian-700';
+                      let btnStyle = 'border-paper-200 bg-white text-ink-soft hover:border-paper-300';
 
                       if (quizSubmitted) {
                         if (isCorrect) {
-                          btnStyle = 'border-brand-emerald bg-brand-emerald/20 text-brand-emerald font-bold';
+                          btnStyle = 'border-brand-emerald bg-emerald-500/20 text-emerald-600 font-bold';
                         } else if (isSelected) {
                           btnStyle = 'border-red-500 bg-red-500/20 text-red-400';
                         }
                       } else if (isSelected) {
-                        btnStyle = 'border-brand-cyan bg-brand-cyan/20 text-brand-cyan font-bold';
+                        btnStyle = 'border-brand-cyan bg-accent/20 text-accent font-bold';
                       }
 
                       return (
@@ -232,24 +232,24 @@ export const AcademyView: React.FC = () => {
               ))}
             </div>
 
-            <div className="flex items-center justify-between pt-4 border-t border-obsidian-800">
+            <div className="flex items-center justify-between pt-4 border-t border-paper-200">
               {quizSubmitted ? (
                 <button
                   onClick={handleResetQuiz}
-                  className="flex items-center gap-1.5 text-xs text-brand-cyan hover:underline font-semibold"
+                  className="flex items-center gap-1.5 text-xs text-accent hover:underline font-semibold"
                 >
                   <RefreshCw className="h-3.5 w-3.5" />
                   <span>Retake Exam</span>
                 </button>
               ) : (
-                <span className="text-xs text-obsidian-500">Answer all questions to submit.</span>
+                <span className="text-xs text-ink-faint">Answer all questions to submit.</span>
               )}
 
               {!quizSubmitted && (
                 <button
                   onClick={handleSubmitQuiz}
                   disabled={Object.keys(quizAnswers).length !== selectedCourse.quizQuestions.length}
-                  className="rounded-xl bg-brand-cyan px-6 py-2.5 text-xs font-bold text-obsidian-950 hover:bg-brand-cyan/90 disabled:opacity-50 transition-colors"
+                  className="rounded-xl bg-accent px-6 py-2.5 text-xs font-bold text-ink hover:bg-accent/90 disabled:opacity-50 transition-colors"
                 >
                   Submit for Certification
                 </button>
@@ -259,13 +259,13 @@ export const AcademyView: React.FC = () => {
         </div>
 
         {/* Right Side: Interactive AI Tutor Chat Widget */}
-        <div className="lg:col-span-4 flex flex-col rounded-2xl border border-obsidian-800 bg-obsidian-900/80 p-5 shadow-glass-card h-[680px]">
-          <div className="flex items-center justify-between pb-3 border-b border-obsidian-800">
+        <div className="lg:col-span-4 flex flex-col rounded-2xl border border-paper-200 bg-paper-50/80 p-5 shadow-card h-[680px]">
+          <div className="flex items-center justify-between pb-3 border-b border-paper-200">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-brand-cyan" />
-              <span className="text-xs font-bold text-white">AI GTM Academy Tutor</span>
+              <Sparkles className="h-4 w-4 text-accent" />
+              <span className="text-xs font-bold text-ink">AI GTM Academy Tutor</span>
             </div>
-            <span className="h-2 w-2 rounded-full bg-brand-emerald animate-pulse"></span>
+            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></span>
           </div>
 
           {/* Messages */}
@@ -275,8 +275,8 @@ export const AcademyView: React.FC = () => {
                 key={idx}
                 className={`p-3 rounded-xl leading-relaxed ${
                   m.role === 'user'
-                    ? 'bg-brand-cyan/20 text-white border border-brand-cyan/30 ml-4'
-                    : 'bg-obsidian-950 text-obsidian-300 border border-obsidian-800 mr-2'
+                    ? 'bg-accent/20 text-ink border border-brand-cyan/30 ml-4'
+                    : 'bg-white text-ink-soft border border-paper-200 mr-2'
                 }`}
               >
                 {m.text}
@@ -285,18 +285,18 @@ export const AcademyView: React.FC = () => {
           </div>
 
           {/* Input */}
-          <div className="pt-3 border-t border-obsidian-800 flex gap-2">
+          <div className="pt-3 border-t border-paper-200 flex gap-2">
             <input
               type="text"
               value={tutorInput}
               onChange={(e) => setTutorInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSendTutorMessage()}
               placeholder="Ask AI Tutor a question..."
-              className="flex-1 rounded-xl border border-obsidian-700 bg-obsidian-950 px-3 py-2 text-xs text-white placeholder-obsidian-500 focus:border-brand-cyan focus:outline-none"
+              className="flex-1 rounded-xl border border-paper-300 bg-white px-3 py-2 text-xs text-ink placeholder-obsidian-500 focus:border-brand-cyan focus:outline-none"
             />
             <button
               onClick={handleSendTutorMessage}
-              className="rounded-xl bg-brand-cyan px-3.5 py-2 text-xs font-bold text-obsidian-950 hover:bg-brand-cyan/90 transition-colors"
+              className="rounded-xl bg-accent px-3.5 py-2 text-xs font-bold text-ink hover:bg-accent/90 transition-colors"
             >
               <Send className="h-3.5 w-3.5 fill-obsidian-950" />
             </button>

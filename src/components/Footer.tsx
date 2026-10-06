@@ -36,18 +36,18 @@ const COLUMNS = [
 
 export const Footer: React.FC<FooterProps> = ({ setCurrentView }) => {
   return (
-    <footer className="border-t border-obsidian-800/80 bg-obsidian-950">
+    <footer className="border-t border-paper-200/80 bg-white">
       <div className="mx-auto grid max-w-[1400px] gap-12 px-6 py-16 md:grid-cols-[1.4fr_repeat(3,1fr)]">
         <div className="space-y-4">
           <Logo size="sm" />
-          <p className="max-w-xs text-sm leading-relaxed text-obsidian-400">
+          <p className="max-w-xs text-sm leading-relaxed text-ink-muted">
             Specialist AI agents that plan, research and run your go-to-market, with you approving every move.
           </p>
         </div>
 
         {COLUMNS.map((col) => (
           <div key={col.title}>
-            <h2 className="text-sm font-semibold text-white">{col.title}</h2>
+            <h2 className="text-sm font-semibold text-ink">{col.title}</h2>
             <ul className="mt-4 space-y-2.5">
               {col.links.map((link) => (
                 <li key={link.label}>
@@ -57,12 +57,12 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentView }) => {
                         setCurrentView(link.view);
                         window.scrollTo({ top: 0 });
                       }}
-                      className="text-sm text-obsidian-400 transition-colors hover:text-white"
+                      className="text-sm text-ink-muted transition-colors hover:text-ink"
                     >
                       {link.label}
                     </button>
                   ) : (
-                    <a href={(link as { href: string }).href} className="text-sm text-obsidian-400 transition-colors hover:text-white">
+                    <a href={(link as { href: string }).href} className="text-sm text-ink-muted transition-colors hover:text-ink">
                       {link.label}
                     </a>
                   )}
@@ -74,7 +74,7 @@ export const Footer: React.FC<FooterProps> = ({ setCurrentView }) => {
       </div>
 
       <div className="border-t border-obsidian-900">
-        <div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-6 py-6 text-xs text-obsidian-500 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mx-auto flex max-w-[1400px] flex-col gap-2 px-6 py-6 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
           <span>© {new Date().getFullYear()} 6th Agent. All rights reserved.</span>
           <span className="font-mono">Built on Vercel AI SDK · Supabase · Stripe</span>
         </div>

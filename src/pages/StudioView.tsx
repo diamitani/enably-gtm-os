@@ -265,17 +265,17 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] overflow-hidden">
       {/* Studio Top Control Bar */}
-      <div className="flex flex-wrap items-center justify-between border-b border-obsidian-800 bg-obsidian-950/90 px-4 py-2.5 gap-4">
+      <div className="flex flex-wrap items-center justify-between border-b border-paper-200 bg-white/90 px-4 py-2.5 gap-4">
         {/* Agent Switcher */}
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2">
-            <Bot className="h-4 w-4 text-brand-cyan" />
-            <span className="text-xs font-semibold text-white">Active Agent:</span>
+            <Bot className="h-4 w-4 text-accent" />
+            <span className="text-xs font-semibold text-ink">Active Agent:</span>
           </div>
           <select
             value={selectedAgentId}
             onChange={(e) => setSelectedAgentId(e.target.value)}
-            className="rounded-lg border border-obsidian-700 bg-obsidian-900 px-3 py-1.5 text-xs font-medium text-white focus:border-brand-cyan focus:outline-none"
+            className="rounded-lg border border-paper-300 bg-paper-50 px-3 py-1.5 text-xs font-medium text-ink focus:border-brand-cyan focus:outline-none"
           >
             {GTM_AGENTS.map((agent) => (
               <option key={agent.id} value={agent.id}>
@@ -283,13 +283,13 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
               </option>
             ))}
           </select>
-          <span className="rounded bg-obsidian-800 px-2 py-0.5 text-[10px] font-mono text-obsidian-400 hidden sm:inline">
+          <span className="rounded bg-paper-100 px-2 py-0.5 text-[10px] font-mono text-ink-muted hidden sm:inline">
             v{selectedAgent.version}
           </span>
         </div>
 
         {/* Operating Mode Selector Tabs */}
-        <div className="flex items-center gap-1 rounded-lg border border-obsidian-800 bg-obsidian-900/80 p-1 overflow-x-auto">
+        <div className="flex items-center gap-1 rounded-lg border border-paper-200 bg-paper-50/80 p-1 overflow-x-auto">
           {[
             { id: 'chat', label: 'Chat & Swarm', icon: Bot },
             { id: 'pal_inspector', label: 'PAL Compiler', icon: Zap },
@@ -307,8 +307,8 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                 onClick={() => setOperatingMode(mode.id as any)}
                 className={`flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-all whitespace-nowrap ${
                   isActive
-                    ? 'bg-brand-cyan text-obsidian-950 font-bold shadow-sm'
-                    : 'text-obsidian-400 hover:text-white hover:bg-obsidian-800'
+                    ? 'bg-accent text-white font-bold shadow-sm'
+                    : 'text-ink-muted hover:text-ink hover:bg-paper-100'
                 }`}
               >
                 <Icon className="h-3 w-3" />
@@ -322,7 +322,7 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
       {/* Main Studio Body Grid (Left Workspace + Right Artifacts) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 flex-1 overflow-hidden">
         {/* Left Side: Active Operating Workstation */}
-        <div className="lg:col-span-8 flex flex-col h-full border-r border-obsidian-800 bg-obsidian-950/40 overflow-hidden">
+        <div className="lg:col-span-8 flex flex-col h-full border-r border-paper-200 bg-white/40 overflow-hidden">
           
           {/* 1. CHAT & SWARM MODE */}
           {operatingMode === 'chat' && (
@@ -334,12 +334,12 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                     key={msg.id}
                     className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
                   >
-                    <div className="flex items-center gap-2 mb-1 text-[11px] text-obsidian-400">
+                    <div className="flex items-center gap-2 mb-1 text-[11px] text-ink-muted">
                       {msg.role === 'user' ? (
                         <span>You • {msg.timestamp}</span>
                       ) : (
                         <div className="flex items-center gap-1.5">
-                          <span className="font-semibold text-brand-cyan">
+                          <span className="font-semibold text-accent">
                             {GET_AGENT_BY_ID(msg.agentId || '')?.name || '6th Agent Master GTM'}
                           </span>
                           <span>• {msg.timestamp}</span>
@@ -350,16 +350,16 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                     <div
                       className={`max-w-2xl rounded-2xl p-4 text-xs leading-relaxed ${
                         msg.role === 'user'
-                          ? 'bg-gradient-to-r from-brand-blue/30 to-brand-violet/30 border border-brand-cyan/40 text-white shadow-sm'
-                          : 'glass-panel text-obsidian-200 border border-obsidian-700/80 shadow-glass-card'
+                          ? 'bg-gradient-to-r from-brand-blue/30 to-brand-violet/30 border border-brand-cyan/40 text-ink shadow-sm'
+                          : 'card text-ink border border-paper-300/80 shadow-card'
                       }`}
                     >
                       {/* Tool Call Tag if present */}
                       {msg.toolCall && (
-                        <div className="mb-2 inline-flex items-center gap-1.5 rounded bg-obsidian-900 px-2 py-0.5 text-[10px] font-mono text-brand-cyan border border-obsidian-700">
+                        <div className="mb-2 inline-flex items-center gap-1.5 rounded bg-paper-50 px-2 py-0.5 text-[10px] font-mono text-accent border border-paper-300">
                           <Zap className="h-3 w-3" />
                           <span>Tool: {msg.toolCall.tool}</span>
-                          <span className="text-obsidian-400 font-sans">({msg.toolCall.details})</span>
+                          <span className="text-ink-muted font-sans">({msg.toolCall.details})</span>
                         </div>
                       )}
 
@@ -374,7 +374,7 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                             <Lock className="h-3.5 w-3.5 text-yellow-400" />
                             <span className="text-[11px] font-semibold">Host Approval Gate Required</span>
                           </div>
-                          <button className="rounded bg-yellow-400 px-2.5 py-1 text-[10px] font-bold text-obsidian-950 hover:bg-yellow-300">
+                          <button className="rounded bg-yellow-400 px-2.5 py-1 text-[10px] font-bold text-ink hover:bg-yellow-300">
                             Issue Approval Token
                           </button>
                         </div>
@@ -384,7 +384,7 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                 ))}
 
                 {isGenerating && (
-                  <div className="flex items-center gap-3 text-xs text-brand-cyan font-mono animate-pulse">
+                  <div className="flex items-center gap-3 text-xs text-accent font-mono animate-pulse">
                     <RefreshCw className="h-3.5 w-3.5 animate-spin" />
                     <span>ROSTR v2 PAL Compiler running multi-pass enhancement...</span>
                   </div>
@@ -392,9 +392,9 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
               </div>
 
               {/* Input Area */}
-              <div className="p-4 border-t border-obsidian-800 bg-obsidian-950">
+              <div className="p-4 border-t border-paper-200 bg-white">
                 <div className="flex items-center gap-2 mb-2 overflow-x-auto pb-1 text-[11px]">
-                  <span className="text-obsidian-400 whitespace-nowrap">Suggested Directives:</span>
+                  <span className="text-ink-muted whitespace-nowrap">Suggested Directives:</span>
                   {[
                     'Generate 5-pillar n8n workflow for Series A SaaS',
                     'Draft MEDDICC Sales Bible for mid-market services',
@@ -404,7 +404,7 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                     <button
                       key={sug}
                       onClick={() => handleSendMessage(sug)}
-                      className="rounded-full bg-obsidian-900 border border-obsidian-700 px-3 py-1 text-obsidian-300 hover:text-brand-cyan hover:border-brand-cyan/40 whitespace-nowrap transition-colors"
+                      className="rounded-full bg-paper-50 border border-paper-300 px-3 py-1 text-ink-soft hover:text-accent hover:border-brand-cyan/40 whitespace-nowrap transition-colors"
                     >
                       {sug}
                     </button>
@@ -418,12 +418,12 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                     onChange={(e) => setInputPrompt(e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()}
                     placeholder={`Direct ${selectedAgent.name} (e.g. "Build outbound cadence for fintech buyers")...`}
-                    className="flex-1 rounded-xl border border-obsidian-700 bg-obsidian-900 px-4 py-3 text-xs text-white placeholder-obsidian-500 focus:border-brand-cyan focus:outline-none focus:ring-1 focus:ring-brand-cyan"
+                    className="flex-1 rounded-xl border border-paper-300 bg-paper-50 px-4 py-3 text-xs text-ink placeholder-obsidian-500 focus:border-brand-cyan focus:outline-none focus:ring-1 focus:ring-brand-cyan"
                   />
                   <button
                     onClick={() => handleSendMessage()}
                     disabled={isGenerating || !inputPrompt.trim()}
-                    className="rounded-xl bg-gradient-to-r from-brand-cyan to-brand-blue px-5 py-3 text-xs font-bold text-obsidian-950 hover:opacity-95 disabled:opacity-50 transition-all flex items-center gap-1.5 shadow-glow-cyan"
+                    className="rounded-xl bg-gradient-to-r from-brand-cyan to-brand-blue px-5 py-3 text-xs font-bold text-ink hover:opacity-95 disabled:opacity-50 transition-all flex items-center gap-1.5 shadow-glow-accent"
                   >
                     <Send className="h-3.5 w-3.5 fill-obsidian-950" />
                     <span className="hidden sm:inline">Send</span>
@@ -436,46 +436,46 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
           {/* 2. PAL COMPILER INSPECTOR */}
           {operatingMode === 'pal_inspector' && (
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-obsidian-800">
+              <div className="flex items-center justify-between pb-4 border-b border-paper-200">
                 <div>
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <Zap className="h-4 w-4 text-brand-cyan" />
+                  <h3 className="text-base font-bold text-ink flex items-center gap-2">
+                    <Zap className="h-4 w-4 text-accent" />
                     <span>PAL 5-Stage Intent Compiler</span>
                   </h3>
-                  <p className="text-xs text-obsidian-400">
+                  <p className="text-xs text-ink-muted">
                     Inspect the transformation from raw natural language intent into typed, executable agent runtime manifests.
                   </p>
                 </div>
-                <span className="rounded-full bg-brand-cyan/10 px-3 py-1 text-xs font-mono text-brand-cyan border border-brand-cyan/30">
+                <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-mono text-accent border border-brand-cyan/30">
                   Ambiguity: {activePal.ambiguity_score}
                 </span>
               </div>
 
               {/* 5 Stages Flow */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4 space-y-2">
-                  <div className="text-[11px] font-mono font-bold text-brand-cyan">Stage 1: Intent Extraction</div>
-                  <div className="text-xs text-obsidian-300"><strong>Primary Intent:</strong> {activePal.primary_intent}</div>
-                  <div className="text-xs text-obsidian-300"><strong>Domain:</strong> <span className="font-mono text-brand-violet">{activePal.domain}</span></div>
-                  <div className="text-xs text-obsidian-300"><strong>Urgency:</strong> {activePal.urgency}</div>
+                <div className="rounded-xl border border-paper-200 bg-paper-50/60 p-4 space-y-2">
+                  <div className="text-[11px] font-mono font-bold text-accent">Stage 1: Intent Extraction</div>
+                  <div className="text-xs text-ink-soft"><strong>Primary Intent:</strong> {activePal.primary_intent}</div>
+                  <div className="text-xs text-ink-soft"><strong>Domain:</strong> <span className="font-mono text-brand-violet">{activePal.domain}</span></div>
+                  <div className="text-xs text-ink-soft"><strong>Urgency:</strong> {activePal.urgency}</div>
                 </div>
 
-                <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4 space-y-2">
-                  <div className="text-[11px] font-mono font-bold text-brand-emerald">Stage 2: Context Injection</div>
-                  <div className="text-xs text-obsidian-300"><strong>Project State:</strong> {activePal.injected_context.project_state}</div>
-                  <div className="text-xs text-obsidian-400"><strong>Decisions Injected:</strong> {activePal.injected_context.prior_decisions.length} rules loaded</div>
+                <div className="rounded-xl border border-paper-200 bg-paper-50/60 p-4 space-y-2">
+                  <div className="text-[11px] font-mono font-bold text-emerald-600">Stage 2: Context Injection</div>
+                  <div className="text-xs text-ink-soft"><strong>Project State:</strong> {activePal.injected_context.project_state}</div>
+                  <div className="text-xs text-ink-muted"><strong>Decisions Injected:</strong> {activePal.injected_context.prior_decisions.length} rules loaded</div>
                 </div>
 
-                <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4 space-y-2 md:col-span-2">
+                <div className="rounded-xl border border-paper-200 bg-paper-50/60 p-4 space-y-2 md:col-span-2">
                   <div className="text-[11px] font-mono font-bold text-brand-blue">Stage 3: Semantic Enhancement</div>
-                  <p className="text-xs text-obsidian-200 leading-relaxed bg-obsidian-950 p-3 rounded-lg border border-obsidian-800">
+                  <p className="text-xs text-ink leading-relaxed bg-white p-3 rounded-lg border border-paper-200">
                     {activePal.enhanced_instruction}
                   </p>
                 </div>
 
-                <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/60 p-4 space-y-2 md:col-span-2">
+                <div className="rounded-xl border border-paper-200 bg-paper-50/60 p-4 space-y-2 md:col-span-2">
                   <div className="text-[11px] font-mono font-bold text-brand-violet">Stage 4 & 5: Compiled Runtime Manifest & Routing</div>
-                  <pre className="text-[11px] font-mono text-obsidian-200 bg-obsidian-950 p-3 rounded-lg border border-obsidian-800 overflow-x-auto">
+                  <pre className="text-[11px] font-mono text-ink bg-white p-3 rounded-lg border border-paper-200 overflow-x-auto">
                     {activePal.compiled_yaml}
                   </pre>
                 </div>
@@ -486,18 +486,18 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
           {/* 3. RAG DAL 3-TIER RESEARCH WORKSTATION */}
           {operatingMode === 'rag_dal' && (
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-obsidian-800 gap-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-paper-200 gap-4">
                 <div>
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <Search className="h-4 w-4 text-brand-cyan" />
+                  <h3 className="text-base font-bold text-ink flex items-center gap-2">
+                    <Search className="h-4 w-4 text-accent" />
                     <span>RAG DAL (Dynamic Acquisition Layer)</span>
                   </h3>
-                  <p className="text-xs text-obsidian-400">
+                  <p className="text-xs text-ink-muted">
                     Hierarchical 3-Tier Source Credibility (Tier 1: 1.0, Tier 2: 0.75, Tier 3: 0.40) with multi-pass convergence.
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-xs font-mono text-brand-emerald font-bold">
+                  <span className="text-xs font-mono text-emerald-600 font-bold">
                     Confidence: {(ragDalResult.confidence * 100).toFixed(0)}%
                   </span>
                 </div>
@@ -510,46 +510,46 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                   value={researchQuery}
                   onChange={(e) => setResearchQuery(e.target.value)}
                   placeholder="Enter market or technical research query..."
-                  className="flex-1 rounded-xl border border-obsidian-700 bg-obsidian-900 px-4 py-2.5 text-xs text-white placeholder-obsidian-500 focus:border-brand-cyan focus:outline-none"
+                  className="flex-1 rounded-xl border border-paper-300 bg-paper-50 px-4 py-2.5 text-xs text-ink placeholder-obsidian-500 focus:border-brand-cyan focus:outline-none"
                 />
                 <button
                   onClick={() => setRagDalResult(RostrEngine.performResearch(researchQuery))}
-                  className="rounded-xl bg-brand-cyan px-5 py-2.5 text-xs font-bold text-obsidian-950 hover:bg-brand-cyan/90 transition-colors"
+                  className="rounded-xl bg-accent px-5 py-2.5 text-xs font-bold text-ink hover:bg-accent/90 transition-colors"
                 >
                   Run 3-Tier Passes
                 </button>
               </div>
 
               {/* Research Synthesis Brief */}
-              <div className="rounded-xl border border-obsidian-800 bg-obsidian-900/70 p-5 space-y-3">
-                <h4 className="text-xs font-bold text-white uppercase tracking-wider">
+              <div className="rounded-xl border border-paper-200 bg-paper-50/70 p-5 space-y-3">
+                <h4 className="text-xs font-bold text-ink uppercase tracking-wider">
                   Synthesized Ground-Truth Report
                 </h4>
-                <div className="prose prose-invert prose-xs text-obsidian-200">
+                <div className="prose prose-invert prose-xs text-ink">
                   {ragDalResult.synthesized_brief}
                 </div>
               </div>
 
               {/* Source Stratification */}
               <div className="space-y-3">
-                <h4 className="text-xs font-bold text-obsidian-300 uppercase tracking-wider">
+                <h4 className="text-xs font-bold text-ink-soft uppercase tracking-wider">
                   Tiered Source Provenance ({ragDalResult.sources.length} Verified Sources)
                 </h4>
                 <div className="space-y-2">
                   {ragDalResult.sources.map((src) => (
-                    <div key={src.id} className="rounded-xl border border-obsidian-800 bg-obsidian-950 p-3.5 space-y-1.5">
+                    <div key={src.id} className="rounded-xl border border-paper-200 bg-white p-3.5 space-y-1.5">
                       <div className="flex items-center justify-between">
-                        <span className="text-xs font-semibold text-white">{src.title}</span>
+                        <span className="text-xs font-semibold text-ink">{src.title}</span>
                         <span className={`rounded px-2 py-0.5 text-[10px] font-mono font-bold ${
-                          src.tier === 1 ? 'bg-brand-emerald/20 text-brand-emerald border border-brand-emerald/30' :
+                          src.tier === 1 ? 'bg-emerald-500/20 text-emerald-600 border border-brand-emerald/30' :
                           src.tier === 2 ? 'bg-brand-blue/20 text-brand-blue border border-brand-blue/30' :
-                          'bg-obsidian-800 text-obsidian-400'
+                          'bg-paper-100 text-ink-muted'
                         }`}>
                           Tier {src.tier} (Weight {src.credibility_score})
                         </span>
                       </div>
-                      <p className="text-[11px] text-obsidian-400 leading-relaxed">{src.excerpt}</p>
-                      <div className="text-[10px] text-obsidian-500 font-mono">{src.author} • {src.published_date}</div>
+                      <p className="text-[11px] text-ink-muted leading-relaxed">{src.excerpt}</p>
+                      <div className="text-[10px] text-ink-faint font-mono">{src.author} • {src.published_date}</div>
                     </div>
                   ))}
                 </div>
@@ -560,13 +560,13 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
           {/* 4. NPAO TASK BOARD & SCHEDULER */}
           {operatingMode === 'npao_board' && (
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-obsidian-800">
+              <div className="flex items-center justify-between pb-4 border-b border-paper-200">
                 <div>
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <Layers className="h-4 w-4 text-brand-cyan" />
+                  <h3 className="text-base font-bold text-ink flex items-center gap-2">
+                    <Layers className="h-4 w-4 text-accent" />
                     <span>NPAO Multi-Dimensional Task Scheduler</span>
                   </h3>
-                  <p className="text-xs text-obsidian-400">
+                  <p className="text-xs text-ink-muted">
                     Execution order: <strong>Necessity</strong> (blockers) → <strong>Anxiety</strong> (friction) → <strong>Priority</strong> (mission) → <strong>Opportunity</strong> (growth).
                   </p>
                 </div>
@@ -580,8 +580,8 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                 {[
                   { title: '1. Necessity (Blockers)', cat: 'necessity', color: 'border-red-500/40 bg-red-500/5 text-red-300' },
                   { title: '2. Anxiety (Friction)', cat: 'anxiety', color: 'border-yellow-500/40 bg-yellow-500/5 text-yellow-300' },
-                  { title: '3. Priority (Mission)', cat: 'priority', color: 'border-brand-cyan/40 bg-brand-cyan/5 text-brand-cyan' },
-                  { title: '4. Opportunity (Growth)', cat: 'opportunity', color: 'border-brand-emerald/40 bg-brand-emerald/5 text-brand-emerald' },
+                  { title: '3. Priority (Mission)', cat: 'priority', color: 'border-brand-cyan/40 bg-accent/5 text-accent' },
+                  { title: '4. Opportunity (Growth)', cat: 'opportunity', color: 'border-brand-emerald/40 bg-emerald-500/5 text-emerald-600' },
                 ].map((col) => (
                   <div key={col.cat} className="space-y-3">
                     <div className={`rounded-xl border p-2.5 text-xs font-bold uppercase tracking-wider text-center ${col.color}`}>
@@ -589,38 +589,38 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                     </div>
                     <div className="space-y-2">
                       {col.cat === 'necessity' && (
-                        <div className="rounded-xl border border-obsidian-800 bg-obsidian-900 p-3 text-xs space-y-1">
-                          <div className="font-semibold text-white">DKIM & DMARC DNS Alignment</div>
-                          <div className="text-[11px] text-obsidian-400">Hard deliverability requirement</div>
-                          <div className="text-[10px] font-mono text-brand-emerald font-bold">Score: 9.8 / 10</div>
+                        <div className="rounded-xl border border-paper-200 bg-paper-50 p-3 text-xs space-y-1">
+                          <div className="font-semibold text-ink">DKIM & DMARC DNS Alignment</div>
+                          <div className="text-[11px] text-ink-muted">Hard deliverability requirement</div>
+                          <div className="text-[10px] font-mono text-emerald-600 font-bold">Score: 9.8 / 10</div>
                         </div>
                       )}
                       {col.cat === 'anxiety' && (
-                        <div className="rounded-xl border border-obsidian-800 bg-obsidian-900 p-3 text-xs space-y-1">
-                          <div className="font-semibold text-white">ContextEngine Session Audit</div>
-                          <div className="text-[11px] text-obsidian-400">Prevent cold-start re-briefing</div>
+                        <div className="rounded-xl border border-paper-200 bg-paper-50 p-3 text-xs space-y-1">
+                          <div className="font-semibold text-ink">ContextEngine Session Audit</div>
+                          <div className="text-[11px] text-ink-muted">Prevent cold-start re-briefing</div>
                           <div className="text-[10px] font-mono text-yellow-400 font-bold">Score: 8.2 / 10</div>
                         </div>
                       )}
                       {col.cat === 'priority' && (
                         <>
-                          <div className="rounded-xl border border-obsidian-800 bg-obsidian-900 p-3 text-xs space-y-1">
-                            <div className="font-semibold text-white">Deploy 5-Pillar n8n Outbound</div>
-                            <div className="text-[11px] text-obsidian-400">Assigned: Prospect Automation Engineer</div>
-                            <div className="text-[10px] font-mono text-brand-cyan font-bold">Score: 8.9 / 10</div>
+                          <div className="rounded-xl border border-paper-200 bg-paper-50 p-3 text-xs space-y-1">
+                            <div className="font-semibold text-ink">Deploy 5-Pillar n8n Outbound</div>
+                            <div className="text-[11px] text-ink-muted">Assigned: Prospect Automation Engineer</div>
+                            <div className="text-[10px] font-mono text-accent font-bold">Score: 8.9 / 10</div>
                           </div>
-                          <div className="rounded-xl border border-obsidian-800 bg-obsidian-900 p-3 text-xs space-y-1">
-                            <div className="font-semibold text-white">Export MEDDICC Sales Bible</div>
-                            <div className="text-[11px] text-obsidian-400">Assigned: Sales Playbook Architect</div>
-                            <div className="text-[10px] font-mono text-brand-cyan font-bold">Score: 7.6 / 10</div>
+                          <div className="rounded-xl border border-paper-200 bg-paper-50 p-3 text-xs space-y-1">
+                            <div className="font-semibold text-ink">Export MEDDICC Sales Bible</div>
+                            <div className="text-[11px] text-ink-muted">Assigned: Sales Playbook Architect</div>
+                            <div className="text-[10px] font-mono text-accent font-bold">Score: 7.6 / 10</div>
                           </div>
                         </>
                       )}
                       {col.cat === 'opportunity' && (
-                        <div className="rounded-xl border border-obsidian-800 bg-obsidian-900 p-3 text-xs space-y-1">
-                          <div className="font-semibold text-white">SignalWire Voice AI Call Experiment</div>
-                          <div className="text-[11px] text-obsidian-400">Automated 90s phone qualifier</div>
-                          <div className="text-[10px] font-mono text-brand-emerald font-bold">Score: 6.4 / 10</div>
+                        <div className="rounded-xl border border-paper-200 bg-paper-50 p-3 text-xs space-y-1">
+                          <div className="font-semibold text-ink">SignalWire Voice AI Call Experiment</div>
+                          <div className="text-[11px] text-ink-muted">Automated 90s phone qualifier</div>
+                          <div className="text-[10px] font-mono text-emerald-600 font-bold">Score: 6.4 / 10</div>
                         </div>
                       )}
                     </div>
@@ -633,49 +633,49 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
           {/* 5. CONTEXTENGINE MEMORY INSPECTOR */}
           {operatingMode === 'context_engine' && (
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-obsidian-800">
+              <div className="flex items-center justify-between pb-4 border-b border-paper-200">
                 <div>
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <Database className="h-4 w-4 text-brand-cyan" />
+                  <h3 className="text-base font-bold text-ink flex items-center gap-2">
+                    <Database className="h-4 w-4 text-accent" />
                     <span>ContextEngine (Zero-Infrastructure Session Memory)</span>
                   </h3>
-                  <p className="text-xs text-obsidian-400">
+                  <p className="text-xs text-ink-muted">
                     Flat-file human-readable append-only memory (.context/CONTEXT.md). Eliminates session amnesia.
                   </p>
                 </div>
-                <span className="rounded-full bg-brand-emerald/10 px-3 py-1 text-xs font-mono text-brand-emerald border border-brand-emerald/30">
+                <span className="rounded-full bg-emerald-500/10 px-3 py-1 text-xs font-mono text-emerald-600 border border-brand-emerald/30">
                   Zero Vector DB Dependency
                 </span>
               </div>
 
               <div className="space-y-4">
-                <div className="rounded-xl border border-obsidian-800 bg-obsidian-900 p-4 space-y-2">
-                  <span className="text-xs font-bold text-white uppercase tracking-wider">Accomplishments (This Session)</span>
-                  <ul className="space-y-1.5 text-xs text-obsidian-300">
+                <div className="rounded-xl border border-paper-200 bg-paper-50 p-4 space-y-2">
+                  <span className="text-xs font-bold text-ink uppercase tracking-wider">Accomplishments (This Session)</span>
+                  <ul className="space-y-1.5 text-xs text-ink-soft">
                     {contextSession.accomplishments.map((acc, i) => (
                       <li key={i} className="flex items-center gap-2">
-                        <Check className="h-3.5 w-3.5 text-brand-emerald" />
+                        <Check className="h-3.5 w-3.5 text-emerald-600" />
                         <span>{acc}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="rounded-xl border border-obsidian-800 bg-obsidian-900 p-4 space-y-2">
-                  <span className="text-xs font-bold text-white uppercase tracking-wider">Decisions Logged</span>
+                <div className="rounded-xl border border-paper-200 bg-paper-50 p-4 space-y-2">
+                  <span className="text-xs font-bold text-ink uppercase tracking-wider">Decisions Logged</span>
                   <div className="space-y-2">
                     {contextSession.decisions_made.map((dec, i) => (
-                      <div key={i} className="rounded-lg bg-obsidian-950 p-2.5 text-xs border border-obsidian-800">
-                        <div className="font-semibold text-brand-cyan">{dec.decision}</div>
-                        <div className="text-obsidian-400 text-[11px] mt-0.5">Rationale: {dec.rationale}</div>
+                      <div key={i} className="rounded-lg bg-white p-2.5 text-xs border border-paper-200">
+                        <div className="font-semibold text-accent">{dec.decision}</div>
+                        <div className="text-ink-muted text-[11px] mt-0.5">Rationale: {dec.rationale}</div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-obsidian-800 bg-obsidian-900 p-4 space-y-2">
-                  <span className="text-xs font-bold text-white uppercase tracking-wider">Next Recommended Action</span>
-                  <p className="text-xs text-brand-emerald font-semibold">
+                <div className="rounded-xl border border-paper-200 bg-paper-50 p-4 space-y-2">
+                  <span className="text-xs font-bold text-ink uppercase tracking-wider">Next Recommended Action</span>
+                  <p className="text-xs text-emerald-600 font-semibold">
                     {contextSession.next_recommended_action}
                   </p>
                 </div>
@@ -686,31 +686,31 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
           {/* 6. N8N WORKFLOW SANDBOX */}
           {operatingMode === 'workflow_sandbox' && (
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-obsidian-800">
+              <div className="flex items-center justify-between pb-4 border-b border-paper-200">
                 <div>
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <Workflow className="h-4 w-4 text-brand-cyan" />
+                  <h3 className="text-base font-bold text-ink flex items-center gap-2">
+                    <Workflow className="h-4 w-4 text-accent" />
                     <span>Autonomous n8n & Make.com Workflow Sandbox</span>
                   </h3>
-                  <p className="text-xs text-obsidian-400">
+                  <p className="text-xs text-ink-muted">
                     Live blueprint editor with JSON schema validation, node connectors, and execution simulation.
                   </p>
                 </div>
                 <button
                   onClick={() => setActiveArtifact(DEFAULT_WORKFLOWS[0].jsonDefinition)}
-                  className="rounded-lg bg-brand-cyan px-3.5 py-1.5 text-xs font-bold text-obsidian-950 hover:bg-brand-cyan/90 transition-colors"
+                  className="rounded-lg bg-accent px-3.5 py-1.5 text-xs font-bold text-ink hover:bg-accent/90 transition-colors"
                 >
                   Load into Artifacts
                 </button>
               </div>
 
               <div className="space-y-4">
-                <div className="rounded-xl border border-obsidian-800 bg-obsidian-900 p-4">
-                  <div className="flex items-center justify-between pb-2 border-b border-obsidian-800 mb-3">
-                    <span className="text-xs font-bold text-white">Active Blueprint: 5-Pillar Outbound Pipeline</span>
-                    <span className="text-[10px] font-mono text-brand-emerald font-bold">9 Nodes Connected</span>
+                <div className="rounded-xl border border-paper-200 bg-paper-50 p-4">
+                  <div className="flex items-center justify-between pb-2 border-b border-paper-200 mb-3">
+                    <span className="text-xs font-bold text-ink">Active Blueprint: 5-Pillar Outbound Pipeline</span>
+                    <span className="text-[10px] font-mono text-emerald-600 font-bold">9 Nodes Connected</span>
                   </div>
-                  <pre className="text-[11px] font-mono text-obsidian-200 bg-obsidian-950 p-3 rounded-lg border border-obsidian-800 max-h-72 overflow-y-auto">
+                  <pre className="text-[11px] font-mono text-ink bg-white p-3 rounded-lg border border-paper-200 max-h-72 overflow-y-auto">
                     {DEFAULT_WORKFLOWS[0].jsonDefinition}
                   </pre>
                 </div>
@@ -721,43 +721,43 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
           {/* 7. SIGNALWIRE VOICE AI SIMULATOR */}
           {operatingMode === 'voice_simulator' && (
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
-              <div className="flex items-center justify-between pb-4 border-b border-obsidian-800">
+              <div className="flex items-center justify-between pb-4 border-b border-paper-200">
                 <div>
-                  <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <PhoneCall className="h-4 w-4 text-brand-cyan" />
+                  <h3 className="text-base font-bold text-ink flex items-center gap-2">
+                    <PhoneCall className="h-4 w-4 text-accent" />
                     <span>SignalWire Voice AI Call Simulator</span>
                   </h3>
-                  <p className="text-xs text-obsidian-400">
+                  <p className="text-xs text-ink-muted">
                     Test low-latency Conversational Phone AI for inbound qualification and outbound follow-up calls.
                   </p>
                 </div>
-                <span className="rounded-full bg-brand-cyan/10 px-3 py-1 text-xs font-mono text-brand-cyan border border-brand-cyan/30">
+                <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-mono text-accent border border-brand-cyan/30">
                   WebRTC Audio Link
                 </span>
               </div>
 
               {/* Call Action Console */}
-              <div className="rounded-2xl border border-obsidian-800 bg-obsidian-900/80 p-8 text-center space-y-6 shadow-glass-card max-w-md mx-auto">
+              <div className="rounded-2xl border border-paper-200 bg-paper-50/80 p-8 text-center space-y-6 shadow-card max-w-md mx-auto">
                 <div className="flex justify-center">
                   <div className={`flex h-20 w-20 items-center justify-center rounded-full border ${
-                    voiceCallStatus === 'connected' ? 'border-brand-emerald bg-brand-emerald/20 text-brand-emerald animate-pulse' :
+                    voiceCallStatus === 'connected' ? 'border-brand-emerald bg-emerald-500/20 text-emerald-600 animate-pulse' :
                     voiceCallStatus === 'calling' ? 'border-yellow-400 bg-yellow-400/20 text-yellow-400 animate-bounce' :
-                    'border-brand-cyan/40 bg-brand-cyan/10 text-brand-cyan'
+                    'border-brand-cyan/40 bg-accent/10 text-accent'
                   }`}>
                     <PhoneCall className="h-8 w-8" />
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-base font-bold text-white">SignalWire AI SDR (Alex)</h4>
-                  <p className="text-xs text-obsidian-400">Status: <span className="font-mono text-brand-cyan uppercase">{voiceCallStatus}</span></p>
+                  <h4 className="text-base font-bold text-ink">SignalWire AI SDR (Alex)</h4>
+                  <p className="text-xs text-ink-muted">Status: <span className="font-mono text-accent uppercase">{voiceCallStatus}</span></p>
                 </div>
 
                 <div className="flex justify-center gap-3">
                   {voiceCallStatus === 'idle' || voiceCallStatus === 'completed' ? (
                     <button
                       onClick={handleStartVoiceCall}
-                      className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-emerald px-6 py-3 text-xs font-bold text-obsidian-950 hover:opacity-95 shadow-glow-cyan transition-all"
+                      className="flex items-center gap-2 rounded-xl bg-gradient-to-r from-brand-cyan to-brand-emerald px-6 py-3 text-xs font-bold text-ink hover:opacity-95 shadow-glow-accent transition-all"
                     >
                       <Play className="h-4 w-4 fill-obsidian-950" />
                       <span>Start Test Phone Call</span>
@@ -765,7 +765,7 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                   ) : (
                     <button
                       onClick={handleEndVoiceCall}
-                      className="rounded-xl bg-red-500 px-6 py-3 text-xs font-bold text-white hover:bg-red-600 transition-colors"
+                      className="rounded-xl bg-red-500 px-6 py-3 text-xs font-bold text-ink hover:bg-red-600 transition-colors"
                     >
                       End Call & Save Transcript
                     </button>
@@ -773,10 +773,10 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
                 </div>
 
                 {/* Live Transcript Box */}
-                <div className="text-left bg-obsidian-950 p-4 rounded-xl border border-obsidian-800 text-xs font-mono space-y-2 min-h-24">
-                  <div className="text-[10px] text-obsidian-500 uppercase tracking-wider">// Audio Transcript</div>
+                <div className="text-left bg-white p-4 rounded-xl border border-paper-200 text-xs font-mono space-y-2 min-h-24">
+                  <div className="text-[10px] text-ink-faint uppercase tracking-wider">// Audio Transcript</div>
                   {voiceTranscript.map((line, idx) => (
-                    <p key={idx} className="text-obsidian-300">{line}</p>
+                    <p key={idx} className="text-ink-soft">{line}</p>
                   ))}
                 </div>
               </div>
@@ -786,26 +786,26 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
         </div>
 
         {/* Right Side: Live Dynamic Artifacts Viewer & Exporter */}
-        <div className="lg:col-span-4 flex flex-col h-full bg-obsidian-950/90 overflow-hidden border-t lg:border-t-0">
-          <div className="flex items-center justify-between border-b border-obsidian-800 px-4 py-3 bg-obsidian-900/60">
+        <div className="lg:col-span-4 flex flex-col h-full bg-white/90 overflow-hidden border-t lg:border-t-0">
+          <div className="flex items-center justify-between border-b border-paper-200 px-4 py-3 bg-paper-50/60">
             <div className="flex items-center gap-2">
-              <FileText className="h-4 w-4 text-brand-cyan" />
-              <span className="text-xs font-bold text-white">Live GTM Artifact</span>
+              <FileText className="h-4 w-4 text-accent" />
+              <span className="text-xs font-bold text-ink">Live GTM Artifact</span>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={handleCopyArtifact}
                 disabled={!activeArtifact}
-                className="flex items-center gap-1 rounded bg-obsidian-800 px-2 py-1 text-[11px] text-obsidian-300 hover:text-white transition-colors"
+                className="flex items-center gap-1 rounded bg-paper-100 px-2 py-1 text-[11px] text-ink-soft hover:text-ink transition-colors"
                 title="Copy to Clipboard"
               >
-                {copiedArtifact ? <Check className="h-3.5 w-3.5 text-brand-emerald" /> : <Copy className="h-3.5 w-3.5" />}
+                {copiedArtifact ? <Check className="h-3.5 w-3.5 text-emerald-600" /> : <Copy className="h-3.5 w-3.5" />}
                 <span>{copiedArtifact ? 'Copied' : 'Copy'}</span>
               </button>
               <button
                 onClick={handleDownloadArtifact}
                 disabled={!activeArtifact}
-                className="flex items-center gap-1 rounded bg-brand-cyan/20 text-brand-cyan border border-brand-cyan/40 px-2 py-1 text-[11px] font-semibold hover:bg-brand-cyan/30 transition-colors"
+                className="flex items-center gap-1 rounded bg-accent/20 text-accent border border-brand-cyan/40 px-2 py-1 text-[11px] font-semibold hover:bg-accent/30 transition-colors"
                 title="Download Artifact File"
               >
                 <Download className="h-3.5 w-3.5" />
@@ -815,13 +815,13 @@ Framework: ROSTR v2 Multi-Agent Orchestration with Host-Approved Outbound Gating
           </div>
 
           {/* Artifact Content Container */}
-          <div className="flex-1 overflow-y-auto p-4 font-mono text-xs text-obsidian-200 bg-obsidian-950/80">
+          <div className="flex-1 overflow-y-auto p-4 font-mono text-xs text-ink bg-white/80">
             {activeArtifact ? (
               <pre className="whitespace-pre-wrap font-sans text-xs leading-relaxed">
                 {activeArtifact}
               </pre>
             ) : (
-              <div className="flex flex-col items-center justify-center h-full text-center p-6 text-obsidian-500 space-y-3">
+              <div className="flex flex-col items-center justify-center h-full text-center p-6 text-ink-faint space-y-3">
                 <Code2 className="h-8 w-8 text-obsidian-700" />
                 <p className="text-xs">
                   Direct the agents in the Studio to generate Sales Bibles, n8n workflows, ICP specs, or cold outreach sequences.

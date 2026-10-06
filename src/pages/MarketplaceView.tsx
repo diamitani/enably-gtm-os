@@ -103,16 +103,16 @@ export const MarketplaceView: React.FC<MarketplaceViewProps> = ({ onInstallPlugi
   return (
     <div className="p-6 sm:p-10 max-w-7xl mx-auto space-y-8">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-obsidian-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-paper-200">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-cyan uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 text-xs font-mono text-accent uppercase tracking-wider mb-1">
             <Store className="h-4 w-4" />
             <span>Agent Ecosystem & Extensions</span>
           </div>
-          <h1 className="text-3xl font-extrabold text-white">
+          <h1 className="text-3xl font-extrabold text-ink">
             GTM Plugin & Agent Pack Store
           </h1>
-          <p className="text-xs text-obsidian-400 mt-1">
+          <p className="text-xs text-ink-muted mt-1">
             Install, download, and configure portable ROSTR v2 agents, n8n workflows, and MCP tool bridges.
           </p>
         </div>
@@ -120,9 +120,9 @@ export const MarketplaceView: React.FC<MarketplaceViewProps> = ({ onInstallPlugi
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowUploadModal(true)}
-            className="flex items-center gap-2 rounded-xl border border-obsidian-700 bg-obsidian-900 px-4 py-2.5 text-xs font-semibold text-white hover:bg-obsidian-800 hover:border-obsidian-600 transition-colors"
+            className="flex items-center gap-2 rounded-xl border border-paper-300 bg-paper-50 px-4 py-2.5 text-xs font-semibold text-ink hover:bg-paper-100 hover:border-paper-300 transition-colors"
           >
-            <Upload className="h-3.5 w-3.5 text-brand-cyan" />
+            <Upload className="h-3.5 w-3.5 text-accent" />
             <span>Upload Custom Pack</span>
           </button>
         </div>
@@ -132,13 +132,13 @@ export const MarketplaceView: React.FC<MarketplaceViewProps> = ({ onInstallPlugi
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Search */}
         <div className="relative w-full sm:w-80">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-obsidian-500" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-ink-faint" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search agents, skills, n8n nodes..."
-            className="w-full rounded-xl border border-obsidian-700 bg-obsidian-900 pl-10 pr-4 py-2 text-xs text-white placeholder-obsidian-500 focus:border-brand-cyan focus:outline-none"
+            className="w-full rounded-xl border border-paper-300 bg-paper-50 pl-10 pr-4 py-2 text-xs text-ink placeholder-obsidian-500 focus:border-brand-cyan focus:outline-none"
           />
         </div>
 
@@ -150,8 +150,8 @@ export const MarketplaceView: React.FC<MarketplaceViewProps> = ({ onInstallPlugi
               onClick={() => setSelectedCategory(cat)}
               className={`rounded-lg px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap ${
                 selectedCategory === cat
-                  ? 'bg-brand-cyan text-obsidian-950 font-bold'
-                  : 'bg-obsidian-900 text-obsidian-400 hover:text-white border border-obsidian-800'
+                  ? 'bg-accent text-white font-bold'
+                  : 'bg-paper-50 text-ink-muted hover:text-ink border border-paper-200'
               }`}
             >
               {cat}
@@ -165,53 +165,53 @@ export const MarketplaceView: React.FC<MarketplaceViewProps> = ({ onInstallPlugi
         {filteredPlugins.map((plugin) => (
           <div
             key={plugin.id}
-            className="rounded-2xl border border-obsidian-800 bg-obsidian-900/50 p-6 flex flex-col justify-between shadow-glass-card hover:border-brand-cyan/40 transition-all hover:-translate-y-1 group"
+            className="rounded-2xl border border-paper-200 bg-paper-50/50 p-6 flex flex-col justify-between shadow-card hover:border-brand-cyan/40 transition-all hover:-translate-y-1 group"
           >
             <div className="space-y-4">
               <div className="flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan group-hover:scale-105 transition-transform">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 border border-brand-cyan/30 text-accent group-hover:scale-105 transition-transform">
                     <Cpu className="h-5 w-5" />
                   </div>
                   <div>
-                    <h3 className="text-sm font-bold text-white group-hover:text-brand-cyan transition-colors">
+                    <h3 className="text-sm font-bold text-ink group-hover:text-accent transition-colors">
                       {plugin.name}
                     </h3>
-                    <p className="text-[11px] text-obsidian-400 font-mono">v{plugin.version} • {plugin.author}</p>
+                    <p className="text-[11px] text-ink-muted font-mono">v{plugin.version} • {plugin.author}</p>
                   </div>
                 </div>
               </div>
 
-              <p className="text-xs text-obsidian-300 leading-relaxed">
+              <p className="text-xs text-ink-soft leading-relaxed">
                 {plugin.description}
               </p>
 
               <div className="flex flex-wrap gap-1.5">
                 {plugin.tags.map((tag) => (
-                  <span key={tag} className="rounded bg-obsidian-950 px-2 py-0.5 text-[10px] font-mono text-obsidian-400 border border-obsidian-800">
+                  <span key={tag} className="rounded bg-white px-2 py-0.5 text-[10px] font-mono text-ink-muted border border-paper-200">
                     {tag}
                   </span>
                 ))}
               </div>
 
-              <div className="flex items-center justify-between text-xs text-obsidian-400 pt-2 border-t border-obsidian-800">
+              <div className="flex items-center justify-between text-xs text-ink-muted pt-2 border-t border-paper-200">
                 <div className="flex items-center gap-1">
                   <Star className="h-3.5 w-3.5 text-yellow-400 fill-yellow-400" />
-                  <span className="font-semibold text-white">{plugin.rating}</span>
+                  <span className="font-semibold text-ink">{plugin.rating}</span>
                   <span className="text-[10px]">({plugin.installs} installs)</span>
                 </div>
-                <span className="font-mono text-[10px] text-brand-emerald uppercase font-bold">Phase: {plugin.phase}</span>
+                <span className="font-mono text-[10px] text-emerald-600 uppercase font-bold">Phase: {plugin.phase}</span>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="flex items-center gap-2 mt-6 pt-4 border-t border-obsidian-800">
+            <div className="flex items-center gap-2 mt-6 pt-4 border-t border-paper-200">
               <button
                 onClick={() => toggleInstall(plugin.id)}
                 className={`flex-1 flex items-center justify-center gap-1.5 rounded-xl py-2.5 text-xs font-semibold transition-all ${
                   plugin.isInstalled
-                    ? 'bg-obsidian-800 text-brand-emerald border border-brand-emerald/30'
-                    : 'bg-brand-cyan text-obsidian-950 font-bold hover:bg-brand-cyan/90 shadow-glow-cyan'
+                    ? 'bg-paper-100 text-emerald-600 border border-brand-emerald/30'
+                    : 'bg-accent text-white font-bold hover:bg-accent/90 shadow-glow-accent'
                 }`}
               >
                 {plugin.isInstalled ? (
@@ -226,7 +226,7 @@ export const MarketplaceView: React.FC<MarketplaceViewProps> = ({ onInstallPlugi
 
               <button
                 onClick={() => handleDownloadPlugin(plugin)}
-                className="rounded-xl border border-obsidian-700 bg-obsidian-800 p-2.5 text-obsidian-300 hover:text-white hover:border-obsidian-600 transition-colors"
+                className="rounded-xl border border-paper-300 bg-paper-100 p-2.5 text-ink-soft hover:text-ink hover:border-paper-300 transition-colors"
                 title="Download YAML Manifest"
               >
                 <Download className="h-4 w-4" />
@@ -234,7 +234,7 @@ export const MarketplaceView: React.FC<MarketplaceViewProps> = ({ onInstallPlugi
 
               <button
                 onClick={() => setSelectedPlugin(plugin)}
-                className="rounded-xl border border-obsidian-700 bg-obsidian-800 px-3 py-2.5 text-xs font-medium text-obsidian-300 hover:text-white hover:border-obsidian-600 transition-colors"
+                className="rounded-xl border border-paper-300 bg-paper-100 px-3 py-2.5 text-xs font-medium text-ink-soft hover:text-ink hover:border-paper-300 transition-colors"
               >
                 Inspect
               </button>
@@ -245,41 +245,41 @@ export const MarketplaceView: React.FC<MarketplaceViewProps> = ({ onInstallPlugi
 
       {/* Inspect Plugin Modal */}
       {selectedPlugin && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian-950/80 backdrop-blur-md p-4">
-          <div className="w-full max-w-2xl rounded-2xl border border-obsidian-700 bg-obsidian-900 p-6 space-y-4 shadow-glass-card">
-            <div className="flex items-center justify-between pb-3 border-b border-obsidian-800">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-md p-4">
+          <div className="w-full max-w-2xl rounded-2xl border border-paper-300 bg-paper-50 p-6 space-y-4 shadow-card">
+            <div className="flex items-center justify-between pb-3 border-b border-paper-200">
               <div className="flex items-center gap-3">
-                <Cpu className="h-5 w-5 text-brand-cyan" />
-                <h3 className="text-base font-bold text-white">{selectedPlugin.name}</h3>
+                <Cpu className="h-5 w-5 text-accent" />
+                <h3 className="text-base font-bold text-ink">{selectedPlugin.name}</h3>
               </div>
               <button
                 onClick={() => setSelectedPlugin(null)}
-                className="text-obsidian-400 hover:text-white text-sm"
+                className="text-ink-muted hover:text-ink text-sm"
               >
                 ✕
               </button>
             </div>
 
-            <p className="text-xs text-obsidian-300">{selectedPlugin.description}</p>
+            <p className="text-xs text-ink-soft">{selectedPlugin.description}</p>
 
             <div className="space-y-2">
-              <span className="text-xs font-mono font-bold text-obsidian-400">ROSTR v2 Manifest Schema (YAML):</span>
-              <pre className="text-[11px] font-mono text-obsidian-200 bg-obsidian-950 p-4 rounded-xl border border-obsidian-800 max-h-60 overflow-y-auto">
+              <span className="text-xs font-mono font-bold text-ink-muted">ROSTR v2 Manifest Schema (YAML):</span>
+              <pre className="text-[11px] font-mono text-ink bg-white p-4 rounded-xl border border-paper-200 max-h-60 overflow-y-auto">
                 {selectedPlugin.manifestYaml}
               </pre>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-obsidian-800">
+            <div className="flex justify-end gap-3 pt-4 border-t border-paper-200">
               <button
                 onClick={() => handleDownloadPlugin(selectedPlugin)}
-                className="flex items-center gap-1.5 rounded-xl border border-obsidian-700 bg-obsidian-800 px-4 py-2 text-xs font-semibold text-white hover:bg-obsidian-700"
+                className="flex items-center gap-1.5 rounded-xl border border-paper-300 bg-paper-100 px-4 py-2 text-xs font-semibold text-ink hover:bg-paper-200"
               >
                 <Download className="h-3.5 w-3.5" />
                 <span>Download Manifest</span>
               </button>
               <button
                 onClick={() => setSelectedPlugin(null)}
-                className="rounded-xl bg-brand-cyan px-5 py-2 text-xs font-bold text-obsidian-950 hover:bg-brand-cyan/90"
+                className="rounded-xl bg-accent px-5 py-2 text-xs font-bold text-ink hover:bg-accent/90"
               >
                 Done
               </button>
@@ -290,23 +290,23 @@ export const MarketplaceView: React.FC<MarketplaceViewProps> = ({ onInstallPlugi
 
       {/* Upload Custom Manifest Modal */}
       {showUploadModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-obsidian-950/80 backdrop-blur-md p-4">
-          <div className="w-full max-w-xl rounded-2xl border border-obsidian-700 bg-obsidian-900 p-6 space-y-4 shadow-glass-card">
-            <div className="flex items-center justify-between pb-3 border-b border-obsidian-800">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-md p-4">
+          <div className="w-full max-w-xl rounded-2xl border border-paper-300 bg-paper-50 p-6 space-y-4 shadow-card">
+            <div className="flex items-center justify-between pb-3 border-b border-paper-200">
               <div className="flex items-center gap-2">
-                <Upload className="h-5 w-5 text-brand-cyan" />
-                <h3 className="text-base font-bold text-white">Import Custom ROSTR Agent Pack</h3>
+                <Upload className="h-5 w-5 text-accent" />
+                <h3 className="text-base font-bold text-ink">Import Custom ROSTR Agent Pack</h3>
               </div>
               <button
                 onClick={() => setShowUploadModal(false)}
-                className="text-obsidian-400 hover:text-white text-sm"
+                className="text-ink-muted hover:text-ink text-sm"
               >
                 ✕
               </button>
             </div>
 
-            <p className="text-xs text-obsidian-400">
-              Paste your <code className="text-brand-cyan">rostr.ai/v2</code> YAML agent manifest below to register it into your workspace runtime.
+            <p className="text-xs text-ink-muted">
+              Paste your <code className="text-accent">rostr.ai/v2</code> YAML agent manifest below to register it into your workspace runtime.
             </p>
 
             <textarea
@@ -314,27 +314,27 @@ export const MarketplaceView: React.FC<MarketplaceViewProps> = ({ onInstallPlugi
               onChange={(e) => setUploadManifestText(e.target.value)}
               rows={8}
               placeholder={`apiVersion: rostr.ai/v2\nkind: AgentPack\nmetadata:\n  id: custom-agent-pack\n  name: Custom GTM Agent\n  version: 1.0.0`}
-              className="w-full rounded-xl border border-obsidian-700 bg-obsidian-950 p-3.5 font-mono text-xs text-white placeholder-obsidian-600 focus:border-brand-cyan focus:outline-none"
+              className="w-full rounded-xl border border-paper-300 bg-white p-3.5 font-mono text-xs text-ink placeholder-obsidian-600 focus:border-brand-cyan focus:outline-none"
             />
 
             {uploadSuccess && (
-              <div className="flex items-center gap-2 text-xs text-brand-emerald font-semibold">
+              <div className="flex items-center gap-2 text-xs text-emerald-600 font-semibold">
                 <Check className="h-4 w-4" />
                 <span>Agent Pack validated and registered successfully!</span>
               </div>
             )}
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-obsidian-800">
+            <div className="flex justify-end gap-3 pt-4 border-t border-paper-200">
               <button
                 onClick={() => setShowUploadModal(false)}
-                className="rounded-xl border border-obsidian-700 bg-obsidian-800 px-4 py-2 text-xs font-semibold text-white"
+                className="rounded-xl border border-paper-300 bg-paper-100 px-4 py-2 text-xs font-semibold text-ink"
               >
                 Cancel
               </button>
               <button
                 onClick={handleUploadPlugin}
                 disabled={!uploadManifestText.trim()}
-                className="rounded-xl bg-brand-cyan px-5 py-2 text-xs font-bold text-obsidian-950 hover:bg-brand-cyan/90 disabled:opacity-50"
+                className="rounded-xl bg-accent px-5 py-2 text-xs font-bold text-ink hover:bg-accent/90 disabled:opacity-50"
               >
                 Validate & Import
               </button>

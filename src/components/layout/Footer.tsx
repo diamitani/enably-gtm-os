@@ -8,18 +8,18 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onViewChange }) => {
   return (
-    <footer className="w-full border-t border-obsidian-800/80 bg-obsidian-950 py-12 px-4 sm:px-6 lg:px-8 text-xs text-slate-400">
+    <footer className="w-full border-t border-paper-200/80 bg-white py-12 px-4 sm:px-6 lg:px-8 text-xs text-slate-400">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-5 gap-8">
         {/* Brand Col */}
         <div className="md:col-span-2 space-y-4">
           <div className="flex items-center space-x-2.5">
             <div className="w-7 h-7 rounded-md bg-gradient-to-br from-brand-cyan to-brand-blue p-[1px]">
-              <div className="w-full h-full bg-obsidian-950 rounded-[5px] flex items-center justify-center">
-                <Sparkles className="w-3.5 h-3.5 text-brand-cyan" />
+              <div className="w-full h-full bg-white rounded-[5px] flex items-center justify-center">
+                <Sparkles className="w-3.5 h-3.5 text-accent" />
               </div>
             </div>
-            <span className="font-bold text-white text-sm">Enably GTM OS</span>
-            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-obsidian-800 text-slate-300 border border-obsidian-700">
+            <span className="font-bold text-ink text-sm">Enably GTM OS</span>
+            <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-paper-100 text-slate-300 border border-paper-300">
               v1.0.0
             </span>
           </div>
@@ -27,8 +27,8 @@ export const Footer: React.FC<FooterProps> = ({ onViewChange }) => {
             The autonomous Go-To-Market Operating System. Orchestrate 5 specialized AI agent harnesses to discover ICPs, craft sales playbooks, generate high-converting sequences, and uncover real-time buyer intelligence.
           </p>
           <div className="flex items-center space-x-3 text-slate-500 font-mono text-[11px]">
-            <span className="flex items-center space-x-1 text-brand-emerald">
-              <span className="w-1.5 h-1.5 rounded-full bg-brand-emerald animate-pulse"></span>
+            <span className="flex items-center space-x-1 text-emerald-600">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
               <span>All Systems Operational</span>
             </span>
             <span>•</span>
@@ -45,27 +45,27 @@ export const Footer: React.FC<FooterProps> = ({ onViewChange }) => {
           </h4>
           <ul className="space-y-2">
             <li>
-              <button onClick={() => onViewChange('studio')} className="hover:text-brand-cyan transition-colors">
+              <button onClick={() => onViewChange('studio')} className="hover:text-accent transition-colors">
                 GTM Master Architect
               </button>
             </li>
             <li>
-              <button onClick={() => onViewChange('studio')} className="hover:text-brand-cyan transition-colors">
+              <button onClick={() => onViewChange('studio')} className="hover:text-accent transition-colors">
                 ICP & Persona Discovery
               </button>
             </li>
             <li>
-              <button onClick={() => onViewChange('studio')} className="hover:text-brand-cyan transition-colors">
+              <button onClick={() => onViewChange('studio')} className="hover:text-accent transition-colors">
                 Sales Playbook Builder
               </button>
             </li>
             <li>
-              <button onClick={() => onViewChange('studio')} className="hover:text-brand-cyan transition-colors">
+              <button onClick={() => onViewChange('studio')} className="hover:text-accent transition-colors">
                 Outreach & Messaging Studio
               </button>
             </li>
             <li>
-              <button onClick={() => onViewChange('studio')} className="hover:text-brand-cyan transition-colors">
+              <button onClick={() => onViewChange('studio')} className="hover:text-accent transition-colors">
                 Research & Account Intel
               </button>
             </li>
@@ -79,17 +79,17 @@ export const Footer: React.FC<FooterProps> = ({ onViewChange }) => {
           </h4>
           <ul className="space-y-2">
             <li>
-              <button onClick={() => onViewChange('console')} className="hover:text-brand-cyan transition-colors">
+              <button onClick={() => onViewChange('console')} className="hover:text-accent transition-colors">
                 Multi-Agent Live Console
               </button>
             </li>
             <li>
-              <button onClick={() => onViewChange('integrations')} className="hover:text-brand-cyan transition-colors">
+              <button onClick={() => onViewChange('integrations')} className="hover:text-accent transition-colors">
                 Skills & MCP Catalog
               </button>
             </li>
             <li>
-              <button onClick={() => onViewChange('settings')} className="hover:text-brand-cyan transition-colors">
+              <button onClick={() => onViewChange('settings')} className="hover:text-accent transition-colors">
                 BYOK & Gateway Settings
               </button>
             </li>
@@ -127,7 +127,7 @@ export const Footer: React.FC<FooterProps> = ({ onViewChange }) => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-obsidian-800/60 flex flex-col sm:flex-row items-center justify-between text-slate-500 text-[11px]">
+      <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-paper-200/60 flex flex-col sm:flex-row items-center justify-between text-slate-500 text-[11px]">
         <p>© 2026 Enably Technologies Inc. Built for revenue teams worldwide.</p>
         <p className="mt-2 sm:mt-0">Governed by Site Empire OS and ROSTR v2 Orchestration.</p>
       </div>
